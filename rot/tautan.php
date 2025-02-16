@@ -1,0 +1,22 @@
+<?php
+$tautan_aplikasi =  array(
+    array(
+        "title"=>"SIMARI",
+        "icon"=>"../dist/img/simari.jpeg",
+        "link"=>"https://simari.ulm.ac.id/",
+        "admin"=>"https://simari.ulm.ac.id/site/home"
+    ),
+    array(
+        "title"=>"Pilkommedia",
+        "icon"=>"../dist/img/pilkommedia.jpeg",
+        "link"=>"https://simp.pilkommedia.org/",
+        "admin"=>"https://simp.pilkommedia.org/admin"
+    ),
+    array(
+        "title"=>"Feeder",
+        "icon"=>"../dist/img/feeder.jpeg",
+        "link"=>"http://private-feeder.ulm.ac.id:8100/#/",
+        "admin"=>"http://private-feeder.ulm.ac.id:8100/#/"
+    )
+);
+?>

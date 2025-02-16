@@ -1,0 +1,68 @@
+﻿NO;KELOMPOK;KODE;NAMA_MATA_KULIAH;SKS;PRASYARAT;SEMESTER;NAMA_KURIKULUM;SIFAT_MATA_KULIAH
+1;MKU;AULM1161;Agama;3;;;Kurikulum MBKM 2020;1
+2;MKU;AULM1171;Pancasila;2;;;Kurikulum MBKM 2020;1
+3;MKU;AULM1272;Kewarganegaraan;2;;;Kurikulum MBKM 2020;1
+4;MKU;AULM1152;Bahasa Indonesia;3;;;Kurikulum MBKM 2020;1
+5;MKU;AULM1151;Bahasa Inggris 1;2;;;Kurikulum MBKM 2020;1
+6;MKU;AULM1252;Bahasa Inggris 2;2;;;Kurikulum MBKM 2020;1
+7;MKU;AULM1115;Pengantar Lingkungan Lahan Basah;2;;;Kurikulum MBKM 2020;1
+8;MKU;AULM1251;Kewirausahaan;2;;;Kurikulum MBKM 2020;1
+9;MKDK;AKWF2101;Pengantar Pendidikan;2;;;Kurikulum MBKM 2020;1
+10;MKDK;AKWF2102;Perkembangan Peserta Didik;2;;;Kurikulum MBKM 2020;1
+11;MKDK;AKWF2203;Belajar dan Pembelajaran;2;;;Kurikulum MBKM 2020;1
+12;MKDK;AKWF2204;Profesi Kependidikan;2;;;Kurikulum MBKM 2020;1
+13;MKDK;AKWF2305;Manajemen Dan Administrasi Sekolah;2;;;Kurikulum MBKM 2020;1
+14;MKBK;ABKC6101;Matematika Dasar ;3;;;Kurikulum MBKM 2020;1
+15;MKBK;ABKC6102;Fisika Dasar;3;;;Kurikulum MBKM 2020;1
+16;MKBK;ABKC6103;Pemrograman Dasar 1;4;;;Kurikulum MBKM 2020;1
+17;MKBK;ABKC6104;Pengantar Sistem Dijital;2;;;Kurikulum MBKM 2020;1
+18;MKBK;ABKC6201;Matematika Diskrit;2;;;Kurikulum MBKM 2020;1
+19;MKBK;ABKC6202;Kalkulus;3;;;Kurikulum MBKM 2020;1
+20;MKBK;ABKC6203;Pengantar Organisasi Komputer;3;;;Kurikulum MBKM 2020;1
+21;MKBK;ABKC6204;Struktur Data ;3;;;Kurikulum MBKM 2020;1
+22;MKBK;ABKC6205;Pemrograman Web 1;3;;;Kurikulum MBKM 2020;1
+23;MKBK;ABKC6301;Aljabar Linier ;3;;;Kurikulum MBKM 2020;1
+24;MKBK;ABKC6302;Statistika dan Probabilitas;2;;;Kurikulum MBKM 2020;1
+25;MKBK;ABKC6303;Pemrograman Dasar 2;3;;;Kurikulum MBKM 2020;1
+26;MKBK;ABKC6304;Sistem Operasi;3;;;Kurikulum MBKM 2020;1
+27;MKBK;ABKC6305;Disain dan Analisis Algoritma;2;;;Kurikulum MBKM 2020;1
+28;MKBK;ABKC6306;Pemrosesan Citra Digital;3;;;Kurikulum MBKM 2020;1
+29;MKBK;ABKC6307;Basis Data;3;;;Kurikulum MBKM 2020;1
+30;MKBK;ABKC6403;Pemrograman Perangkat Bergerak;3;;;Kurikulum MBKM 2020;1
+31;MKBK;ABKC6404;Pemrograman Web 2;3;;;Kurikulum MBKM 2020;1
+32;MKBK;ABKC6405;Jaringan dan Komunikasi Data;3;;;Kurikulum MBKM 2020;1
+33;MKBK;ABKC6406;Logika untuk Ilmu Komputer;2;;;Kurikulum MBKM 2020;1
+34;MKBK;ABKC6407;Grafika Komputer;3;;;Kurikulum MBKM 2020;0
+35;MKBK;ABKC6408;Sistem Cerdas;3;;;Kurikulum MBKM 2020;0
+36;MKBK;ABKC6409;Pilihan Lintas Prodi 1;2;;;Kurikulum MBKM 2020;0
+37;MKBK;ABKC6410;Pilihan Lintas Prodi 2;2;;;Kurikulum MBKM 2020;0
+38;MKBK;ABKC6411;Pilihan Lintas Prodi 3;3;;;Kurikulum MBKM 2020;0
+39;MKBK;ABKC6501 ;Teknik Pengolahan Multimedia;3;;;Kurikulum MBKM 2020;1
+40;MKBK;ABKC6502;Sistem Interaksi;2;;;Kurikulum MBKM 2020;1
+41;MKBK;ABKC6503;Rekayasa Perangkat Lunak;2;;;Kurikulum MBKM 2020;1
+42;MKBK;ABKC6504;Proyek Perangkat Lunak;4;;;Kurikulum MBKM 2020;1
+43;MKBK;ABKC6505;Penjaminan Mutu Perangkat Lunak;2;;;Kurikulum MBKM 2020;1
+44;MKBK;ABKC6506;Manajemen Proyek;2;;;Kurikulum MBKM 2020;0
+45;MKBK;ABKC6507;Administrasi Sistem;2;;;Kurikulum MBKM 2020;0
+46;MKBK;ABKC6607;Sistem Informasi Pendidikan;2;;;Kurikulum MBKM 2020;1
+47;MKBK;ABKC6701;Data Sains;3;;;Kurikulum MBKM 2020;1
+48;MKBK;ABKC6702;Pengajaran Berbantuan Komputer;3;;;Kurikulum MBKM 2020;1
+49;MKBK;ABKC6703;Metode Numerik;3;;;Kurikulum MBKM 2020;1
+50;MKBK;ABKC6704;Mesin Learning;3;;;Kurikulum MBKM 2020;0
+51;MKBK;ABKC6705;Simulasi dan Pemodelan;2;;;Kurikulum MBKM 2020;0
+52;MKBK;ABKC6706;Digital Fotografi;3;;;Kurikulum MBKM 2020;0
+53;MKBK;ABKC6707;Pemrograman Logika;3;;;Kurikulum MBKM 2020;0
+54;MKBK;ABKC6803;Pengolahan Bahasa Manusia;3;;;Kurikulum MBKM 2020;0
+55;MKBK;ABKC6804;Kriptografi dan Keamanan Informasi;2;;;Kurikulum MBKM 2020;0
+56;MKBK;ABKC6805;Sistem Informasi Geografis;3;;;Kurikulum MBKM 2020;1
+57;MKKPP;AKPC6402;Media & Teknologi Pembelajaran ;2;;;Kurikulum MBKM 2020;1
+58;MKKPP;AKPC6508;PKL;2;;;Kurikulum MBKM 2020;1
+59;MKKPP;AKPC6601;Telaah Kurikulum  SMK (Disain instruksional);3;;;Kurikulum MBKM 2020;1
+60;MKKPP;AKPC6602;Strategi Belajar Mengajar ;3;;;Kurikulum MBKM 2020;1
+61;MKKPP;AKPC6603;Evaluasi Pembelajaran ;2;;;Kurikulum MBKM 2020;1
+62;MKKPP;AKPC6604;Perencanaan Pembelajaran Ilmu Komputer;2;;;Kurikulum MBKM 2020;1
+63;MKKPP;AKPC6605;Program Latihan Persekolahan 1 (PLP 1);2;;;Kurikulum MBKM 2020;1
+64;MKKPP;AKPC6606;Program Latihan Persekolahan 2 (PLP 2);4;;;Kurikulum MBKM 2020;1
+65;MKPP;APPC6401;Metodologi Penelitian;2;;;Kurikulum MBKM 2020;1
+66;MKPP;APPC6801;Komputer Masyarakat;2;;;Kurikulum MBKM 2020;1
+67;MKPP;APPC6802;Skripsi;6;;;Kurikulum MBKM 2020;1

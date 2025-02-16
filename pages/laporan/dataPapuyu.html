@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dasbor Admin | Laporan</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css" />
+  <script src="https://kit.fontawesome.com/a121d47811.js" crossorigin="anonymous"></script>
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../../dist/css/adminlte.min.css" />
+  <link rel="stylesheet" href="../../plugins/summernote/summernote-bs4.min.css">
+  <style>
+    .card-body{
+        overflow: scroll;
+    }
+    input{
+        max-width: 80px;
+    }
+    td, th{
+        padding: 3px !important;
+        text-align: center;
+    }
+  </style>
+</head>
+<body class="hold-transition layout-top-nav dark-mode">
+<div class="wrapper">
+
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
+    <div class="container">
+      <a href="./index.html" class="navbar-brand">Laporan <small class="brand-text font-weight-light">Google Sheet</small>
+      </a>
+
+      <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+       
+    </div>
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Upload Data Papuyu</h1>
+          </div><!-- /.col -->          
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div class="content">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <button class="btn btn-default btn-add"><i class="nav-icon fas fa-plus"></i> ADD</button>
+                    <button class="btn btn-default btn-upload"><i class="fa-solid fa-upload"></i> Upload</button>
+                </div>
+              <div class="card-body">
+                <table class="table table-bordered">
+                  <thead></thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+           </div> 
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->  
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED SCRIPTS -->
+
+<!-- jQuery -->
+<script src="../../plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../../dist/js/adminlte.min.js"></script>
+<!-- DataTables  & Plugins -->
+<script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="../../plugins/jszip/jszip.min.js"></script>
+<script src="../../plugins/pdfmake/pdfmake.min.js"></script>
+<script src="../../plugins/pdfmake/vfs_fonts.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<script src="../../plugins/summernote/summernote-bs4.min.js"></script>
+<script src="./tabel.js"></script>
+
+<script>
+    const btn = document.querySelector(".btn-add");     
+    const btnUpload = document.querySelector(".btn-upload");     
+    let table = new tabel({
+        label:["PB","PK","PE","LB","LSA","PSA","LSB","PSB","LED","LEB","B","status"],
+        tabel: document.querySelector(".table")
+    })
+    table.init();   
+    tambah();
+
+    btn.addEventListener("click",()=>{
+        tambah();
+    })
+    btnUpload.addEventListener("click",()=>{
+        upload();
+    })
+    function tambah(){
+        let tbody = document.querySelector("tbody");
+        let tr = document.createElement("tr");
+        tr.innerHTML = `
+        <td><input type="text" class="col_1"></td>
+        <td><input type="text" class="col_2"></td>
+        <td><input type="text" class="col_3"></td>
+        <td><input type="text" class="col_4"></td>
+        <td><input type="text" class="col_5"></td>
+        <td><input type="text" class="col_6"></td>
+        <td><input type="text" class="col_7"></td>
+        <td><input type="text" class="col_8"></td>
+        <td><input type="text" class="col_9"></td>
+        <td><input type="text" class="col_10"></td>
+        <td><input type="text" class="col_11"></td>
+        <td class="status"></td>
+        `
+        tbody.appendChild(tr);
+    }
+
+    async function upload(data){
+        //form value
+        let col1 = document.querySelectorAll(".col_1");
+        let col2 = document.querySelectorAll(".col_2");
+        let col3 = document.querySelectorAll(".col_3");
+        let col4 = document.querySelectorAll(".col_4");
+        let col5 = document.querySelectorAll(".col_5");
+        let col6 = document.querySelectorAll(".col_6");
+        let col7 = document.querySelectorAll(".col_7");
+        let col8 = document.querySelectorAll(".col_8");
+        let col9 = document.querySelectorAll(".col_9");
+        let col10 = document.querySelectorAll(".col_10");
+        let col11 = document.querySelectorAll(".col_11");
+        let status = document.querySelectorAll(".status");
+        const id = "1rbr1KK47pPrhOzldUq4kPiba9LmZxL3AoI_am-gKWYI";
+        const type = "upload";
+        const url = "https://script.google.com/macros/s/AKfycbzsCr87ss_uUoORjNwK2lnsmDTwwK9LPwOA5w1M05MgaVNqrrbpbyU6NeqxoIm3uCGB/exec"
+        
+        for(let i = 0;i < status.length; i++){
+            status[i].innerHTML = `<i class="fa-solid fa-spinner fa-spin">`;
+            let data = `[${col1[i].value},${col2[i].value},${col3[i].value},${col4[i].value},${col5[i].value},${col6[i].value},${col7[i].value},${col8[i].value},${col9[i].value},${col10[i].value},${col11[i].value}]`;
+            let response = await fetch(`${url}?id=${id}&type=${type}&data=${data}`);
+            let dataTabel = await response.json();
+            if(dataTabel){
+                status[i].innerHTML="";
+                status[i].innerHTML = `<i class="fa-solid fa-check"></i>`;
+                console.log(dataTabel);
+            }
+            // $.ajax({
+            //     type: "GET",
+            //     url: url,
+            //     data: data,
+            //     async:true,
+            //     crossDomain:true,
+            //     success: function(response) {
+            //         console.log(response);
+            //     }
+            // });
+        }
+        
+    }
+    
+    // load();
+
+    </script>
+</body>
+</html>
