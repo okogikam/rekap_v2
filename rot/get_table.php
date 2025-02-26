@@ -238,4 +238,53 @@ function tabel_pembimbing_skripsi($conn){
         }
     }
 }
+//tabel prodi
+function tabel_prodi($conn){
+    try{
+        $data_prodi = select_all("tabel_prodi",$conn);
+        $no = 0;
+        foreach($data_prodi as $prodi){
+            echo "<tr>";
+            echo "<td>$prodi[KODE_PRODI]</td>";
+            echo "<td>$prodi[KODE_UNIV]</td>";
+            echo "<td>$prodi[PRODI]</td>";
+            echo "<td>$prodi[FAKULTAS]</td>";
+            echo "<td>$prodi[JENJANG]</td>";
+            echo "<td>$prodi[STATUS]</td>";
+            echo "</tr>";
+        }
+    }catch(Exception $e){
+        return;
+    }
+}
+// tabel rasio 
+function tabel_rasio_dosen($conn){
+    $query = "SELECT PERIODE, COUNT(NIM) AS jml FROM tabel_nilai_ipk GROUP BY PERIODE ORDER BY PERIODE DESC";
+    $data = sql_query2($query,$conn);
+    $fil = "HOMEBASE='Pendidikan Komputer' AND STATUS='Aktif'";
+    $dosen = select_where('tabel_dosen',$fil,$conn);
+    for($i = 0; $i < 10;$i++){
+        $d = $data[$i];
+        $jml_dosen = count($dosen);
+        echo "<tr>";
+        echo "<td>$d[PERIODE]</td>";
+        echo "<td>$d[jml]</td>";
+        echo "<td>$jml_dosen</td>";
+        echo "<td>1:".floor($d['jml']/$jml_dosen)."</td>";
+        echo "</td>";
+    }
+}
+function tabel_rasio_tendik($conn){
+    $query = "SELECT PERIODE, COUNT(NIM) AS jml FROM tabel_nilai_ipk GROUP BY PERIODE ORDER BY PERIODE DESC";
+    $data = sql_query2($query,$conn);
+    for($i = 0; $i < 10;$i++){
+        $d = $data[$i];
+        echo "<tr>";
+        echo "<td>$d[PERIODE]</td>";
+        echo "<td>$d[jml]</td>";
+        echo "<td>1</td>";
+        echo "<td>1:".floor($d['jml']/1)."</td>";
+        echo "</td>";
+    }
+}
 ?>

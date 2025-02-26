@@ -45,8 +45,8 @@
 <script src="../plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <script src="../plugins/summernote/summernote-bs4.min.js"></script> -->
-<script src="./laporan/tabel.js"></script>
-<script src="./laporan/GAS.js"></script>
+<script src="./pages/laporan/tabel.js"></script>
+<script src="./pages/laporan/GAS.js"></script>
 
 <script> 
  let btnPlus = document.querySelector('#btn-plus'); 

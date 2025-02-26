@@ -23,6 +23,33 @@ function sql_query($sql,$conn){
         return $result;
     }
 }
+function sql_query2($sql,$conn){
+    $result = $conn->query($sql);
+    if(!$result){
+        return "Data Gagal Ditambahkan :" . $conn->error;
+    }else{
+        $rows = $result->num_rows;
+        $hasil = array();
+        if($rows > 1){
+            for($i=0;$i<$rows;$i++){        
+                $result->data_seek($i);
+                $data = $result->fetch_array(MYSQLI_ASSOC);
+                foreach($data as $n => $v){
+                    $data[$n] = get_output($v);
+                }
+                $hasil += array($i=>$data);
+            }
+        }elseif($rows == 0){
+            $hasil = 0;
+        }else{
+            $result->data_seek(0);
+            $data = $result->fetch_array(MYSQLI_ASSOC);
+            $hasil += array(0=>$data);
+        }
+        
+        return $hasil;
+    }
+}
 function make_array($tanda,$file_name){
     $data = explode($tanda,$file_name);
     return $data;
@@ -178,7 +205,7 @@ function update_data($tabel,$id,$kolom,$nilai,$conn){
 }
 
 function test($array){
-	if(is_array($array)){
+	if(is_array($array) || is_object($array)){
     echo "<pre>";
     print_r($array);
     echo "</pre>";
@@ -1627,4 +1654,5 @@ $x = 0;
 	}
 return $out;
 }
+
 ?>

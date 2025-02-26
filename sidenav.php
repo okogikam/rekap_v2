@@ -28,7 +28,7 @@
                     </a>
                     <ul class="nav nav-treeview bg-white">
 			            <li class="nav-item">
-                            <a href="#" class="nav-link" data-page="prodi">
+                            <a href="?p=data_prodi" class="nav-link" data-page="prodi">
                                 <i class="fa-solid fa-school nav-icon"></i>
                                 <p>Program Studi</p>
                             </a>
@@ -63,7 +63,7 @@
                     </a>
                     <ul class="nav nav-treeview bg-white">
                         <li class="nav-item">
-                            <a href="#" class="nav-link" data-page="kehadiran">
+                            <a href="?p=kehadiran" class="nav-link" data-page="kehadiran">
                                 <i class="fa-solid fa-chart-line nav-icon"></i>
                                 <p>Kehadiran</p>
                             </a>
@@ -81,7 +81,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                                <a href="?p=#" class="nav-link" data-page="kelulusan">
+                                <a href="?p=kelulusan" class="nav-link" data-page="kelulusan">
                                 <i class="fa-solid fa-graduation-cap nav-icon"></i>
                                 <p>Kelulusan</p>
                             </a>
@@ -147,7 +147,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="?p=#" class="nav-link" data-page="ipk_mhs">
+                            <a href="?p=rekap_ipk" class="nav-link" data-page="ipk_mhs">
                             <i class="fa-solid fa-chart-simple nav-icon"></i>
                                 <p>IPK Mahasiswa</p>
                             </a>
@@ -178,7 +178,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="?p=#" class="nav-link" data-page="nilai_mhs">
+                            <a href="?p=rekap_nilai_mhs" class="nav-link" data-page="nilai_mhs">
                             <i class="fa-solid fa-chart-column nav-icon"></i>
                                 <p>Nilai Mahasiswa</p>
                             </a>
@@ -209,7 +209,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="?p=#" class="nav-link" data-page="hki">
+                        <a href="?p=rekap_hki" class="nav-link" data-page="hki">
                         <i class="fa-solid fa-chart-column nav-icon"></i>
                             <p>
                                 HKI
@@ -217,7 +217,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="?p=iku" class="nav-link" data-page="iku">
+                        <a href="?p=rekap_iku" class="nav-link" data-page="iku">
                         <i class="fa-solid fa-chart-column nav-icon"></i>
                             <p>
                                 IKU
@@ -248,13 +248,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="?p=#" class="nav-link" data-page="surat">
+                            <a href="?p=surat_prodi" class="nav-link" data-page="surat">
                             <i class="fa-solid fa-envelope nav-icon"></i>
                                 <p>Surat</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="?p=#" class="nav-link" data-page="catatan">
+                            <a href="?p=catatan_rapat" class="nav-link" data-page="catatan">
                             <i class="fa-solid fa-envelope nav-icon"></i>
                                 <p>Catatan Rapat</p>
                             </a>
@@ -276,18 +276,18 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="?p=#" class="nav-link" data-page="plagiasi">
+                            <a href="?p=jurnal_mhs" class="nav-link" data-page="plagiasi">
                             <i class="fa-solid fa-certificate nav-icon"></i>
                                 <p>
-                                    Sertifikat Plagiasi
+                                    Jurnal Mahasiswa
                                 </p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="?p=#" class="nav-link" data-page="memo">
+                            <a href="?p=berkas_skripsi" class="nav-link" data-page="memo">
                             <i class="fa-solid fa-certificate nav-icon"></i>
                                 <p>
-                                    Memo Prodi
+                                    Berkas Skripsi
                                 </p>
                             </a>
                         </li>
