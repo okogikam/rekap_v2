@@ -276,4 +276,50 @@ function upload_kehadiran($data, $conn){
     }
     return  $hasil;
 }
+// upload nilai matakuliah persemester
+function upload_nilai_mk($data, $conn){    
+    $mak = count($data);
+    $header = array("NO","NIM","NILAI_ANGKA","NILAI_HURUF","NILAI_INDEKS","NAMA_KURIKULUM","PERIODE","NAMA_KELAS","KODE_MATA_KULIAH","NAMA_MATA_KULIAH","SKS_MATA_KULIAH","JENIS_MATA_KULIAH");
+    if($data[0] == $header){        
+        for($x=2;$x<$mak;$x++){
+            $d = $data[$x];
+            $no = $x;
+            foreach($d as $i=>$v){
+                $d[$i] = get_input($v);
+            }
+            if($d['1'] != ""){
+                $whare = "NIM ='$d[1]' AND PERIODE = '$d[6]' AND KODE_MATA_KULIAH='$d[8]'";
+                $tabel = "tabel_nilai_mk";
+                $cek = cek($whare,$tabel,$conn);
+                if($cek['result'] == "tdk_ada"){
+                    $col = "NIM,NILAI_ANGKA,NILAI_HURUF,NILAI_INDEKS,NAMA_KURIKULUM,PERIODE,NAMA_KELAS,KODE_MATA_KULIAH,NAMA_MATA_KULIAH,SKS_MATA_KULIAH,JENIS_MATA_KULIAH";
+                    $value = "'$d[1]','$d[2]','$d[3]','$d[4]','$d[5]','$d[6]','$d[7]','$d[8]','$d[9]','$d[10]','$d[11]'";
+                    $query = "INSERT INTO $tabel($col) VALUES($value)";
+                    $result = $conn->query($query);
+                    if(!$result){
+                        $hasil[$no]['NO'] = $d[0];
+                        $hasil [$no]['result'] = "Failed";
+                        $hasil[$no]['catatan'] = $conn->error;
+                    }else{
+                        $hasil[$no]['NO'] = $d[0];
+                        $hasil [$no]['result'] = "Succes";
+                        $hasil[$no]['catatan'] = "Data berhasil disimpan";
+                    }
+                }else{
+                    $col = "NIM,NILAI_ANGKA,NILAI_HURUF,NILAI_INDEKS,NAMA_KURIKULUM,PERIODE,NAMA_KELAS,KODE_MATA_KULIAH,NAMA_MATA_KULIAH,SKS_MATA_KULIAH,JENIS_MATA_KULIAH";
+                    $value = "'$d[1]'#&#'$d[2]'#&#'$d[3]'#&#'$d[4]'#&#'$d[5]'#&#'$d[6]'#&#'$d[7]'#&#'$d[8]'#&#'$d[9]'#&#'$d[10]'#&#'$d[11]'";
+                    $hsl_update = update_data($tabel,$cek['id'],$col,$value,$conn);
+                    $hasil[$no]['NO'] = $d[0];
+                    $hasil [$no]['result'] = "Succes";
+                    $hasil[$no]['catatan'] = "Data sudah Ada: $hsl_update";
+                }
+            }
+        }
+    }else{
+        $hasil[0]['NO'] = "";
+        $hasil [0]['result'] = "Failed";
+        $hasil[0]['catatan'] = "Gunakan template yang ada";
+    }
+    return  $hasil;
+}
 ?>

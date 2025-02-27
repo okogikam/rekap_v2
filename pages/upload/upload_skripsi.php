@@ -32,7 +32,7 @@ if(isset($_POST['simpan'])){
                                 <input type="file" name="file">
                                 <input onclick="loading_upload()" class="btn btn-primary" value="Upload" type="submit"
                                     name="simpan">
-                                <a href="../template/template_<?php echo $id; ?>.xlsx" class="btn btn-default"
+                                <a href="./template/template_<?php echo $id; ?>.xlsx" class="btn btn-default"
                                     download>Template</a>
                             </div>
                             <div class="card-body" id="hasil_upload">

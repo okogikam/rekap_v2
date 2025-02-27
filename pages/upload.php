@@ -4,7 +4,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 if(isset($_GET['id'])){
 $id = get_input($_GET['id']);
-include "./upload/upload_".$id.".php";
+include "./pages/upload/upload_".$id.".php";
 }else{
 ?>
 <!-- Content Wrapper. Contains page content -->
