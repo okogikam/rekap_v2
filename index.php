@@ -28,7 +28,7 @@ require_once "./rot/function.php";
     <link rel="stylesheet" href="./plugins/summernote/summernote-bs4.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./pages/style.css">
     <link rel="stylesheet" href="./pages/laporan/GAS.css">
     <style>
     table a,
@@ -79,17 +79,20 @@ require_once "./rot/function.php";
         <!-- Content Wrapper. Contains page content -->
         <div class="d-print-block">
             <?php 
-            try{
-                if(isset($_GET['p'])){
+          
+              if(isset($_GET['p'])){
                 $p = $_GET['p'];
-                include_once "./pages/".$p.".php";
-                }else{
+		try{
+                 @include_once "./pages/".$p.".php";
+		}catch (Exception $e){
+		 include_once "./pages/_blank.php";
+
+		}
+              }else{
                 $p = "beranda";
                 include_once "./pages/beranda.php";
-                }                
-            }catch (Exception $e){
-                include_once "./pages/_blank.php";
-            }
+              }                
+           
             ?>
         </div>
         <!-- /.content-wrapper -->
@@ -194,7 +197,7 @@ require_once "./rot/function.php";
             ordering: false,
             lengthChange: false,
             searching: false,
-buttons: ["copy", "excel", "pdf",
+            buttons: ["copy", "excel", "pdf",
                 {
                     extend: 'print',
                     autoPrint: true,
@@ -215,6 +218,7 @@ buttons: ["copy", "excel", "pdf",
         let menus = $(".active");
         let divMenu = menus.closest(".has-treeview");
         divMenu[0].classList.add("menu-open")
+        divMenu[0].classList.add("active")
 
     });
     </script>

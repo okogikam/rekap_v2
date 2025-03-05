@@ -5,7 +5,7 @@ $data = select_all("tabel_kegiatan_mhs",$conn);
 else{
 $data = array();
 }
-$periode[0][PERIODE] = "2020";
+$periode[0]['PERIODE'] = "2020";
 ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">

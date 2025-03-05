@@ -12,7 +12,7 @@ if(isset($_GET['s'])){
     <div class="content">
         <div class="container-fluid">
             <div class="pt-5">
-                <h2 class="text-center font-weight-light">Status keaftifan</h2>
+                <h2 class="text-center font-weight-light">Status keaktifan</h2>
             </div>
             <div class="row">
                 <div class="col-sm-12 card">

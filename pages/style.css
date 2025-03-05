@@ -63,9 +63,15 @@ iframe {
   width: 100%;
   height: 100vh;
 }
-.-,
+
 .E,
 .D,
 .D+{
 color:red !important;
+}
+th {
+  text-align: center !important;
+}
+.menu-open.active{
+ background-color: #3f6791;
 }

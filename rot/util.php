@@ -827,12 +827,12 @@ function tabel_keaktifan_mhs($angk,$conn){
         $data_mhs = select_where("tabel_mhs",$fill,$conn);
         foreach($data_mhs as $mhs){
             $nim = $mhs['NIM'];
-            $fil_1 = "NIM='$nim' ORDER BY periode";
+            $fil_1 = "NIM='$nim' AND STATUS_MAHASISWA !='null' ORDER BY periode ASC";
             $data_1 = select_where("tabel_nilai_ipk",$fil_1,$conn);
             foreach($data_1 as $d){
                 // $nim = $d['NIM'];
                 $p = $d['PERIODE'];
-                $data[$nim][$p] = "v";
+                $data[$nim][$p] = $d['STATUS_MAHASISWA'];
                 $per[$p] = 1;
             }
         }
@@ -851,9 +851,9 @@ function tabel_keaktifan_mhs($angk,$conn){
             foreach($per as $p=>$v){
                 if(isset($data[$nim][$p])){
                     $sts = $data[$nim][$p];
-                    echo "<td class='bg-info'>$sts</td>";
+                    echo "<td style='width:84px;' class='bg-info text-center'>$sts</td>";
                 }else{
-                    echo "<td class='bg-danger'></td>";
+                    echo "<td style='width:84px;' class='bg-danger text-center'>-</td>";
                 }
             }
             echo "</tr>";
@@ -863,23 +863,6 @@ function tabel_keaktifan_mhs($angk,$conn){
         // return test($data);
     }
     return;
-}
-
-
-function tabel_jumlah_mhs($conn){
-    $data_staus = array("Aktif","Lulus","Keluar","Pindah","Total");
-    $mhs['Aktif'] = mhs_aktif($conn);
-    $mhs['Lulus'] = mhs_lulus($conn);
-    $mhs['Keluar'] = mhs_keluar($conn);
-    $mhs['Pindah'] = mhs_pindah($conn);
-    $mhs['Total'] = $mhs['Aktif'] + $mhs['Lulus'] + $mhs['Keluar'];
-    // if($data_kegiatan == 0){$data_kegiatan = array();}
-    foreach($data_staus as $status){
-        echo "<tr>";
-        echo "<td>".$status."</td>";
-        echo "<td class='text-right'>".$mhs[$status]."</td>";
-        echo "</tr>";
-    }
 }
 
 
@@ -1105,8 +1088,8 @@ function tabel_kehadiran_mhs($periode,$conn){
         $data = select_where("tabel_kehadiran",$fil,$conn);
         foreach($data as $d){
             $nim = $d['NIM'];
-            if($d['JUMLAH'] != 0){
-                $per = number_format((float)($d['HADIR'] * 100 / $d['JUMLAH']),2);
+            if($d['JUMLAH_PERTEMUAN'] != 0){
+                $per = number_format((float)($d['HADIR'] * 100 / $d['JUMLAH_PERTEMUAN']),2);
                 if(!isset($kh[$nim])){
                     $kh[$nim]['NIM'] = $d['NIM'];
                     $kh[$nim]['NAMA'] = $d['NAMA_MAHASISWA'];
@@ -1114,7 +1097,7 @@ function tabel_kehadiran_mhs($periode,$conn){
                     $kh[$nim]['HADIR'] = $d['HADIR'];
                     $kh[$nim]['TIDAK_HADIR'] = $d['IZIN'] + $d['TANPA_KETERANGAN'] + $d['SAKIT'];
                     $kh[$nim]['MK'] = $d['NAMA_MATA_KULIAH'];
-                    $kh[$nim]['JML'] = $d['JUMLAH'];
+                    $kh[$nim]['JML'] = $d['JUMLAH_PERTEMUAN'];
                 }else{
                     if($per < $kh[$nim]['PER']){
                         $kh[$nim]['NIM'] = $d['NIM'];
@@ -1123,7 +1106,7 @@ function tabel_kehadiran_mhs($periode,$conn){
                         $kh[$nim]['HADIR'] = $d['HADIR'];
                         $kh[$nim]['TIDAK_HADIR'] = $d['IZIN'] + $d['TANPA_KETERANGAN'] + $d['SAKIT'];
                         $kh[$nim]['MK'] = $d['NAMA_MATA_KULIAH'];
-                        $kh[$nim]['JML'] = $d['JUMLAH'];
+                        $kh[$nim]['JML'] = $d['JUMLAH_PERTEMUAN'];
                     }
                 }
             }
@@ -1363,24 +1346,6 @@ $nilai_mk = nilai_mk($nim,$mk['KODE'],$mk['NAMA_KURIKULUM'],$conn);
             }
         }
         tabel_end_mk();
-    }
-}
-function tabel_jumlah_mhs_angkatan($conn){
-    $data_angkatan = angkatan_mhs($conn);
-    foreach($data_angkatan as $angkatan){
-        $filter = "ANGKATAN ='".$angkatan['ANGKATAN']."' && STATUS_MAHASISWA='Aktif'";
-
-        $mhs_angkatan = select_where("tabel_mhs",$filter,$conn);
-	if($mhs_angkatan == 0){
-            continue;
-        }        
-	$jml = count($mhs_angkatan);
-        
-         echo "<tr>";
-         echo "<td>".$angkatan['ANGKATAN']."</td>";
-         echo "<td class='text-right'>".$jml."</td>";
-         echo "</tr>";
-
     }
 }
 function tabel_jumlah_mhs_angkatan_lulus($conn){

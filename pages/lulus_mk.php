@@ -8,7 +8,7 @@ $blm_mengambil = array();
 if(isset($_GET['i'])){
     $i = get_input($_GET['i']);
     $p = get_input($_GET['p']);
-    include_once "./$i/".$i."_".$p.".php";
+    include_once "./pages/$i/".$i."_".$p.".php";
 }else{
 
 if(isset($_GET['k']) && isset($_GET['mk'])){

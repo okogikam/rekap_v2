@@ -28,7 +28,7 @@
                     </a>
                     <ul class="nav nav-treeview bg-white">
 			            <li class="nav-item">
-                            <a href="?p=data_prodi" class="nav-link" data-page="prodi">
+                            <a href="?p=data_prodi" class="nav-link" data-page="data_prodi">
                                 <i class="fa-solid fa-school nav-icon"></i>
                                 <p>Program Studi</p>
                             </a>
@@ -75,7 +75,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                                <a href="?p=keaktifan" class="nav-link" data-page="keaktifan_mhs">
+                                <a href="?p=keaktifan" class="nav-link" data-page="keaktifan">
                                 <i class="fa-solid fa-chart-line nav-icon"></i>
                                 <p>Keaktifan Mahasiswa</p>
                             </a>
@@ -178,7 +178,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="?p=rekap_nilai_mhs" class="nav-link" data-page="nilai_mhs">
+                            <a href="?p=rekap_nilai_mhs" class="nav-link" data-page="rekap_nilai_mhs">
                             <i class="fa-solid fa-chart-column nav-icon"></i>
                                 <p>Nilai Mahasiswa</p>
                             </a>
@@ -209,7 +209,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="?p=rekap_hki" class="nav-link" data-page="hki">
+                        <a href="?p=rekap_hki" class="nav-link" data-page="rekap_hki">
                         <i class="fa-solid fa-chart-column nav-icon"></i>
                             <p>
                                 HKI
@@ -217,7 +217,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="?p=rekap_iku" class="nav-link" data-page="iku">
+                        <a href="?p=rekap_iku" class="nav-link" data-page="rekap_iku">
                         <i class="fa-solid fa-chart-column nav-icon"></i>
                             <p>
                                 IKU
@@ -248,13 +248,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="?p=surat_prodi" class="nav-link" data-page="surat">
+                            <a href="?p=surat_prodi" class="nav-link" data-page="surat_prodi">
                             <i class="fa-solid fa-envelope nav-icon"></i>
                                 <p>Surat</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="?p=catatan_rapat" class="nav-link" data-page="catatan">
+                            <a href="?p=catatan_rapat" class="nav-link" data-page="catatan_rapat">
                             <i class="fa-solid fa-envelope nav-icon"></i>
                                 <p>Catatan Rapat</p>
                             </a>
@@ -276,7 +276,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="?p=jurnal_mhs" class="nav-link" data-page="plagiasi">
+                            <a href="?p=jurnal_mhs" class="nav-link" data-page="jurnal_mhs">
                             <i class="fa-solid fa-certificate nav-icon"></i>
                                 <p>
                                     Jurnal Mahasiswa
@@ -284,7 +284,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="?p=berkas_skripsi" class="nav-link" data-page="memo">
+                            <a href="?p=berkas_skripsi" class="nav-link" data-page="berkas_skripsi">
                             <i class="fa-solid fa-certificate nav-icon"></i>
                                 <p>
                                     Berkas Skripsi
@@ -311,7 +311,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="./laporan/" class="nav-link" data-page="iframe" target="_blank">
+                                <a href="./pages/laporan/" class="nav-link" data-page="iframe" target="_blank">
                                     <i class="nav-icon fas fa-external-link-alt"></i>
                                     <p>
                                         Link Luar

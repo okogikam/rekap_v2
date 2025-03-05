@@ -5,16 +5,18 @@
     <div class="content">
         <div class="container-fluid">
             <div class="pt-5">
-                <h2 class="text-center">Daftar Dosen</h2>
+                <h2 class="text-center">Daftar Dosen</h2>		
             </div>
             <div class="row">
-                <div class="col-sm-10">
+                <div class="col-sm-12">
                 <div class="card">
-                 <div class="card-header"><h3>Dosen PS</h3></div>
+                 <div class="card-header">
+			<h3>Dosen PS <button class='btn btn-sm btn-primary'><i class='fa-solid fa-plus'></i></button></h3>			
+		</div>
                  <div class="card-body">
                         <table class="table tabel table-hover">
                             <thead>
-                                <th>NO</th>
+                                <th>OPSI</th>
                                 <th>NAMA</th>
                                 <th>NIP</th>
                                 <th>NIDN</th>
@@ -36,7 +38,7 @@
                 <h3>Dosen non-PS </h3>
                 <table class="table tabel table-hover">
                     <thead>
-                        <th>NO</th>
+                        <th>OPSI</th>
                         <th>NAMA</th>
                         <th>NIP</th>
                         <th>NIDN</th>
@@ -51,17 +53,7 @@
                  </div>
 
                 </div>
-                </div>
-
-                <div class="col-sm-2">
-                    <div class="card p-1">
-                        <div class="card-body">
-                            <p class="font-weight-light">Dosen Homebase : </p>
-                            <p class="font-weight-light">Dosen Luar: </p>
-                            <p class="font-weight-light">Rasio Dosen-Mhs: </p>
-                        </div>
-                    </div>
-                </div>
+                </div>                
             </div>
             <!-- /.row -->
         </div>

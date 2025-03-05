@@ -26,14 +26,57 @@ function tabel_mahasiswa($filter,$conn){
         }
 
         echo "<tr>";
+	echo "<td><a href='?p=mhs&&i=edit&&id=$mhs[NIM]' class='btn btn-sm btn-default'><i class='fa-solid fa-pen-to-square'></i></a></td>";
         echo "<td>".$mhs['NIM']."</td>";
         echo "<td>".get_output($mhs['NAMA'])."</td>";
         echo "<td>".get_pa($mhs['NIM'],$conn)."</td>";
         echo "<td>".$mhs['STATUS_MAHASISWA']."</td>";
-        echo "<td><a href='https://wa.me/62$telp?text=Assalamualaikum' target='_blank'>$mhs[NO_TELEPON]</a> / <a target='_blank' href='https://wa.me/62$hp?text=Assalamualaikum'>$mhs[NO_HP]</a> <a class='float-right' href='?p=mhs&&i=edit&&id=".$mhs['NIM']."'>detail</a></td>";
+        echo "<td><a href='https://wa.me/62$telp?text=Assalamualaikum' target='_blank'>$mhs[NO_TELEPON]</a> / <a target='_blank' href='https://wa.me/62$hp?text=Assalamualaikum'>$mhs[NO_HP]</a></td>";
         echo "</tr>";
     }
 }
+// tabel jumlah mahasiswa
+function tabel_jumlah_mhs($conn){
+    $data_status = array("Aktif","Lulus","Keluar","Pindah","Total");
+    $mhs['Aktif'] = mhs_aktif($conn);
+    $mhs['Lulus'] = mhs_lulus($conn);
+    $mhs['Keluar'] = mhs_keluar($conn);
+    $mhs['Pindah'] = mhs_pindah($conn);
+    $mhs['Total'] = $mhs['Aktif'] + $mhs['Lulus'] + $mhs['Keluar'];
+    // if($data_kegiatan == 0){$data_kegiatan = array();}
+    foreach($data_status as $status){
+        echo "<tr>";
+        echo "<td>".$status."</td>";
+        echo "<td class='text-right'>".$mhs[$status]."</td>";
+        echo "</tr>";
+    }
+}
+// tabel mahasiswa perangkatan
+function tabel_jumlah_mhs_angkatan($conn){
+    $data_angkatan = angkatan_mhs($conn);
+    foreach($data_angkatan as $angkatan){
+        $filter = "ANGKATAN ='".$angkatan['ANGKATAN']."' && STATUS_MAHASISWA !='mbkm'";
+        $mhs_angkatan = select_where("tabel_mhs",$filter,$conn);
+	$filter_aktif = "ANGKATAN ='".$angkatan['ANGKATAN']."' && STATUS_MAHASISWA='Aktif'";
+        $mhs_aktif = select_where("tabel_mhs",$filter_aktif,$conn); 
+	$filter_lulus = "ANGKATAN ='".$angkatan['ANGKATAN']."' && STATUS_MAHASISWA='Lulus'";
+        $mhs_lulus = select_where("tabel_mhs",$filter_lulus,$conn);        
+	$jml = $mhs_angkatan? count($mhs_angkatan) : 0;
+	$aktif = $mhs_aktif? count($mhs_aktif) : 0;
+	$lulus = $mhs_lulus? count($mhs_lulus) : 0;
+	$keluar = $jml - $aktif - $lulus;
+        
+         echo "<tr>";
+         echo "<td>".$angkatan['ANGKATAN']."</td>";
+	 echo "<td class='text-right'>".$aktif."</td>";
+	 echo "<td class='text-right'>".$lulus."</td>";
+	 echo "<td class='text-right'>".$keluar."</td>";
+         echo "<td class='text-right'>".$jml."</td>";
+         echo "</tr>";
+
+    }
+}
+
 // tabel dosen 
 function tabel_dosen($homebase,$conn){
     if($homebase){
@@ -47,7 +90,7 @@ function tabel_dosen($homebase,$conn){
         foreach($data_dosen as $dosen){ 
             $no++;       
             echo "<tr>";
-            echo "<td>".$no."</td>";
+            echo "<td><button class='btn btn-sm btn-default' data-id='$dosen[NIP]'><i class='fa-solid fa-pen-to-square'></i></button></td>";
             echo "<td>".$dosen['NAMA']."</td>";
             echo "<td>".$dosen['NIP']."</td>";
             echo "<td>".$dosen['NIDN']."</td>";
@@ -116,13 +159,13 @@ function tabel_transkrip($status,$conn){
         if(is_array($data_transkrip)){
             echo "<tr>";
             echo "<td>".$mhs['NIM']."</td>";
-            echo "<td>".$mhs['NAMA']."<span class='sts_mhs $mhs[STATUS_MAHASISWA]'>[$mhs[STATUS_MAHASISWA]]</span></td>";
+            echo "<td>".$mhs['NAMA']."</td>";
             echo "<td>".$data_transkrip[0]['SKS_MK_WAJIB_L']."</td>";
             echo "<td>".$data_transkrip[0]['SKS_PILIHAN_L']."</td>";
 		if($data_transkrip[0]['SKS_PILIHAN_L'] < 10 ){
-                        $sks_total = $data_transkrip[0]['SKS_MK_WAJIB_L'] + 10;
+                        $sks_total = (int)$data_transkrip[0]['SKS_MK_WAJIB_L'] + 10;
                 }else{
-                    $sks_total = $data_transkrip[0]['SKS_MK_WAJIB_L'] + $data_transkrip[0]['SKS_PILIHAN_L'];
+                    $sks_total = (int)$data_transkrip[0]['SKS_MK_WAJIB_L'] + (int)$data_transkrip[0]['SKS_PILIHAN_L'];
                 } 
             if(count($data_transkrip) > 1){               
         
@@ -133,7 +176,7 @@ function tabel_transkrip($status,$conn){
                 }
             }else{
                 // $sks_total = $data_transkrip[0]['SKS_TOTAL'];
-                $ipk = $data_transkrip[0]['IPK'];
+                $ipk = number_format((float)$data_transkrip[0]['IPK'],2);
             }
             echo "<td>".$sks_total."</td>";
             echo "<td>".$ipk."</td>";
@@ -259,7 +302,7 @@ function tabel_prodi($conn){
 }
 // tabel rasio 
 function tabel_rasio_dosen($conn){
-    $query = "SELECT PERIODE, COUNT(NIM) AS jml FROM tabel_nilai_ipk GROUP BY PERIODE ORDER BY PERIODE DESC";
+    $query = "SELECT PERIODE, COUNT(NIM) AS jml FROM tabel_nilai_ipk WHERE STATUS_MAHASISWA='A' GROUP BY PERIODE ORDER BY PERIODE DESC";
     $data = sql_query2($query,$conn);
     $fil = "HOMEBASE='Pendidikan Komputer' AND STATUS='Aktif'";
     $dosen = select_where('tabel_dosen',$fil,$conn);
@@ -275,7 +318,7 @@ function tabel_rasio_dosen($conn){
     }
 }
 function tabel_rasio_tendik($conn){
-    $query = "SELECT PERIODE, COUNT(NIM) AS jml FROM tabel_nilai_ipk GROUP BY PERIODE ORDER BY PERIODE DESC";
+    $query = "SELECT PERIODE, COUNT(NIM) AS jml FROM tabel_nilai_ipk WHERE STATUS_MAHASISWA='A' GROUP BY PERIODE ORDER BY PERIODE DESC";
     $data = sql_query2($query,$conn);
     for($i = 0; $i < 10;$i++){
         $d = $data[$i];

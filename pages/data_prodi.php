@@ -96,7 +96,7 @@ $rekap_data = rekap_data($conn);
                 <section class="col-sm-6">
                     <div class="card">
                         <div class="card-header">
-                            <p>Perbandingand Dosen dan Mahasiswa</p>
+                            <p>Perbandingan Dosen dan Mahasiswa</p>
                         </div>
                         <div class="card-body">
                             <table class="table table-bordered table-hover">
@@ -118,7 +118,7 @@ $rekap_data = rekap_data($conn);
                 <section class="col-sm-6">
                     <div class="card">
                         <div class="card-header">
-                            <p>Perbandingand Tendik dan Mahasiswa</p>
+                            <p>Perbandingan Tendik dan Mahasiswa</p>
                         </div>
                         <div class="card-body">
                         <table class="table table-bordered table-hover">

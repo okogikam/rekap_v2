@@ -2,7 +2,7 @@
 if(isset($_GET['i'])){
     $i = get_input($_GET['i']);
     $p = get_input($_GET['p']);
-    include_once "./$i/".$i."_".$p.".php";
+    include_once "./pages/$i/".$i."_".$p.".php";
 }else{
 ?>
 <!-- Content Wrapper. Contains page content -->

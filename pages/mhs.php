@@ -7,7 +7,7 @@ if(isset($_GET['s'])){
 if(isset($_GET['i'])){
     $i = get_input($_GET['i']);
     $p = get_input($_GET['p']);
-    include_once "./$i/".$i."_".$p.".php";
+    include_once "./pages/$i/".$i."_".$p.".php";
 }else{
 ?>
 <!-- Content Wrapper. Contains page content -->
@@ -20,12 +20,12 @@ if(isset($_GET['i'])){
                 <h2 class="text-center">Mahasiswa</h2>
             </div>
             <div class="row">
-                <div class="col-sm-9">
+                <div class="col-sm-12">
                     <div class="card">
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <h4 class="font-weight-light">Daftar Mahasiswa</h4>
+                                    <h4 class="font-weight-light">Daftar Mahasiswa <button class='btn btn-sm btn-primary'><i class='fa-solid fa-plus'></i></button></h4>
                                 </div>
                                 <div class="col-sm-6">
                                     <form action="./" method="get" class="text-right">
@@ -50,9 +50,10 @@ if(isset($_GET['i'])){
                             </div>
                         </div>
                         <div class="card-body">
-                            <table id="tabel" class="table  table-hover">
+                            <table class="tabel table table-hover">
                                 <thead>
                                     <tr>
+					<th>OPSI</th>
                                         <th>NIM</th>
                                         <th>NAMA</th>
                                         <th>DOSEN PA</th>
@@ -67,8 +68,10 @@ if(isset($_GET['i'])){
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-3">
-                    <div class="card">
+                <div class="col-sm-12">
+		  <div class="row">
+		    <div class="col">
+			<div class="card">
                         <div class="card-header">
                             <h5 class="font-weight-light">Jumlah Mahasiswa</h5>
                         </div>
@@ -86,7 +89,9 @@ if(isset($_GET['i'])){
                             </table>
                         </div>
                     </div>
-                    <div class="card">
+		   </div>
+		    <div class="col">
+			<div class="card">
                         <div class="card-header">
                             <h5 class="font-weight-light">Peserta Aktif Perangkatan</h5>
                         </div>
@@ -95,7 +100,10 @@ if(isset($_GET['i'])){
                                 <thead>
                                     <tr>
                                         <th>Tahun</th>
-                                        <th class="text-right">Jumlah</th>
+                                        <th class="text-right">Aktif</th>
+					<th class="text-right">lulus</th>
+					<th class="text-right">Keluar</th>
+					<th class="text-right">Total</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -104,24 +112,8 @@ if(isset($_GET['i'])){
                             </table>
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="font-weight-light">Peserta Lulus Perangkatan</h5>
-                        </div>
-                        <div class="card-body">
-                            <table class="table  table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Tahun</th>
-                                        <th class="text-right">Jumlah</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php tabel_jumlah_mhs_angkatan_lulus($conn); ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+		   </div>                    
+		  </div>
                 </div>
             </div>
             <!-- /.row -->
