@@ -27,7 +27,8 @@ if(isset($_GET['i'])){
                                         <th>NO</th>
                                         <th>ID</th>
                                         <th>NAMA</th>
-                                        <th>MATAKULIAH</th>
+                                        <th>ANGKATAN</th>
+					<th>MATAKULIAH</th>
                                     </tr>
                                 </thead>
                                 <tbody>

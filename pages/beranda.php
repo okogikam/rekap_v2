@@ -88,48 +88,19 @@ if(isset($_GET['i']) && isset($_GET['id'])){
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-12">
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col">
                             <div class="card">
                                 <div class="card-header">
                                     <h4 class="font-weight-light">Peserta Aktif Pertahun</h4>
                                 </div>
-                                <div class="card-body">
-                                    <table class="table  table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>Tahun</th>
-                                                <th class="text-right">Jumlah</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php tabel_jumlah_mhs_angkatan($conn); ?>
-                                        </tbody>
-                                    </table>
+                                <div class="card-body row">
+                                     <?php tabel_jumlah_mhs_angkatan($conn); ?>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="font-weight-light">Peserta Lulus Tahun</h4>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table  table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>Tahun</th>
-                                                <th class="text-right">Jumlah</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php tabel_jumlah_mhs_angkatan_lulus($conn); ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+                        
                         <div class="col-sm-12">
                             <div class="card">
                                 <div class="card-header">

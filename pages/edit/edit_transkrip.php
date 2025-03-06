@@ -22,6 +22,7 @@ if(isset($_GET['id'])){
     <div class="row">
     <div class="col-6 col-sm-3">
     <p class="m-0 p-0">SKS Diambil : <?php echo $nilai['SKS_TOTAL']; ?></p>
+    <p class="m-0 p-0">SKS Lulus : <?php echo $nilai['SKS_MK_WAJIB_L'] + $nilai['SKS_PILIHAN_L']; ?></p>
     <p class="m-0 p-0">IPK : <?php echo number_format((float)$nilai['IPK'],2); ?></p>
     </div>
     <div class="col-6 col-sm-3">

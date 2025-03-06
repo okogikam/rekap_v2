@@ -332,8 +332,8 @@ function mhs_pindah($conn){
 }
 function angkatan_mhs($conn){
     // $query = "SELECT ANGKATAN FROM tabel_mhs WHERE STATUS_MAHASISWA='Aktif' GROUP BY ANGKATAN";
-    $query = "SELECT ANGKATAN FROM tabel_mhs GROUP BY ANGKATAN";
-    $result = sql_query($query,$conn);
+    $query = "SELECT ANGKATAN FROM tabel_mhs GROUP BY ANGKATAN ORDER BY ANGKATAN DESC";
+    $result = sql_query2($query,$conn);
     return $result;
 }
 function angkatan_mhs_lulus($conn){
@@ -1082,50 +1082,7 @@ echo "</tr>";
         //test($new_array);
     }
 }
-function tabel_kehadiran_mhs($periode,$conn){
-    if($periode !="" && $periode !=null){
-        $fil = "PERIODE ='".$periode."' ORDER BY NIM";
-        $data = select_where("tabel_kehadiran",$fil,$conn);
-        foreach($data as $d){
-            $nim = $d['NIM'];
-            if($d['JUMLAH_PERTEMUAN'] != 0){
-                $per = number_format((float)($d['HADIR'] * 100 / $d['JUMLAH_PERTEMUAN']),2);
-                if(!isset($kh[$nim])){
-                    $kh[$nim]['NIM'] = $d['NIM'];
-                    $kh[$nim]['NAMA'] = $d['NAMA_MAHASISWA'];
-                    $kh[$nim]['PER'] = $per;
-                    $kh[$nim]['HADIR'] = $d['HADIR'];
-                    $kh[$nim]['TIDAK_HADIR'] = $d['IZIN'] + $d['TANPA_KETERANGAN'] + $d['SAKIT'];
-                    $kh[$nim]['MK'] = $d['NAMA_MATA_KULIAH'];
-                    $kh[$nim]['JML'] = $d['JUMLAH_PERTEMUAN'];
-                }else{
-                    if($per < $kh[$nim]['PER']){
-                        $kh[$nim]['NIM'] = $d['NIM'];
-                        $kh[$nim]['NAMA'] = $d['NAMA_MAHASISWA'];
-                        $kh[$nim]['PER'] = $per;
-                        $kh[$nim]['HADIR'] = $d['HADIR'];
-                        $kh[$nim]['TIDAK_HADIR'] = $d['IZIN'] + $d['TANPA_KETERANGAN'] + $d['SAKIT'];
-                        $kh[$nim]['MK'] = $d['NAMA_MATA_KULIAH'];
-                        $kh[$nim]['JML'] = $d['JUMLAH_PERTEMUAN'];
-                    }
-                }
-            }
-            
-        }
-        foreach($kh as $k){
-            echo "<tr>";
-            echo "<td>".$k['NIM']."</td>";
-            echo "<td>".$k['NAMA']."</td>";
-            echo "<td>".$k['MK']."</td>";
-            echo "<td>".$k['JML']."</td>";
-            echo "<td>".$k['HADIR']."</td>";
-            echo "<td>".$k['TIDAK_HADIR']."</td>";
-            echo "<td>".$k['PER']."</td>";
-            echo "<td><a class='float-right' href='?p=kehadiran&&i=edit&&id=".$nim."'><i class='fas fa-eye'></i></a></td>";
-            echo "</tr>";
-        }
-    }
-}
+
 function jml_lulus($nilais){
 	$jml = 0;
 if(is_array($nilais)){
@@ -1212,9 +1169,9 @@ function get_nilai_mhs($nim,$conn){
         $fil = "NIM='".$nim."' ORDER BY PERIODE DESC";
         $data_transkrip =  select_where("tabel_nilai_ipk",$fil,$conn);
         if(!is_array($data_transkrip)){return;}
-        if($data_transkrip[0]['IP_SEMESTER'] == 0 && count($data_transkrip) > 1){
-           return $data_transkrip[1];
-        }
+        //if($data_transkrip[0]['SKS_TOTAL'] == $data_transkrip[1]['SKS_TOTAL']){
+        //   return $data_transkrip[1];
+        //}
         return $data_transkrip[0];
 }
 function savecatatan($catatan,$tipe,$conn){
@@ -1285,6 +1242,21 @@ function tabel_start_mk(){
     echo "</tbody>";
 }
 function tabel_end_mk(){
+    echo "</tbody>";
+    echo "</table>";
+    echo "</div>";
+}
+function tabel_start($array){
+    echo "<div class='col-sm-6'>";
+    echo "<table class='table table-hover'>";
+    echo "<thead><tr>";
+    foreach($array as $header){
+	echo "<th>$header</th>";
+    }
+    echo "</tr></thead>";
+    echo "</tbody>";
+}
+function tabel_end(){
     echo "</tbody>";
     echo "</table>";
     echo "</div>";
