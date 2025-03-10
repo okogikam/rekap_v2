@@ -221,11 +221,7 @@ function tabel_transkrip($status,$conn){
             echo "<td>".$mhs['NAMA']."</td>";
             echo "<td>".$data_transkrip[0]['SKS_MK_WAJIB_L']."</td>";
             echo "<td>".$data_transkrip[0]['SKS_PILIHAN_L']."</td>";
-		if($data_transkrip[0]['SKS_PILIHAN_L'] < 10 ){
-                        $sks_total = (int)$data_transkrip[0]['SKS_MK_WAJIB_L'] + 10;
-                }else{
-                    $sks_total = (int)$data_transkrip[0]['SKS_MK_WAJIB_L'] + (int)$data_transkrip[0]['SKS_PILIHAN_L'];
-                } 
+            $sks_total = (int)$data_transkrip[0]['SKS_MK_WAJIB_L'] + (int)$data_transkrip[0]['SKS_PILIHAN_L'] + (int)$data_transkrip[0]['SKS_TIDAK_LULUS'];
             if(count($data_transkrip) > 1){               
         
                 if($data_transkrip[0]['IPK'] != 0){
@@ -395,28 +391,21 @@ function tabel_kehadiran_mhs($periode,$conn){
         $fil = "PERIODE ='".$periode."' ORDER BY NIM";
         $data = select_where("tabel_kehadiran",$fil,$conn);
         foreach($data as $d){
-            $nim = $d['NIM'];
+            $nim = $d['NIM']."_".$d['KODE_MATA_KULIAH']."_".$d['NAMA_KELAS'];
             if($d['JUMLAH_PERTEMUAN'] != 0){
                 $per = number_format((float)($d['HADIR'] * 100 / $d['JUMLAH_PERTEMUAN']),2);
-                if(!isset($kh[$nim])){
-                    $kh[$nim]['NIM'] = $d['NIM'];
-                    $kh[$nim]['NAMA'] = $d['NAMA_MAHASISWA'];
-                    $kh[$nim]['PER'] = $per;
-                    $kh[$nim]['HADIR'] = $d['HADIR'];
-                    $kh[$nim]['TIDAK_HADIR'] = $d['IZIN'] + $d['TANPA_KETERANGAN'] + $d['SAKIT'];
-                    $kh[$nim]['MK'] = $d['NAMA_MATA_KULIAH'];
-                    $kh[$nim]['JML'] = $d['JUMLAH_PERTEMUAN'];
-                }else{
-                    if($per < $kh[$nim]['PER']){
-                        $kh[$nim]['NIM'] = $d['NIM'];
-                        $kh[$nim]['NAMA'] = $d['NAMA_MAHASISWA'];
-                        $kh[$nim]['PER'] = $per;
-                        $kh[$nim]['HADIR'] = $d['HADIR'];
-                        $kh[$nim]['TIDAK_HADIR'] = $d['IZIN'] + $d['TANPA_KETERANGAN'] + $d['SAKIT'];
-                        $kh[$nim]['MK'] = $d['NAMA_MATA_KULIAH'];
-                        $kh[$nim]['JML'] = $d['JUMLAH_PERTEMUAN'];
-                    }
-                }
+                $kh[$nim]['NIM'] = $d['NIM'];
+                $kh[$nim]['NAMA'] = $d['NAMA_MAHASISWA'];
+	        $kh[$nim]['KELAS'] = $d['NAMA_KELAS'];
+                $kh[$nim]['PER'] = $per;
+                $kh[$nim]['HADIR'] = $d['HADIR'];
+		$kh[$nim]['IZIN'] = $d['IZIN'];
+		$kh[$nim]['TANPA_KETERANGAN'] = $d['TANPA_KETERANGAN'];
+		$kh[$nim]['SAKIT'] = $d['SAKIT'];
+                $kh[$nim]['TIDAK_HADIR'] = $d['IZIN'] + $d['TANPA_KETERANGAN'] + $d['SAKIT'];
+                $kh[$nim]['MK'] = $d['NAMA_MATA_KULIAH'];
+                $kh[$nim]['JML'] = $d['JUMLAH_PERTEMUAN'];
+                
             }
             
         }
@@ -424,9 +413,13 @@ function tabel_kehadiran_mhs($periode,$conn){
             echo "<tr>";
             echo "<td>".$k['NIM']."</td>";
             echo "<td>".$k['NAMA']."</td>";
+            echo "<td>".$k['KELAS']."</td>";
             echo "<td>".$k['MK']."</td>";
             echo "<td>".$k['JML']."</td>";
             echo "<td>".$k['HADIR']."</td>";
+	    echo "<td>".$k['IZIN']."</td>";
+	    echo "<td>".$k['SAKIT']."</td>";
+	    echo "<td>".$k['TANPA_KETERANGAN']."</td>";
             echo "<td>".$k['TIDAK_HADIR']."</td>";
             echo "<td>".$k['PER']."</td>";
             echo "<td><a class='float-right' href='?p=kehadiran&&i=edit&&id=".$nim."'><i class='fas fa-eye'></i></a></td>";
@@ -434,28 +427,5 @@ function tabel_kehadiran_mhs($periode,$conn){
         }
     }
 }
-// tabel kehadiran perkelas 
-function tabel_kehadiran_kls($periode,$conn){
-    $fil = "PERIODE ='".$periode."' GROUP BY NAMA_MATA_KULIAH ORDER BY NAMA_MATA_KULIAH";
-    $data = select_where("tabel_kehadiran",$fil,$conn);
-    foreach($data as $d){
-        $fil2 = "PERIODE ='".$periode."' AND NAMA_MATA_KULIAH='".$d."' ORDER BY NAMA_MATA_KULIAH";
-        $kelas = select_where("tabel_kehadiran",$fil2,$conn);
-        $mk['MK'] = $kelas['NAMA_MATA_KULIAH'];
-        $mk['JML'] = $kelas['JUMLAH_PERTEMUAN'];
-        $mk['HADIR'] = min($kelas['HADIR']);
-        $mk['TIDAK_HADIR'] = $mk['JML'] - $mk['HADIR'];
-        $mk['PER'] = number_format((float)($d['HADIR'] * 100 / $d['JUMLAH_PERTEMUAN']),2);
-    }
-    foreach($data as $k){
-        echo "<tr>";
-        echo "<td>".$k['MK']."</td>";
-        echo "<td>".$k['JML']."</td>";
-        echo "<td>".$k['HADIR']."</td>";
-        echo "<td>".$k['TIDAK_HADIR']."</td>";
-        echo "<td>".$k['PER']."</td>";
-        echo "<td><button class='btn btn-sm btn-default'><i class='fa-solid fa-pen-to-square'></i></button></td>";
-        echo "</tr>";
-    }
-}
+
 ?>

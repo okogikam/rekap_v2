@@ -180,7 +180,7 @@ require_once "../rot/function.php";
 
                 }
             ]
-        }).buttons().container().appendTo('#tabel_1_wrapper .col-md-6:eq(0)');
+        }).buttons().container().appendTo('.tabel_1_wrapper .col-md-6:eq(0)');
         
         $("#tabel_default").DataTable({
             responsive: true,

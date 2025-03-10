@@ -51,7 +51,7 @@ if(isset($_GET['i'])){
                                     <th>NAMA</th>
                                     <th>MK WAJIB LULUS</th>
                                     <th>MK PILIHAN LULUS</th>
-                                    <th>Total SKS</th>
+                                    <th>SKS DIAMBIL</th>
                                     <th>IPK</th>
 
                                     <th></th>

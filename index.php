@@ -181,15 +181,24 @@ require_once "./rot/function.php";
             order: [
                 [0, 'asc']
             ],
-            buttons: ["copy", "excel", "pdf",
+            buttons: ["copy", 
+		{
+                    extend: 'excel',
+                    title: 'Data <?php echo $p; ?>',
+
+                },
+		{
+                    extend: 'pdf',
+                    title: 'Data <?php echo $p; ?>',
+                },
                 {
                     extend: 'print',
                     autoPrint: true,
-                    title: '<?php echo $p; ?>',
+                    title: '<div class="text-center"><img src="./dist/img/kop_surat.png" alt="gambar_error"><h1><?php echo $p; ?></h1></div>',
 
                 }
             ]
-        }).buttons().container().appendTo('#tabel_1_wrapper .col-md-6:eq(0)');
+        }).buttons().container().appendTo('.dataTables_wrapper .dataTables_length');
         
         $("#tabel_default").DataTable({
             responsive: true,

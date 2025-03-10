@@ -22,11 +22,7 @@ if(isset($_GET['i'])){
             </div>
             <div class="row">
 <div class="card col-sm-12">
-    <div class="card-header">
-        <span>
-            <button data-display="perMhs" class="btn btn-primary btn-display">Per Mhs</button>
-            <button data-display="perkelas" href="./?p=kehadiran" class="btn btn-primary btn-display">Per MK</button>
-        </span>
+    <div class="card-header">        
         <div class="float-right">
         <form action="./" method="get" class="text-right">
                 <span class="form-group">
@@ -56,9 +52,13 @@ if(isset($_GET['i'])){
                     <th>NIM</th>
                     <th>Nama</th>
                     <th>Mata Kuliah</th>
-                    <th>Pertemuan (min)</th>
-                    <th>Hadir (min)</th>
-                    <th>Tidak hadir (maks)</th>
+		    <th>Nama Kelas</th>
+                    <th>Pertemuan</th>
+                    <th>Hadir</th>
+		    <th>I</th>
+		    <th>S</th>
+		    <th>A</th>
+                    <th>Tidak hadir</th>
                     <th>Persentase Kehadiran (min)</th>
                     <th>Opsi</th>
                 </tr>
@@ -67,24 +67,7 @@ if(isset($_GET['i'])){
                 <?php tabel_kehadiran_mhs($per_now,$conn); ?>
             </tbody>
         </table>
-    </div>
-    <div class="card-body display-kls d-none">
-        <table class="tabel table table-hover">
-            <thead>
-                <tr>
-                    <th>Mata Kuliah</th>
-                    <th>Pertemuan (min)</th>
-                    <th>Hadir (min)</th>
-                    <th>Tidak hadir (maks)</th>
-                    <th>Persentase Kehadiran (min)</th>
-                    <th>Opsi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php tabel_kehadiran_kls($per_now,$conn); ?>
-            </tbody>
-        </table>
-    </div>
+    </div>    
 </div>
             </div>
             <!-- /.row -->
@@ -94,24 +77,6 @@ if(isset($_GET['i'])){
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
-<script>
-    let btnMenu = document.querySelectorAll('.btn-display');
-    let displayNow = "perMhs";
-    let display = {
-        "perMhs": document.querySelector(".display-mhs"),
-        "perkelas": document.querySelector(".display-kls")
-    };
-    btnMenu.forEach((btn)=>{
-        btn.addEventListener("click",()=>{
-            Object.values(display).forEach((d)=>{
-                d.classList.add("d-none");
-            })
-            display[btn.dataset.display].classList.remove('d-none');            
-        })
-    })
-</script>
-
-
 <?php
 }
 ?>

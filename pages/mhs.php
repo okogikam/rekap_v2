@@ -19,41 +19,7 @@ if(isset($_GET['i'])){
             <div class="pt-5">
                 <h2 class="text-center">Mahasiswa</h2>
             </div>
-            <div class="row">                
-                <div class="col-sm-12">
-		  <div class="row">
-		    <div class="col-sm-3">
-			<div class="card">
-                        <div class="card-header">
-                            <h5 class="font-weight-light">Jumlah Mahasiswa</h5>
-                        </div>
-                        <div class="card-body">
-                            <table class="table  table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Status Mahsiswa</th>
-                                        <th class="text-right">Jumlah</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php tabel_jumlah_mhs($conn); ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-		   </div>
-		    <div class="col-sm-9">
-			<div class="card">
-                        <div class="card-header">
-                            <h5 class="font-weight-light">Peserta Aktif Perangkatan</h5>
-                        </div>
-                        <div class="card-body row">
-                           <?php tabel_jumlah_mhs_angkatan($conn); ?>
-                        </div>
-                    </div>
-		   </div>                    
-		  </div>
-                </div>
+            <div class="row">  
 		<div class="col-sm-12">
                     <div class="card">
                         <div class="card-header">
@@ -102,6 +68,42 @@ if(isset($_GET['i'])){
                         </div>
                     </div>
                 </div>
+              
+                <div class="col-sm-12">
+		  <div class="row">
+		    <div class="col-sm-3">
+			<div class="card">
+                        <div class="card-header">
+                            <h5 class="font-weight-light">Jumlah Mahasiswa</h5>
+                        </div>
+                        <div class="card-body">
+                            <table class="table  table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Status Mahsiswa</th>
+                                        <th class="text-right">Jumlah</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php tabel_jumlah_mhs($conn); ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+		   </div>
+		    <div class="col-sm-9">
+			<div class="card">
+                        <div class="card-header">
+                            <h5 class="font-weight-light">Peserta Aktif Perangkatan</h5>
+                        </div>
+                        <div class="card-body row">
+                           <?php tabel_jumlah_mhs_angkatan($conn); ?>
+                        </div>
+                    </div>
+		   </div>                    
+		  </div>
+                </div>
+		
             </div>
             <!-- /.row -->
         </div>
