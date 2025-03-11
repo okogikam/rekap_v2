@@ -68,18 +68,21 @@ MK2 : <?php echo $_GET['mk2']; ?> </p>
                                         <th>NO</th>
                                         <th>NIM</th>
                                         <th>Nama</th>
+					<th>Kelas</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
                                     if(is_array($hasil)){
                                         $no = 0;
+					//test($hasil);
                                         foreach($hasil as $h){
                                             $no++;
                                             echo "<tr>";
                                             echo "<td>$no</td>";
-                                            echo "<td>$h</td>";
-                                            echo "<td>".mhs($h,$conn)."</td>";
+                                           echo "<td>$h[NIM]</td>";
+                                           echo "<td>".mhs($h['NIM'],$conn)."</td>";
+					   echo "<td>$h[NAMA_KELAS]</td>";
                                             echo "</tr>";
                                         }
                                     }

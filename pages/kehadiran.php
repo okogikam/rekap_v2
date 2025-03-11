@@ -59,7 +59,7 @@ if(isset($_GET['i'])){
 		    <th>S</th>
 		    <th>A</th>
                     <th>Tidak hadir</th>
-                    <th>Persentase Kehadiran (min)</th>
+                    <th>% Hadir</th>
                     <th>Opsi</th>
                 </tr>
             </thead>

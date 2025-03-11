@@ -988,11 +988,22 @@ function jml_nilai($periode,$kur,$kode,$kelas,$nilai,$conn){
 }
 function peserta($array,$conn){
     $query_1 = "PERIODE='".$array['pr']."' AND NAMA_MATA_KULIAH='".$array['mk1']."'";
-    $hasil_1 = select_where_pst("tabel_kehadiran",$query_1,$conn);
+    $hasil_1 = select_where("tabel_kehadiran",$query_1,$conn);
     $query_2 = "PERIODE='".$array['pr']."' AND NAMA_MATA_KULIAH='".$array['mk2']."'";
-    $hasil_2 = select_where_pst("tabel_kehadiran",$query_2,$conn);
+    $hasil_2 = select_where("tabel_kehadiran",$query_2,$conn);
 
-    $hasil = array_intersect($hasil_1,$hasil_2);
+    $hasil = array();
+    for($x = 0; $x < count($hasil_1); $x++){
+	$i = 0;
+	for($y = 0; $y < count($hasil_2); $y++){
+	    if($hasil_1[$x]['NIM'] === $hasil_2[$y]['NIM']){
+		$i++;
+	    }
+	}
+	if($i != 0) { 
+	   array_push($hasil,$hasil_1[$x]); 
+	}
+    }
     
     return $hasil;
 }
