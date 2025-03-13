@@ -5,24 +5,41 @@
     <div class="content">
         <div class="container-fluid">
             <div class="pt-5">
-                <h2 class="text-center font-weight-light">IKU</h2>
+                <h2 class="text-center font-weight-light">Laporan </h2>
             </div>
-            <div class="row">
-                <div class="card col-12">
-                    <div class="card-header">
-                        <button class="btn btn-primary" id="btn-plus"> <i class="nav-icon fas fa-plus"></i></button>
-                        <button class="btn btn-primary" id="btn-plus">
-                           <a href="https://docs.google.com/spreadsheets/d/1iyvnm16Z5F96RSv31_Mb20TMHu_PUOWBIEq-3OZKpQ4/edit?usp=sharing" target="_blank">
-                            <i class="nav-icon fas fa-external-link-alt"></i>
-                           </a>
-                        </button>
-                    </div>
-                    <div class="card-body">
-                        <table id="table" class="table table-hover">
-                        </table>
-                    </div>
-                </div>
+	    <div class="row">
+		<div class="card">
+		    <div class="card-header">Tambah <button class='btn btn-sm btn-primary'><i class='fa-solid fa-plus'></i></button></div>
+		    <div class="card-body">
+			<div class="row">
+                <div class="col-sm-3">
+		   <h3><button class="col-12 btn btn-primary">IKU</button></h3>
+		</div>
+                <div class="col-sm-3">
+		   <h3><button class="col-12 btn btn-primary">HKI</button></h3>
+		</div>
+                <div class="col-sm-3">
+		   <h3><button class="col-12 btn btn-primary">Penelitian Dosen</button></h3>
+		</div>
+                <div class="col-sm-3">
+		   <h3><button class="col-12 btn btn-primary">Pengabdian Dosen</button></h3>
+		</div>
+                <div class="col-sm-3">
+		   <h3><button class="col-12 btn btn-primary">Jurnal Mahasiswa</button></h3>
+		</div>
+                <div class="col-sm-3">
+		   <h3><button class="col-12 btn btn-primary">Tracer Studi</button></h3>
+		</div>
+                <div class="col-sm-3">
+		   <h3><button class="col-12 btn btn-primary">Angket Kepuasan Layanan Akademik</button></h3></div>
+                <div class="col-sm-3">
+		   <h3><button class="col-12 btn btn-primary">Angket Pemahaman Visi Misi</button></h3>
+		</div>
             </div>
+		    </div>
+		</div>
+	    </div>
+            
             <!-- /.row -->
         </div>
         <!-- /.container-fluid -->

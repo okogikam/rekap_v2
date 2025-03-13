@@ -393,52 +393,24 @@ function read_data_matakuliah($kurikulum,$conn){
 }
 function read_data_bimbingan($dosen,$conn){
     $bimbingan = array("PEMB_1"=> 0, "PEMB_2"=> 0, "PENG_1"=> 0 , "PENG_2"=> 0);
-    $fil = "STATUS_MAHASISWA='Aktif'";
-    $data_mhs = select_where("tabel_mhs",$fil,$conn);
-    foreach($data_mhs as $mhs){
-        $fil_2= "NIM = '".$mhs['NIM']."'";
-        $data_skripsi = select_where("tabel_skripsi",$fil_2,$conn);
+    // $fill_1 = "PEMBIMBING_1 LIKE '%$dosen%' AND STATUS_MAHASISWA ='Aktif'";
+$fill_1 = "PEMBIMBING_1 = '$dosen'";
+    $pemb_1 = select_where('tabel_skripsi',$fill_1,$conn);
+    //foreach($pemb_1 as $pb1){
+    $bimbingan['PEMB_1'] = count(array($pemb_1)); 
+    //}
+    //test($pemb_1);     
 
-        if(!is_array($data_skripsi)) continue;
-
-        if($data_skripsi[0]['PEMBIMBING_1'] == $dosen){
-            $bimbingan['PEMB_1'] += 1;
-        }
-        if($data_skripsi[0]['PEMBIMBING_2'] == $dosen){
-            $bimbingan['PEMB_2'] += 1;
-        }
-        if($data_skripsi[0]['PENGUJI_1'] == $dosen){
-            $bimbingan['PENG_1'] += 1;
-        }
-        if($data_skripsi[0]['PENGUJI_2'] == $dosen){
-            $bimbingan['PENG_2'] += 1;
-        }
-    }
     return $bimbingan;
 }
 function get_pembimbing_skripsi($conn){
     $dosen = array();
-    $fil = "PEMBIMBING_1 !='' GROUP BY PEMBIMBING_1";
-    $data_dosen = select_where("tabel_skripsi",$fil,$conn);
-    for($i = 0; $i < count($data_dosen); $i++){
-        array_push($dosen,$data_dosen[$i]['PEMBIMBING_1']); 
+    $fil = "HOMEBASE = 'Pendidikan Komputer' AND STATUS='Aktif'";
+    $data_dosen = select_where("tabel_dosen",$fil,$conn);
+    foreach($data_dosen as $dsn){
+	array_push($dosen,$dsn['NAMA']);
     }
-    $fil = "PEMBIMBING_2 !='' GROUP BY PEMBIMBING_2";
-    $data_dosen = select_where("tabel_skripsi",$fil,$conn);
-    for($i = 0; $i < count($data_dosen); $i++){
-        array_push($dosen,$data_dosen[$i]['PEMBIMBING_2']); 
-    }
-    $fil = "PENGUJI_1 !='' GROUP BY PENGUJI_1";
-    $data_dosen = select_where("tabel_skripsi",$fil,$conn);
-    for($i = 0; $i < count($data_dosen); $i++){
-        array_push($dosen,$data_dosen[$i]['PENGUJI_1']); 
-    }
-    $fil = "PENGUJI_2 !='' GROUP BY PENGUJI_2";
-    $data_dosen = select_where("tabel_skripsi",$fil,$conn);
-    for($i = 0; $i < count($data_dosen); $i++){
-        array_push($dosen,$data_dosen[$i]['PENGUJI_2']); 
-    }
-    return array_unique($dosen);
+    return $dosen;
 }
 function cek($whare,$tabel,$conn){
     $sql = "SELECT * FROM $tabel WHERE $whare";
@@ -1463,22 +1435,6 @@ function tabel_alumni($conn){
         echo "<td>".round($ipk['IPK'],2)."</td>";
         echo "<td>$d[Nilai_Toefl]</td>";
         echo "<td>$d[Status_Pekerjaan]</td>";
-        echo "</tr>";
-    }
-}
-function tabel_honor($conn){
-    $fil = "tabel_skripsi.NIM = tabel_mhs.NIM AND tabel_mhs.STATUS_MAHASISWA != 'Mengundurkan Diri' GROUP BY tabel_mhs.NIM";
-    $data = select_where("tabel_skripsi,tabel_mhs",$fil,$conn);
-
-    foreach($data as $d){
-        $sts = $d['STATUS_MAHASISWA'];
-        echo "<tr>";
-        echo "<td>$d[NIM]</td>";
-        echo "<td>$d[NAMA]</td>";
-        echo "<td><span class='sts_mhs $sts'>$sts<span></td>";
-        echo "<td>$d[JUDUL_SKRIPSI]</td>";
-        echo "<td>".sts_honor($d['NIM'],"pem",$conn)."</td>";
-        echo "<td>".sts_honor($d['NIM'],"peng",$conn)."</td>";
         echo "</tr>";
     }
 }

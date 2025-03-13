@@ -163,15 +163,18 @@ function tabel_kurikulum($conn){
     $data_kurikulum = select_all("tabel_kurikulum",$conn);
     $no = 0;
     foreach($data_kurikulum AS $kur){
-        $link = "?p=kurikulum&&i=edit&&name=".$kur['NAMA'];
+        $link = "?p=kurikulum&i=edit&name=".$kur['NAMA'];
         $no++;
         // test($data_mahasiswa);
         echo "<tr>";
-        echo "<td>".$no."</td>";
+        echo "<td><button class='btn btn-sm btn-default'><i class='fa-solid fa-pen-to-square'></i></button></td></td>";
         echo "<td>".$kur['ID_KURIKULUM']."</td>";
         echo "<td>".$kur['NAMA']."</td>";
 	echo "<td>".$kur['ANGKATAN']."</td>";
-        echo "<td><a class='btn btn-secondary' href='$link'>Daftar Matakuliah</a></td>";
+        echo "<td>$kur[SKS_DITAWARKAN]</td>";
+        echo "<td>$kur[SKS_WAJIB_LULUS]</td>";
+        echo "<td>$kur[SKS_PILIHAN_LULUS]</td>";
+        echo "<td><a class='btn btn-secondary' href='$link'><i class='fa-solid fa-eye'></i></a></td></td>";
         echo "</tr>";
     }
 }
@@ -183,7 +186,7 @@ function tabel_mk($kurikulum,$conn){
     foreach($data_mk as $mk){
         $no++;
         echo "<tr>";
-        echo "<td>".$no."</td>";
+        echo "<td><button class='btn btn-sm btn-default'><i class='fa-solid fa-pen-to-square'></i></button></td></td>";
         echo "<td>".$mk['KODE']."</td>";
         echo "<td>".$mk['NAMA_MATA_KULIAH']."</td>";
         if($mk['SIFAT_MATA_KULIAH'] == "1"){
@@ -289,8 +292,8 @@ function tabel_mk_wajib($nim,$conn){
     }
 }
 //tabel peserta skripsi
-function tabel_peserta_skripsi($conn){
-    $fil = "STATUS_MAHASISWA='Aktif' OR STATUS_MAHASISWA='Lulus'";
+function tabel_peserta_skripsi($status,$conn){
+    $fil = "STATUS_MAHASISWA='$status'";
     $data_mahasiswa = select_where("tabel_mhs",$fil,$conn);
     $no = 0;
     if(!is_array($data_mahasiswa)) {return;}
@@ -300,13 +303,12 @@ function tabel_peserta_skripsi($conn){
         if(is_array($data_skripsi) && $data_skripsi[0]['JUDUL_SKRIPSI'] != ""){
         $no++;
         echo "<tr>";
-        echo "<td>".$no."</td>";
+        echo "<td><a class='btn btn-sm btn-default' href='?p=peserta_skripsi&&i=edit&&id=".$data_skripsi[0]['NIM']."'><i class='fa-solid fa-pen-to-square'></i></a></td>";
         echo "<td>".$data_skripsi[0]['NIM']."</td>";
         echo "<td>".$data_skripsi[0]['NAMA']."<span class='sts_mhs $mhs[STATUS_MAHASISWA]'>[".$mhs['STATUS_MAHASISWA']."]</span></td>";
         echo "<td>".$data_skripsi[0]['PEMBIMBING_1']."</td>";
         echo "<td>".$data_skripsi[0]['PEMBIMBING_2']."</td>";
         echo "<td class='upper'>".$data_skripsi[0]['JUDUL_SKRIPSI']."</td>";
-        echo "<td><a class='float-right' href='?p=peserta_skripsi&&i=edit&&id=".$data_skripsi[0]['NIM']."'><i class='fas fa-eye'></i></a></td>";
         echo "</tr>";
         }
     }
@@ -315,14 +317,14 @@ function tabel_peserta_skripsi($conn){
 function tabel_pembimbing_skripsi($conn){
     $data_dosen = get_pembimbing_skripsi($conn);   
     $no = 0;
+    
     foreach($data_dosen as $dosen){
-        
+
         $data_bimbingan = read_data_bimbingan($dosen,$conn);
         
-        $jml = array_sum($data_bimbingan);
-        // test($data_bimbingan);
-        // echo count($data_bimbingan);
-        if($jml != 0){
+        //$jml = array_sum($data_bimbingan);
+
+        //if($jml != 0){
             $no++;
             echo "<tr>";
             echo "<td>".$no."</td>";
@@ -333,7 +335,7 @@ function tabel_pembimbing_skripsi($conn){
             echo "<td>".$data_bimbingan['PENG_2']."</td>";
             echo "<td>".$jml."</td>";
             echo "</tr>";
-        }
+        //}
     }
 }
 //tabel prodi
@@ -427,5 +429,22 @@ function tabel_kehadiran_mhs($periode,$conn){
         }
     }
 }
+//tabel honor skripsi
+function tabel_honor($status,$conn){
+    $fil = "tabel_skripsi.NIM = tabel_mhs.NIM AND tabel_mhs.STATUS_MAHASISWA = '$status' GROUP BY tabel_mhs.NIM";
+    $data = select_where("tabel_skripsi,tabel_mhs",$fil,$conn);
 
+    foreach($data as $d){
+        $sts = $d['STATUS_MAHASISWA'];
+        echo "<tr>";
+        echo "<td><button class='btn btn-sm btn-default'><i class='fa-solid fa-pen-to-square'></i></button></td>";
+        echo "<td>$d[NIM]</td>";
+        echo "<td>$d[NAMA]</td>";
+        echo "<td><span class='sts_mhs $sts'>$sts<span></td>";
+        echo "<td>$d[JUDUL_SKRIPSI]</td>";
+        echo "<td>".sts_honor($d['NIM'],"pem",$conn)."</td>";
+        echo "<td>".sts_honor($d['NIM'],"peng",$conn)."</td>";
+        echo "</tr>";
+    }
+}
 ?>

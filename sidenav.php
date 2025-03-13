@@ -154,77 +154,13 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item has-treeview ">
-                    <a href="#" class="nav-link">
+                <li class="nav-item ">
+                    <a href="?p=laporan" class="nav-link" data-page="laporan">
                         <i class="fa-solid fa-square-poll-vertical nav-icon"></i>
                         <p>
                             Laporan
-                            <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
-                    <ul class="nav nav-treeview bg-white">
-                        <li class="nav-item">
-                            <a href="?p=kegiatan_mhs" class="nav-link" data-page="kegiatan_mhs">
-                            <i class="fa-solid fa-chart-column nav-icon"></i>
-                                <p>
-                                    Kegiatan Mahasiswa
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="?p=gpm" class="nav-link" data-page="gpm">
-                            <i class="fa-solid fa-chart-column nav-icon"></i>
-                                <p>GPM</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="?p=rekap_nilai_mhs" class="nav-link" data-page="rekap_nilai_mhs">
-                            <i class="fa-solid fa-chart-column nav-icon"></i>
-                                <p>Nilai Mahasiswa</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                    <a href="?p=jurnal" class="nav-link" data-page="jurnal">
-                    <i class="fa-solid fa-chart-column nav-icon"></i>
-                        <p>
-                            Artikel
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                        <a href="?p=penelitian" class="nav-link" data-page="penelitian">
-                        <i class="fa-solid fa-chart-column nav-icon"></i>
-                            <p>
-                                Penelitian Dosen
-                            </p>
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="?p=pengabdian" class="nav-link" data-page="pengabdian">
-                        <i class="fa-solid fa-chart-column nav-icon"></i>
-                            <p>
-                                Pengabdian Dosen
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="?p=rekap_hki" class="nav-link" data-page="rekap_hki">
-                        <i class="fa-solid fa-chart-column nav-icon"></i>
-                            <p>
-                                HKI
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="?p=rekap_iku" class="nav-link" data-page="rekap_iku">
-                        <i class="fa-solid fa-chart-column nav-icon"></i>
-                            <p>
-                                IKU
-                            </p>
-                        </a>
-                    </li>
-                    </ul>
                 </li>
                 <li class="nav-item has-treeview ">
                     <a href="#" class="nav-link">

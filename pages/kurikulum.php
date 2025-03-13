@@ -18,17 +18,20 @@ if(isset($_GET['i'])){
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="font-weight-light">Daftar Kurikulum</h4>
+                            <h4 class="font-weight-light">Daftar Kurikulum <button class='btn btn-sm btn-primary'><i class='fa-solid fa-plus'></i></button></h4>
                         </div>
                         <div class="card-body">
                             <table id="tabel" class="table  table-hover">
                                 <thead>
                                     <tr>
-                                        <th>NO</th>
+                                        <th>OPSI</th>
                                         <th>ID</th>
                                         <th>NAMA</th>
                                         <th>ANGKATAN</th>
-					<th>MATAKULIAH</th>
+					<th>SKS DITAWARKAN</th>
+					<th>SKS WAJIB</th>
+					<th>SKS PILIHAN (MIN)</th>
+					<th>MATA KULIAH</th>
                                     </tr>
                                 </thead>
                                 <tbody>
