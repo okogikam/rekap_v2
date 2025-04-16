@@ -5,7 +5,7 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item">
-            <h2 class="font-weight-light">Dashboard Admin</h2>
+            <h2 class="font-weight-light">Program Studi Pendidikan Komputer</h2>
         </li>
     </ul>
     <!-- Right navbar links -->

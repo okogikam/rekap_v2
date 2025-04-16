@@ -13,6 +13,10 @@ if(isset($_GET['id'])){
             <div class="pt-5">
                 <h2 class="text-center">Dosen<br> <?php echo $id_dsn; ?></h2>
             </div>
+	   
+	    <section class="card">
+	    <div class="card-header"><button class="btn btn-default" onclick="history.back()">Kembali</button></div>
+	    <div class="card-body">
             <h2 class="font-weight-light">Mahasiswa Aktif</h2>
             <div class="row">
                 <div class="col-sm-12">
@@ -24,6 +28,7 @@ if(isset($_GET['id'])){
                             <table class="table tabel table-hover" id="tabel_1">
                                 <thead>
                                     <tr>
+                                        <th>Opsi</th>
                                         <th>NIM</th>
                                         <th>Nama</th>
                                         <th>Status</th>
@@ -46,6 +51,7 @@ if(isset($_GET['id'])){
                             <table class="table tabel table-hover" id="tabel_2">
                                 <thead>
                                     <tr>
+                                        <th>Opsi</th>
                                         <th>NIM</th>
                                         <th>Nama</th>
                                         <th>Status</th>
@@ -61,6 +67,7 @@ if(isset($_GET['id'])){
                 </div>
             </div>
             <!-- /.row -->
+	    <hr />
             <h2 class="font-weight-light">Mahasiswa Lulus</h2>
             <div class="row">
                 <div class="col-sm-12">
@@ -72,6 +79,7 @@ if(isset($_GET['id'])){
                             <table class="table tabel table-hover" id="tabel_3">
                                 <thead>
                                     <tr>
+                                        <th>Opsi</th>
                                         <th>NIM</th>
                                         <th>Nama</th>
                                         <th>Status</th>
@@ -94,6 +102,7 @@ if(isset($_GET['id'])){
                             <table class="table tabel table-hover" id="tabel_4">
                                 <thead>
                                     <tr>
+                                        <th>Opsi</th>
                                         <th>NIM</th>
                                         <th>Nama</th>
                                         <th>Status</th>
@@ -109,6 +118,8 @@ if(isset($_GET['id'])){
                 </div>
             </div>
             <!-- /.row -->
+	    </div>
+	    </section>
         </div>
         <!-- /.container-fluid -->
     </div>

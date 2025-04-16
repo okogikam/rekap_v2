@@ -21,6 +21,9 @@ require_once "./rot/function.php";
     <link rel="stylesheet" href="./plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="./plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="./plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+ <!-- Select2 -->
+  <link rel="stylesheet" href="./plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="./plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
     <!-- chart  -->
      <link rel="stylesheet" href="./plugins/chart.js/Chart.min.css">
     <!-- Theme style -->
@@ -115,6 +118,8 @@ require_once "./rot/function.php";
     <!-- DataTables  & Plugins -->
     <script src="./plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="./plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<!-- Select2 -->
+<script src="./plugins/select2/js/select2.full.min.js"></script>
     <script src="./plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
     <script src="./plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
     <script src="./plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
@@ -141,6 +146,14 @@ require_once "./rot/function.php";
                 ['Insert', ['link']]
             ]
         });
+	
+	//Initialize Select2 Elements
+    	$('.select2').select2();
+
+    	//Initialize Select2 Elements
+    	$('.select2bs4').select2({
+    	  theme: 'bootstrap4'
+   	 });
     })
     </script>
 

@@ -4,6 +4,8 @@ $periode = select_where("tabel_kehadiran",$query,$conn);
 $per_now = "";
 if(isset($_GET['s'])){
     $per_now = get_input($_GET['s']);
+    $query2 = "PERIODE = '$per_now' GROUP BY PERIODE ORDER BY PERIODE DESC";
+    $update = select_where("tabel_kehadiran",$query2,$conn);
 }
 if(isset($_GET['i'])){
     $i = get_input($_GET['i']);
@@ -22,8 +24,9 @@ if(isset($_GET['i'])){
             </div>
             <div class="row">
 <div class="card col-sm-12">
-    <div class="card-header">        
-        <div class="float-right">
+    <div class="card-header row">
+	<div class="col-sm-6"><h3><?php if(isset($update)){ echo "Update: ". $update[0]['LAST_UPDATE']; } ?></h3></div>        
+        <div class="col-sm-6">
         <form action="./" method="get" class="text-right">
                 <span class="form-group">
                     <select name="s">
@@ -51,8 +54,8 @@ if(isset($_GET['i'])){
                 <tr>
                     <th>NIM</th>
                     <th>Nama</th>
-                    <th>Mata Kuliah</th>
 		    <th>Nama Kelas</th>
+                    <th>Mata Kuliah</th>
                     <th>Pertemuan</th>
                     <th>Hadir</th>
 		    <th>I</th>
@@ -60,7 +63,7 @@ if(isset($_GET['i'])){
 		    <th>A</th>
                     <th>Tidak hadir</th>
                     <th>% Hadir</th>
-                    <th>Opsi</th>
+                    <th>% Tdk Hadir</th>
                 </tr>
             </thead>
             <tbody>

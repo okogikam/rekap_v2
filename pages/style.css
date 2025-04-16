@@ -1,3 +1,6 @@
+:root {
+ --primary: #3f6791;
+}
 .catatan {
   max-height: 80vh;
   overflow-y: scroll;

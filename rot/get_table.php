@@ -57,7 +57,7 @@ function tabel_jumlah_mhs_angkatan($conn){
     $tabel_header = array('Angkatan','Aktif','Lulus','Keluar','Pindah','Total');
 
     tabel_start($tabel_header);
-    for($i=0;$i<(count($data_angkatan)/2); $i++){
+    for($i=0;$i<ceil(count($data_angkatan)/2); $i++){
 	$angkatan = $data_angkatan[$i];
 $filter = "ANGKATAN ='".$angkatan['ANGKATAN']."' && STATUS_MAHASISWA !='mbkm'";
         $mhs_angkatan = select_where("tabel_mhs",$filter,$conn);
@@ -84,7 +84,7 @@ $filter = "ANGKATAN ='".$angkatan['ANGKATAN']."' && STATUS_MAHASISWA !='mbkm'";
     }
     tabel_end();
     tabel_start($tabel_header);
-    for($j=(count($data_angkatan)/2);$j<count($data_angkatan); $j++){
+    for($j=ceil(count($data_angkatan)/2);$j<count($data_angkatan); $j++){
 	$angkatan = $data_angkatan[$j];
 $filter = "ANGKATAN ='".$angkatan['ANGKATAN']."' && STATUS_MAHASISWA !='mbkm'";
         $mhs_angkatan = select_where("tabel_mhs",$filter,$conn);
@@ -274,10 +274,15 @@ function tabel_mk_wajib($nim,$conn){
     if(is_array($data_mk)){
        tabel_start_mk();
         foreach($data_mk as $mk){
+	    $status_mengulang = select_where('tabel_nilai_mk',"NIM='$nim' AND KODE_MATA_KULIAH='$mk[KODE]'",$conn);
             $no++;
             $nilai_mk = nilai_mk($nim,$mk['KODE'],$mk['NAMA_KURIKULUM'],$conn);
             echo "<tr>";
+	    if($status_mengulang != 0  && count($status_mengulang) > 1){
+            echo "<td class='bg-warning'>".$no."</td>";
+	    }else{
             echo "<td>".$no."</td>";
+	    }
             echo "<td>".$mk['KODE']."</td>";
             echo "<td><a href='?p=lulus_mk&i=edit&id=$nim&mk=$mk[KODE]&k=$mk[NAMA_KURIKULUM]'>".$mk['NAMA_MATA_KULIAH']."</a></td>";
             echo "<td>".$mk['SKS']."</td>";
@@ -314,28 +319,28 @@ function tabel_peserta_skripsi($status,$conn){
     }
 }
 // tabel pembimbing skripsi 
-function tabel_pembimbing_skripsi($conn){
+function tabel_pembimbing_skripsi($sts_mhs,$conn){
     $data_dosen = get_pembimbing_skripsi($conn);   
     $no = 0;
     
     foreach($data_dosen as $dosen){
+	
+        $data_bimbingan = read_data_bimbingan($sts_mhs,$dosen['NAMA'],$conn);
 
-        $data_bimbingan = read_data_bimbingan($dosen,$conn);
-        
-        //$jml = array_sum($data_bimbingan);
+        $jml = array_sum($data_bimbingan);
 
-        //if($jml != 0){
+        if($jml != 0){
             $no++;
             echo "<tr>";
-            echo "<td>".$no."</td>";
-            echo "<td><a href='?p=pembimbing&&i=edit&&id=$dosen'>".$dosen."</a></td>";
+            echo "<td><a class='btn btn-sm btn-default' href='?p=pembimbing&i=edit&id=$dosen[NAMA]'><i class='fa-solid fa-pen-to-square'></i></a></td>";
+            echo "<td>$dosen[NAMA]</td>";
             echo "<td>".$data_bimbingan['PEMB_1']."</td>";
             echo "<td>".$data_bimbingan['PEMB_2']."</td>";
             echo "<td>".$data_bimbingan['PENG_1']."</td>";
             echo "<td>".$data_bimbingan['PENG_2']."</td>";
             echo "<td>".$jml."</td>";
             echo "</tr>";
-        //}
+        }
     }
 }
 //tabel prodi
@@ -394,18 +399,24 @@ function tabel_kehadiran_mhs($periode,$conn){
         $data = select_where("tabel_kehadiran",$fil,$conn);
         foreach($data as $d){
             $nim = $d['NIM']."_".$d['KODE_MATA_KULIAH']."_".$d['NAMA_KELAS'];
-            if($d['JUMLAH_PERTEMUAN'] != 0){
+            if($d['DOSEN_PENGAMPU'] != '' && $d['DOSEN_PENGAMPU'] != null){
+		if($d['JUMLAH_PERTEMUAN'] == 0) {
+			$d['JUMLAH_PERTEMUAN'] = 1; 
+			$d['HADIR'] = 1; 
+		}
                 $per = number_format((float)($d['HADIR'] * 100 / $d['JUMLAH_PERTEMUAN']),2);
+		$per2 = number_format((float)(100 - $per),2);
                 $kh[$nim]['NIM'] = $d['NIM'];
                 $kh[$nim]['NAMA'] = $d['NAMA_MAHASISWA'];
 	        $kh[$nim]['KELAS'] = $d['NAMA_KELAS'];
                 $kh[$nim]['PER'] = $per;
+		$kh[$nim]['PER2'] = $per2;
                 $kh[$nim]['HADIR'] = $d['HADIR'];
 		$kh[$nim]['IZIN'] = $d['IZIN'];
 		$kh[$nim]['TANPA_KETERANGAN'] = $d['TANPA_KETERANGAN'];
 		$kh[$nim]['SAKIT'] = $d['SAKIT'];
                 $kh[$nim]['TIDAK_HADIR'] = $d['IZIN'] + $d['TANPA_KETERANGAN'] + $d['SAKIT'];
-                $kh[$nim]['MK'] = $d['NAMA_MATA_KULIAH'];
+                $kh[$nim]['MK'] = $d['NAMA_MATA_KULIAH'] . "<br> (". $d['KODE_MATA_KULIAH'].")";
                 $kh[$nim]['JML'] = $d['JUMLAH_PERTEMUAN'];
                 
             }
@@ -423,8 +434,8 @@ function tabel_kehadiran_mhs($periode,$conn){
 	    echo "<td>".$k['SAKIT']."</td>";
 	    echo "<td>".$k['TANPA_KETERANGAN']."</td>";
             echo "<td>".$k['TIDAK_HADIR']."</td>";
-            echo "<td>".$k['PER']."</td>";
-            echo "<td><a class='float-right' href='?p=kehadiran&&i=edit&&id=".$nim."'><i class='fas fa-eye'></i></a></td>";
+            echo "<td>".$k['PER']."%</td>";
+            echo "<td>".$k['PER2']."%</td>";
             echo "</tr>";
         }
     }
@@ -447,4 +458,116 @@ function tabel_honor($status,$conn){
         echo "</tr>";
     }
 }
+// tabel rekap IPK mahasiswa persemester
+function tabel_rekap_nilai_ipk($periode,$conn){
+    if($periode == "" || $periode == null){ return; }
+    $fil = "PERIODE = '$periode' AND  STATUS_MAHASISWA != '' ORDER BY IPK DESC";
+    $data = select_where("tabel_nilai_ipk",$fil,$conn);
+
+    foreach($data as $d){
+        echo "<tr>";
+        echo "<td><a class='btn btn-sm btn-default' href='?p=rekap_ipk&i=edit&id=$d[NIM]'><i class='fa-solid fa-pen-to-square'></i></a></td>";
+        echo "<td>$d[NIM]</td>";
+        echo "<td>$d[NAMA]</td>";
+        echo "<td>".number_format((float)$d['IP_SEMESTER'],2)."</td>";
+        echo "<td>".number_format((float)$d['IPK'],2)."</td>";
+        echo "</tr>";
+    }
+}
+function tabel_rekap_ipk($periode,$conn){
+    if($periode == "" || $periode == null){ return; }
+    $fil = "PERIODE = '$periode' AND STATUS_MAHASISWA != '' ORDER BY IPK DESC";
+    $data = select_where("tabel_nilai_ipk",$fil,$conn);
+    $rekap_ipk = array('&gt; 3,00'=>0,'2,76 - 3,00'=>0,'&lt; 2,76'=>0);
+    $jml = count($data);
+    foreach($data as $d){
+	$ipk = number_format((float)$d['IPK'],2);
+        switch($ipk){
+	    case($ipk < 2.76):
+		$rekap_ipk['&lt; 2,76']++;
+		break;
+	    case($ipk > 3):
+		$rekap_ipk['&gt; 3,00']++;
+		break;	    
+	    default:
+		$rekap_ipk['2,76 - 3,00']++;
+		break;
+	}
+    }
+    foreach($rekap_ipk as $ket=>$nilai){
+	echo "<tr>";
+        echo "<td>$ket</td>";
+        echo "<td>$nilai</td>";
+	echo "<td>".number_format((float)($nilai/$jml)*100 ,2)."&percnt;</td>";
+        echo "</tr>";
+    }
+}
+ function tabel_detail_ipk($nim,$conn){
+   $fill = "NIM = '$nim' AND STATUS_MAHASISWA !='' ORDER BY PERIODE";
+   $data_ipk = select_where("tabel_nilai_ipk",$fill,$conn);
+
+   echo "<div>";
+   echo "<table class='table tabel table-hover'>";
+   echo "<thead><tr><th>Keterangan</th>";
+
+   foreach($data_ipk as $d_ipk){
+	echo "<th>$d_ipk[PERIODE]</th>";
+   }
+   echo "</tr></thead>";
+   echo "</tbody>";
+   echo "<tr><td>SKS Semester</td>";
+   foreach($data_ipk as $d_ipk){
+	echo "<td>".$d_ipk['SKS_SEMESTER']."</td>";
+   }
+   echo "</tr>";
+   echo "<tr><td>Status</td>";
+   foreach($data_ipk as $d_ipk){
+	echo "<td>".$d_ipk['STATUS_MAHASISWA']."</td>";
+   }
+   echo "</tr>";
+   echo "</tr>";
+   echo "<tr><td>IP Semester</td>";
+   foreach($data_ipk as $d_ipk){
+	echo "<td>".number_format((float)$d_ipk['IP_SEMESTER'],2)."</td>";
+   }
+   echo "</tr>";
+   echo "<tr><td>IPK</td>";
+   foreach($data_ipk as $d_ipk){
+	echo "<td>".number_format((float)$d_ipk['IPK'],2)."</td>";
+   }
+   echo "</tr>";
+   
+   tabel_end();
+}
+// tabel laporan 
+function tabel_link_laporan($conn){
+   $laporan = select_all('tabel_gsheet',$conn);
+   Foreach($laporan as $l){
+      echo "<div class='col-3'>";
+	echo "<a href='?p=laporan&i=edit&id=$l[ID_SHEET]'>";
+	echo "<div class='card'>";
+	echo "<div class='card-header text-center' style='background-color: var(--primary)' >$l[NAMA_SHEET]</div>";
+	echo "<div class='card-body'>$l[KETERANGAN]</div>";
+	echo "</div>";
+	echo "</a>";
+      echo "</div>";
+   }
+}
+// tabel mahasiswa beasiswa
+function tabel_beasiswa(){
+    global $conn;
+    $data = select_where("tabel_mhs","STATUS_MAHASISWA='Aktif' AND BEASISWA !=''",$conn);
+    foreach($data as $mhs){
+        $ipk = get_nilai_mhs($mhs['NIM'],$conn);
+        $ipk = number_format((float)$ipk['IPK'],2);
+        echo "<tr>";
+        echo "<td>$mhs[NIM]</td>";
+        echo "<td>$mhs[NAMA]</td>";
+        echo "<td>$mhs[ANGKATAN]</td>";
+        echo "<td>$mhs[BEASISWA]</td>";
+        echo "<td>$ipk</td>";
+        echo "</tr>";
+    }
+}
+
 ?>

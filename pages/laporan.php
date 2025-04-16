@@ -1,3 +1,11 @@
+<?php
+if(isset($_GET['i'])){
+    $i = get_input($_GET['i']);
+    $p = get_input($_GET['p']);
+    include_once "./pages/$i/".$i."_".$p.".php";
+}else{
+
+?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 
@@ -8,34 +16,12 @@
                 <h2 class="text-center font-weight-light">Laporan </h2>
             </div>
 	    <div class="row">
-		<div class="card">
+		<div class="card col-12">
 		    <div class="card-header">Tambah <button class='btn btn-sm btn-primary'><i class='fa-solid fa-plus'></i></button></div>
 		    <div class="card-body">
 			<div class="row">
-                <div class="col-sm-3">
-		   <h3><button class="col-12 btn btn-primary">IKU</button></h3>
-		</div>
-                <div class="col-sm-3">
-		   <h3><button class="col-12 btn btn-primary">HKI</button></h3>
-		</div>
-                <div class="col-sm-3">
-		   <h3><button class="col-12 btn btn-primary">Penelitian Dosen</button></h3>
-		</div>
-                <div class="col-sm-3">
-		   <h3><button class="col-12 btn btn-primary">Pengabdian Dosen</button></h3>
-		</div>
-                <div class="col-sm-3">
-		   <h3><button class="col-12 btn btn-primary">Jurnal Mahasiswa</button></h3>
-		</div>
-                <div class="col-sm-3">
-		   <h3><button class="col-12 btn btn-primary">Tracer Studi</button></h3>
-		</div>
-                <div class="col-sm-3">
-		   <h3><button class="col-12 btn btn-primary">Angket Kepuasan Layanan Akademik</button></h3></div>
-                <div class="col-sm-3">
-		   <h3><button class="col-12 btn btn-primary">Angket Pemahaman Visi Misi</button></h3>
-		</div>
-            </div>
+             		    <?php tabel_link_laporan($conn); ?>
+            		</div>
 		    </div>
 		</div>
 	    </div>
@@ -84,3 +70,6 @@ label:['Tahun','Nama kegiatan','Ketua','Anggota','Anggaran','Laporan','Ket'],
  })    
    
     </script>
+<?php
+}
+?>

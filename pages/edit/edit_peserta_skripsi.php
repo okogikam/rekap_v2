@@ -18,7 +18,7 @@ if(isset($_GET['id'])){
                 <div class="col-sm-12 p-3">
                     <form action="" method="POST" class="card">
                         <div class="card-header">
-                            <a href="?p=peserta_skripsi" class="btn btn-default">Kembali</a>
+                            <button onclick="history.back()" class="btn btn-default">Kembali</button>
                             <input class="btn btn-primary" type="submit" value="Simpan">
                         </div>
                         <div class="card-body">

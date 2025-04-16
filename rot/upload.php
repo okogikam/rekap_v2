@@ -3,7 +3,7 @@
 // upload data mahasiswa 
 function upload_mhs($data, $conn){    
     $mak = count($data);
-    $cols = "NO,NIM,NIK,NAMA,FAKULTAS,PROGRAM_STUDI,ANGKATAN,JENIS_KELAMIN,TEMPAT_LAHIR,TANGGAL_LAHIR,AGAMA,STATUS_NIKAH,NO_TELEPON,NO_HP,EMAIL,JALUR_MASUK,ALAMAT,KOTA,PROPINSI,KODE_POS,STATUS_TEMPAT_TINGGAL,PEMBIAYAAN_KULIAH,TINGGI_BADAN_CM,BERAT_BADAN_KG,GOL_DARAH,ASAL_SEKOLAH,KOTA_SEKOLAH,TOTAL_NILAI_UN,RATA_NILAI_UN,MASUK_S1,TAMAT_S1,PERGURUAN_TINGGI_S1,FAKULTAS_S1,PRODI_S1,IPK_S1,GELAR_S1,NIK_AYAH,NAMA_AYAH,NIK_IBU,NAMA_IBU,STATUS_AYAH,STATUS_IBU,TELEPON_ORTU,ALAMAT_ORTU,PEKERJAAN_AYAH,PEKERJAAN_IBU,PENGHASILAN_ORTU,JUMLAH_TANGGUNGAN_ORTU,NAMA_WALI,ALAMAT_WALI,TELEPON_WALI,NOMOR_TES,SEMESTER_MASUK,JENIS_PENDAFTARAN,STATUS_MAHASISWA,SEMESTER_KELUAR";
+    $cols = "NO,NIM,NIK,NAMA,FAKULTAS,PROGRAM_STUDI,ANGKATAN,JENIS_KELAMIN,TEMPAT_LAHIR,TANGGAL_LAHIR,AGAMA,STATUS_NIKAH,NO_TELEPON,NO_HP,EMAIL,JALUR_MASUK,ALAMAT,KOTA,PROPINSI,KODE_POS,STATUS_TEMPAT_TINGGAL,PEMBIAYAAN_KULIAH,TINGGI_BADAN_CM,BERAT_BADAN_KG,GOL_DARAH,ASAL_SEKOLAH,KOTA_SEKOLAH,TOTAL_NILAI_UN,RATA_NILAI_UN,MASUK_S1,TAMAT_S1,PERGURUAN_TINGGI_S1,FAKULTAS_S1,PRODI_S1,IPK_S1,GELAR_S1,NIK_AYAH,NAMA_AYAH,NIK_IBU,NAMA_IBU,STATUS_AYAH,STATUS_IBU,TELEPON_ORTU,ALAMAT_ORTU,PEKERJAAN_AYAH,PEKERJAAN_IBU,PENGHASILAN_ORTU,JUMLAH_TANGGUNGAN_ORTU,NAMA_WALI,ALAMAT_WALI,TELEPON_WALI,NOMOR_TES,SEMESTER_MASUK,JENIS_PENDAFTARAN,STATUS_MAHASISWA,SEMESTER_KELUAR,BEASISWA";
     $header = explode(",",$cols);
     if($data[0] == $header){        
         for($x=2;$x<$mak;$x++){
@@ -231,7 +231,7 @@ function upload_ipk($data, $conn){
 // upload kehadiran 
 function upload_kehadiran($data, $conn){    
     $mak = count($data);
-    $text = "NO,PERIODE,NIM,NAMA_MAHASISWA,KODE_MATA_KULIAH,NAMA_MATA_KULIAH,NAMA_KELAS,DOSEN_PENGAMPU,JUMLAH_PERTEMUAN,HADIR,TANPA_KETERANGAN,IZIN,SAKIT";
+    $text = "NO,PERIODE,NIM,NAMA_MAHASISWA,KODE_MATA_KULIAH,NAMA_MATA_KULIAH,NAMA_KELAS,DOSEN_PENGAMPU,JUMLAH_PERTEMUAN,HADIR,TANPA_KETERANGAN,IZIN,SAKIT,LAST_UPDATE";
     $header = explode(",",$text);
     if($data[0] === $header){        
         for($x=2;$x<$mak;$x++){
@@ -245,8 +245,8 @@ function upload_kehadiran($data, $conn){
                 $tabel = "tabel_kehadiran";
                 $cek = cek($whare,$tabel,$conn);
                 if($cek['result'] == "tdk_ada"){
-                    $col = "PERIODE,NIM,NAMA_MAHASISWA,KODE_MATA_KULIAH,NAMA_MATA_KULIAH,NAMA_KELAS,DOSEN_PENGAMPU,JUMLAH_PERTEMUAN,HADIR,TANPA_KETERANGAN,IZIN,SAKIT";
-                    $value = "'$d[1]','$d[2]','$d[3]','$d[4]','$d[5]','$d[6]','$d[7]','$d[8]','$d[9]','$d[10]','$d[11]','$d[12]'";
+                    $col = "PERIODE,NIM,NAMA_MAHASISWA,KODE_MATA_KULIAH,NAMA_MATA_KULIAH,NAMA_KELAS,DOSEN_PENGAMPU,JUMLAH_PERTEMUAN,HADIR,TANPA_KETERANGAN,IZIN,SAKIT,LAST_UPDATE";
+                    $value = "'$d[1]','$d[2]','$d[3]','$d[4]','$d[5]','$d[6]','$d[7]','$d[8]','$d[9]','$d[10]','$d[11]','$d[12]','$d[13]'";
                     $query = "INSERT INTO $tabel($col) VALUES($value)";
                     $result = $conn->query($query);
                     if(!$result){
@@ -259,8 +259,8 @@ function upload_kehadiran($data, $conn){
                         $hasil[$no]['catatan'] = "Data berhasil disimpan";
                     }
                 }else{
-                    $col = "PERIODE,NIM,NAMA_MAHASISWA,KODE_MATA_KULIAH,NAMA_MATA_KULIAH,NAMA_KELAS,DOSEN_PENGAMPU,JUMLAH_PERTEMUAN,HADIR,TANPA_KETERANGAN,IZIN,SAKIT";
-                    $value = "'$d[1]'#&#'$d[2]'#&#'$d[3]'#&#'$d[4]'#&#'$d[5]'#&#'$d[6]'#&#'$d[7]'#&#'$d[8]'#&#'$d[9]'#&#'$d[10]'#&#'$d[11]'#&#'$d[12]'";
+                    $col = "PERIODE,NIM,NAMA_MAHASISWA,KODE_MATA_KULIAH,NAMA_MATA_KULIAH,NAMA_KELAS,DOSEN_PENGAMPU,JUMLAH_PERTEMUAN,HADIR,TANPA_KETERANGAN,IZIN,SAKIT,LAST_UPDATE";
+                    $value = "'$d[1]'#&#'$d[2]'#&#'$d[3]'#&#'$d[4]'#&#'$d[5]'#&#'$d[6]'#&#'$d[7]'#&#'$d[8]'#&#'$d[9]'#&#'$d[10]'#&#'$d[11]'#&#'$d[12]'#&#'$d[13]'";
                     $hsl_update = update_data($tabel,$cek['id'],$col,$value,$conn);
                     $hasil[$no]['NO'] = $d[0];
                     $hasil [$no]['result'] = "Succes";

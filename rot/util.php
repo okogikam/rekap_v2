@@ -391,26 +391,31 @@ function read_data_matakuliah($kurikulum,$conn){
     }
     return $hasil_akhir;
 }
-function read_data_bimbingan($dosen,$conn){
+function read_data_bimbingan($sts_mhs,$dosen,$conn){
+    $dosen = explode("'",$dosen);
     $bimbingan = array("PEMB_1"=> 0, "PEMB_2"=> 0, "PENG_1"=> 0 , "PENG_2"=> 0);
-    // $fill_1 = "PEMBIMBING_1 LIKE '%$dosen%' AND STATUS_MAHASISWA ='Aktif'";
-$fill_1 = "PEMBIMBING_1 = '$dosen'";
-    $pemb_1 = select_where('tabel_skripsi',$fill_1,$conn);
-    //foreach($pemb_1 as $pb1){
-    $bimbingan['PEMB_1'] = count(array($pemb_1)); 
-    //}
-    //test($pemb_1);     
+    $fil_1 = "tabel_skripsi.NIM = tabel_mhs.NIM AND tabel_mhs.STATUS_MAHASISWA='$sts_mhs' AND tabel_skripsi.PEMBIMBING_1 LIKE '%$dosen[0]%' GROUP BY tabel_skripsi.NIM";
+    $data_1 = select_where("tabel_skripsi,tabel_mhs",$fil_1,$conn);    
+    $fil_2 = "tabel_skripsi.NIM = tabel_mhs.NIM AND tabel_mhs.STATUS_MAHASISWA='$sts_mhs' AND tabel_skripsi.PEMBIMBING_2 LIKE '%$dosen[0]%' GROUP BY tabel_skripsi.NIM";
+    $data_2 = select_where("tabel_skripsi,tabel_mhs",$fil_2,$conn);
+    $fil_3 = "tabel_skripsi.NIM = tabel_mhs.NIM AND tabel_mhs.STATUS_MAHASISWA='$sts_mhs' AND tabel_skripsi.PENGUJI_1 LIKE '%$dosen[0]%' GROUP BY tabel_skripsi.NIM";
+    $data_3 = select_where("tabel_skripsi,tabel_mhs",$fil_3,$conn);    
+    $fil_4 = "tabel_skripsi.NIM = tabel_mhs.NIM AND tabel_mhs.STATUS_MAHASISWA='$sts_mhs' AND tabel_skripsi.PENGUJI_2 LIKE '%$dosen[0]%' GROUP BY tabel_skripsi.NIM";
+    $data_4 = select_where("tabel_skripsi,tabel_mhs",$fil_4,$conn);
+
+   $bimbingan['PEMB_1'] = is_array($data_1)? count($data_1): 0;  
+   $bimbingan['PEMB_2'] = is_array($data_2)? count($data_2): 0;
+   $bimbingan['PENG_1'] = is_array($data_3)? count($data_3): 0;  
+   $bimbingan['PENG_2'] = is_array($data_4)? count($data_4): 0;
 
     return $bimbingan;
 }
 function get_pembimbing_skripsi($conn){
     $dosen = array();
-    $fil = "HOMEBASE = 'Pendidikan Komputer' AND STATUS='Aktif'";
+    $fil = "NAMA !='' ORDER BY NIP";
     $data_dosen = select_where("tabel_dosen",$fil,$conn);
-    foreach($data_dosen as $dsn){
-	array_push($dosen,$dsn['NAMA']);
-    }
-    return $dosen;
+
+    return $data_dosen;
 }
 function cek($whare,$tabel,$conn){
     $sql = "SELECT * FROM $tabel WHERE $whare";
@@ -808,7 +813,7 @@ function tabel_keaktifan_mhs($angk,$conn){
                 $per[$p] = 1;
             }
         }
-        echo "<table id='tabel' class='table'>";
+        echo "<table class='table tabel tabel-hover'>";
         echo "<thead><tr><th>NIM</th><th>Nama</th>";
         foreach($per as $p=>$v){
             echo "<th>$p</th>";
@@ -870,18 +875,17 @@ function daftar_dsn_skripsi($conn){
 }
 
 function tabel_data_pem($sts_mhs,$id_dosen,$conn){
-    //$fil_1 = "NIP='$id_dosen'";
-    //$data_dosen = select_where("tabel_dosen",$fil_1,$conn);
-    //$nama = $data_dosen[0]['NAMA'];
-    $fil_2 = "tabel_skripsi.NIM = tabel_mhs.NIM AND tabel_mhs.STATUS_MAHASISWA='$sts_mhs' AND tabel_skripsi.PEMBIMBING_1='$id_dosen' GROUP BY tabel_skripsi.NIM";
+   
+    $fil_2 = "tabel_skripsi.NIM = tabel_mhs.NIM AND tabel_mhs.STATUS_MAHASISWA='$sts_mhs' AND tabel_skripsi.PEMBIMBING_1 LIKE '%$id_dosen%' GROUP BY tabel_skripsi.NIM";
     $data_1 = select_where("tabel_skripsi,tabel_mhs",$fil_2,$conn);
     
-    $fil_3 = "tabel_skripsi.NIM = tabel_mhs.NIM AND tabel_mhs.STATUS_MAHASISWA='$sts_mhs' AND tabel_skripsi.PEMBIMBING_2='$id_dosen' GROUP BY tabel_skripsi.NIM";
+    $fil_3 = "tabel_skripsi.NIM = tabel_mhs.NIM AND tabel_mhs.STATUS_MAHASISWA='$sts_mhs' AND tabel_skripsi.PEMBIMBING_2 LIKE '%$id_dosen%' GROUP BY tabel_skripsi.NIM";
     $data_2 = select_where("tabel_skripsi,tabel_mhs",$fil_3,$conn);
     
     if(is_array($data_1)){
         foreach($data_1 as $d){
             echo "<tr>";
+	    echo "<td><a class='btn btn-sm btn-default' href='?p=peserta_skripsi&i=edit&id=".$d['NIM']."'><i class='fa-solid fa-pen-to-square'></i></a></td>";
             echo "<td>$d[NIM]</td>";
             echo "<td>".get_output($d['NAMA'])."</td><td><p class='ml-0 sts_mhs Aktif'>Pembimbing_1</p></td>";
             echo "<td>$d[JUDUL_SKRIPSI]</td>";
@@ -891,6 +895,7 @@ function tabel_data_pem($sts_mhs,$id_dosen,$conn){
     if(is_array($data_2)){
         foreach($data_2 as $d){
             echo "<tr>";
+	    echo "<td><a class='btn btn-sm btn-default' href='?p=peserta_skripsi&i=edit&id=".$d['NIM']."'><i class='fa-solid fa-pen-to-square'></i></a></td>";
             echo "<td>$d[NIM]</td>";
             echo "<td>".get_output($d['NAMA'])."</td><td><p class='ml-0 sts_mhs'>Pembimbing_2</p></td>";
             echo "<td>$d[JUDUL_SKRIPSI]</td>";
@@ -902,14 +907,15 @@ function tabel_data_peng($sts_mhs,$id_dosen,$conn){
     //$fil_1 = "NIP='$id_dosen'";
     //$data_dosen = select_where("tabel_dosen",$fil_1,$conn);
     //$nama = $data_dosen[0]['NAMA'];
-    $fil_2 = "tabel_skripsi.NIM = tabel_mhs.NIM AND tabel_mhs.STATUS_MAHASISWA='$sts_mhs' AND tabel_skripsi.PENGUJI_1='$id_dosen' GROUP BY tabel_skripsi.NIM";
+    $fil_2 = "tabel_skripsi.NIM = tabel_mhs.NIM AND tabel_mhs.STATUS_MAHASISWA='$sts_mhs' AND tabel_skripsi.PENGUJI_1 LIKE '%$id_dosen%' GROUP BY tabel_skripsi.NIM";
     $data_1 = select_where("tabel_skripsi,tabel_mhs",$fil_2,$conn);
     
-    $fil_3 = "tabel_skripsi.NIM = tabel_mhs.NIM AND tabel_mhs.STATUS_MAHASISWA='$sts_mhs' AND tabel_skripsi.PENGUJI_2='$id_dosen' GROUP BY tabel_skripsi.NIM";
+    $fil_3 = "tabel_skripsi.NIM = tabel_mhs.NIM AND tabel_mhs.STATUS_MAHASISWA='$sts_mhs' AND tabel_skripsi.PENGUJI_2 LIKE '%$id_dosen%' GROUP BY tabel_skripsi.NIM";
     $data_2 = select_where("tabel_skripsi,tabel_mhs",$fil_3,$conn);
     if(is_array($data_1)){
         foreach($data_1 as $d){
             echo "<tr>";
+	    echo "<td><a class='btn btn-sm btn-default' href='?p=peserta_skripsi&i=edit&id=".$d['NIM']."'><i class='fa-solid fa-pen-to-square'></i></a></td>";
             echo "<td>$d[NIM]</td>";
             echo "<td>".get_output($d['NAMA'])."</td><td><p class='ml-0 sts_mhs Aktif'>Penguji_1</p></td>";
             echo "<td>$d[JUDUL_SKRIPSI]</td>";
@@ -919,6 +925,7 @@ function tabel_data_peng($sts_mhs,$id_dosen,$conn){
     if(is_array($data_2)){
         foreach($data_2 as $d){
             echo "<tr>";
+	    echo "<td><a class='btn btn-sm btn-default' href='?p=peserta_skripsi&i=edit&id=".$d['NIM']."'><i class='fa-solid fa-pen-to-square'></i></a></td>";
             echo "<td>$d[NIM]</td>";
             echo "<td>".get_output($d['NAMA'])."</td><td><p class='ml-0 sts_mhs'>Penguji_2</p></td>";
             echo "<td>$d[JUDUL_SKRIPSI]</td>";
@@ -1152,10 +1159,14 @@ function get_nilai_mhs($nim,$conn){
         $fil = "NIM='".$nim."' ORDER BY PERIODE DESC";
         $data_transkrip =  select_where("tabel_nilai_ipk",$fil,$conn);
         if(!is_array($data_transkrip)){return;}
+        $i = 0;
+        while($data_transkrip[$i]['IPK'] == '0' || $data_transkrip[$i]['IPK'] == null || null && $data_transkrip[$i]['IPK'] == ''){
+            $i++;
+        }
         //if($data_transkrip[0]['SKS_TOTAL'] == $data_transkrip[1]['SKS_TOTAL']){
         //   return $data_transkrip[1];
         //}
-        return $data_transkrip[0];
+        return $data_transkrip[$i];
 }
 function savecatatan($catatan,$tipe,$conn){
     $query = "INSERT INTO catatan(catatan,kepentingan) VALUES('$catatan','$tipe')";
@@ -1247,11 +1258,16 @@ function tabel_end(){
 function sks_belum_lulus($nim,$conn){
 	$sks['wajib'] = 0;
 	$kur = get_kurukulum($nim,$conn);
-if($kur == 'Kurikulum MBKM 2020'){
-	$sks['pilihan'] = 9;
-}else{
-	$sks['pilihan'] = 10;
-}
+	$fill_0 = "NAMA = '$kur' ";
+	$dt_kur = select_where('tabel_kurikulum',$fill_0,$conn);
+	$sks['pilihan'] = $dt_kur[0]['SKS_PILIHAN_LULUS'];
+//
+//if($kur == 'Kurikulum MBKM 2020'){
+//	$sks['pilihan'] = 9;
+//}else{
+//	$sks['pilihan'] = 10;
+//}
+//
     $fil_1 = "NAMA_KURIKULUM ='$kur' AND SIFAT_MATA_KULIAH='1'";
     $data_mk = select_where("tabel_mk",$fil_1,$conn);
  foreach($data_mk as $mk){
@@ -1368,9 +1384,20 @@ function tabel_kota_mhs($conn){
     $no = 0;
     foreach($mhs as $m){
         $kota = strtoupper($m['KOTA']);
-        $fil = "KOTA = '".$kota."'";
+	$fil = "KOTA = '".$kota."'";
         $jml = select_where("tabel_mhs",$fil,$conn);
+        $fil_1 = "KOTA = '".$kota."' AND STATUS_MAHASISWA = 'Aktif'";
+        $aktif = select_where("tabel_mhs",$fil_1,$conn);
+	$fil_2 = "KOTA = '".$kota."' AND STATUS_MAHASISWA = 'Lulus'";
+        $lulus = select_where("tabel_mhs",$fil_2,$conn);
+	$fil_3 = "KOTA = '".$kota."' AND STATUS_MAHASISWA != 'Lulus' AND STATUS_MAHASISWA != 'Aktif'";
+        $keluar = select_where("tabel_mhs",$fil_3,$conn);
+
         $asal_mhs[$kota]['nama'] = $kota;
+        $asal_mhs[$kota]['aktif'] = is_array($aktif)? count($aktif): 0;
+        $asal_mhs[$kota]['lulus'] = is_array($lulus)? count($lulus): 0;
+
+        $asal_mhs[$kota]['keluar'] = is_array($keluar)? count($keluar): 0;
         $asal_mhs[$kota]['jml'] = count($jml);
     }
 
@@ -1378,6 +1405,9 @@ function tabel_kota_mhs($conn){
     <thead>
         <tr>
             <th>Kota Asal</th>
+            <th class="text-right">Aktif</th>
+            <th class="text-right">Lulus</th>
+            <th class="text-right">Keluar</th>
             <th class="text-right">Jumlah</th>
         </tr>
     </thead>
@@ -1387,6 +1417,10 @@ function tabel_kota_mhs($conn){
             $no++;
             echo "<tr>";
             echo "<td>$k[nama]</td>";
+            echo "<td>$k[aktif]</td>";
+            echo "<td>$k[lulus]</td>";
+
+            echo "<td>$k[keluar]</td>";
             echo "<td>$k[jml]</td>";
             echo "</tr>";
             if($no == round(count($asal_mhs) / 2)){
@@ -1394,8 +1428,11 @@ function tabel_kota_mhs($conn){
                 echo '<div class="col-sm-6"> <table class="table  table-hover">
                     <thead>
                         <tr>
-                            <th>Kota Asal</th>
-                            <th class="text-right">Jumlah</th>
+                           <th>Kota Asal</th>
+           		   <th class="text-right">Aktif</th>
+         		   <th class="text-right">Lulus</th>
+         		   <th class="text-right">Keluar</th>
+         		   <th class="text-right">Jumlah</th>
                         </tr>
                     </thead>
                     <tbody>';

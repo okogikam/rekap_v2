@@ -51,6 +51,12 @@
                                 <p>Kurikulum</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="?p=beasiswa" class="nav-link" data-page="beasiswa">
+                                <i class="fas fa-user-graduate nav-icon"></i>
+                                <p>Beasiswa</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-item has-treeview ">
@@ -147,7 +153,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="?p=rekap_ipk" class="nav-link" data-page="ipk_mhs">
+                            <a href="?p=rekap_ipk" class="nav-link" data-page="rekap_ipk">
                             <i class="fa-solid fa-chart-simple nav-icon"></i>
                                 <p>IPK Mahasiswa</p>
                             </a>

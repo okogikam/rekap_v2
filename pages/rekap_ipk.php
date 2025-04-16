@@ -8,7 +8,7 @@ if(isset($_GET['s'])){
 if(isset($_GET['i'])){
     $i = get_input($_GET['i']);
     $p = get_input($_GET['p']);
-    include_once "./$i/".$i."_".$p.".php";
+    include_once "./pages/$i/".$i."_".$p.".php";
 }else{
 ?>
 <!-- Content Wrapper. Contains page content -->
@@ -51,7 +51,7 @@ if(isset($_GET['i'])){
                     <div class="card-body">
 			<div class="row">
 			    <div class="col-sm-9">
-			    <table id="tabel" class="table table-hover">
+			    <table class="table tabel table-hover">
                             <thead>
                                 <tr>
                                     <th>Opsi</th>
@@ -62,7 +62,7 @@ if(isset($_GET['i'])){
                                 </tr>
                             </thead>
                             <tbody>
-				
+				<?php  tabel_rekap_nilai_ipk($per_now,$conn); ?>
                             </tbody>
                         </table>
 			</div>
@@ -76,21 +76,7 @@ if(isset($_GET['i'])){
                                 </tr>
                             </thead>
                             <tbody>
-				<tr>
-				   <td>&gt; 3,00</td>
-	    			   <td></td>
-				   <td></td>
-				</tr>
-				<tr>
-				   <td>2,76 - 3,00</td>
-	    			   <td></td>
-				   <td></td>
-				</tr>
-				<tr>
-				   <td>&lt; 2,76</td>
-	    			   <td></td>
-				   <td></td>
-				</tr>
+				<?php tabel_rekap_ipk($per_now,$conn); ?>
                             </tbody>
 			</div>
 			</div>

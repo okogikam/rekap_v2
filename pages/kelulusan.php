@@ -11,12 +11,12 @@
                 <div class="card col-12">
                     <div class="card-header">
                         <button class="btn btn-primary" id="btn-plus"> <i class="nav-icon fas fa-plus"></i></button>
-                        <button class="btn btn-primary" id="btn-plus">
-                           <a https://docs.google.com/spreadsheets/d/1dlYRaAqCzFgZmHJJeiCIZqpRYsUqLNrPImyKtikjP9s/edit?gid=0#gid=0" target="_blank">
+                        <button class="btn btn-primary">
+                           <a href="https://docs.google.com/spreadsheets/d/1dlYRaAqCzFgZmHJJeiCIZqpRYsUqLNrPImyKtikjP9s" target="_blank">
                             <i class="nav-icon fas fa-external-link-alt"></i>
                            </a>
                         </button>
-			<button class="btn btn-success" id="btn-plus"> <i class="fa-solid fa-rotate"></i></button>
+			<button class="btn btn-success"> <i class="fa-solid fa-rotate"></i></button>
                     </div>
                     <div class="card-body">
                         <table id="table" class="table table-hover">
@@ -55,7 +55,7 @@
     element: document.querySelector("#table"),
     id: "1dlYRaAqCzFgZmHJJeiCIZqpRYsUqLNrPImyKtikjP9s",
     dataShow: 8,
-label:['NIM','Nama','Masuk','Lulus','Smt Lulus','Masa Studi','IPK'],
+label:['NIM','Nama','Masuk','Lulus','Smt Lulus','Masa Studi (Tahun)','IPK'],
     url: "https://script.google.com/macros/s/AKfycbzsCr87ss_uUoORjNwK2lnsmDTwwK9LPwOA5w1M05MgaVNqrrbpbyU6NeqxoIm3uCGB/exec",
     name: "Sheet1"
    })
