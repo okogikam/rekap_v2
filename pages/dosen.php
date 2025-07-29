@@ -14,7 +14,7 @@
 			<h3>Dosen PS <button class='btn btn-sm btn-primary'><i class='fa-solid fa-plus'></i></button></h3>			
 		</div>
                  <div class="card-body">
-                        <table class="table tabel table-hover">
+                        <table id="tabel_1" class="table table-hover">
                             <thead>
                                 <th>OPSI</th>
                                 <th>NAMA</th>
@@ -35,8 +35,7 @@
  		 <div class="card-header"><h3>Dosen non-PS</h3></div>
                  <div class="card-body">
 
-                <h3>Dosen non-PS </h3>
-                <table class="table tabel table-hover">
+                <table id="tabel_2" class="table  table-hover">
                     <thead>
                         <th>OPSI</th>
                         <th>NAMA</th>

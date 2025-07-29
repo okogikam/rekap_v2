@@ -1,30 +1,25 @@
 <?php
-include "../rot/function.php";
-include "../plugins/parsedown/Parsedown.php";
+include_once "../rot/function.php";
+// Ganti URL dengan halaman yang ingin dicrawl
+$url = "https://scholar.google.com/citations?view_op=view_citation&hl=id&user=-NsFG-gAAAAJ&citation_for_view=-NsFG-gAAAAJ:fbc8zXXH2BUC";
 
-//list file
-$dir = "./rapat prodi/";
-$a = scandir($dir);
+// Ambil konten HTML
+$html = file_get_contents($url);
 
+// Inisialisasi DOM dan load HTML
+$dom = new DOMDocument();
+libxml_use_internal_errors(true); // Supaya gak error karena HTML yang tidak valid
+$dom->loadHTML($html);
+libxml_clear_errors();
 
-//buat link
-for($i=2;$i<count($a);$i++){
-  echo "<a href='?id=$i'><button>$a[$i]</button></a>";
-}
-echo "<hr>";
-if(isset($_GET['id'])){
-$id = $_GET['id'];
-// membaca file
-$file = fopen("./rapat prodi/".$a[$id],"r");
-$text = fgets($file);
-
-$parseMd = new Parsedown();
-
-while(! feof($file)) {
-  $text = fgets($file);
-  echo $parseMd->text($text);
+// Ambil semua <a> (tautan)
+$links = $dom->getElementsByTagName('a');
+echo "Daftar Link:\n";
+foreach ($links as $link) {
+    $href = $link->getAttribute('href');
+   // echo $href . "\n";
 }
 
-fclose($file);
-}
+test($dom);
+
 ?>

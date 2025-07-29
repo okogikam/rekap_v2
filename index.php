@@ -131,7 +131,7 @@ require_once "./rot/function.php";
     <script src="./plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="./plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
     <script src="./plugins/summernote/summernote-bs4.min.js"></script>
-
+    <script src="./dist/js/opsi.js"></script>
     <script>
     $(function() {
         $('textarea').summernote({
@@ -208,11 +208,71 @@ require_once "./rot/function.php";
                     extend: 'print',
                     autoPrint: true,
                     title: '<div class="text-center"><img src="./dist/img/kop_surat.png" alt="gambar_error"><h1><?php echo $p; ?></h1></div>',
-
                 }
             ]
         }).buttons().container().appendTo('.dataTables_wrapper .dataTables_length');
-        
+
+	$("#tabel_1").DataTable({
+            destroy: true,
+            responsive: true,
+            autoWidth: false,
+            ordering: true,
+            lengthMenu: [
+                [10, 50, 100, -1],
+                [10, 50, 100, "ALL"],
+            ],
+            order: [
+                [0, 'asc']
+            ],
+            buttons: ["copy", 
+		{
+                    extend: 'excel',
+                    title: 'Data <?php echo $p; ?>',
+
+                },
+		{
+                    extend: 'pdf',
+                    title: 'Data <?php echo $p; ?>',
+                },
+                {
+                    extend: 'print',
+                    autoPrint: true,
+                    title: '<div class="text-center"><img src="./dist/img/kop_surat.png" alt="gambar_error"><h1><?php echo $p; ?></h1></div>',
+                }
+            ]
+        }).buttons().container().appendTo('#tabel_1_length');
+
+        $("#tabel_2").DataTable({
+            destroy: true,
+            responsive: true,
+            autoWidth: false,
+            ordering: true,
+            lengthMenu: [
+                [10, 50, 100, -1],
+                [10, 50, 100, "ALL"],
+            ],
+            order: [
+                [0, 'asc']
+            ],
+            buttons: ["copy", 
+		{
+                    extend: 'excel',
+                    title: 'Data <?php echo $p; ?>',
+
+                },
+		{
+                    extend: 'pdf',
+                    title: 'Data <?php echo $p; ?>',
+                },
+                {
+                    extend: 'print',
+                    autoPrint: true,
+                    title: '<div class="text-center"><img src="./dist/img/kop_surat.png" alt="gambar_error"><h1><?php echo $p; ?></h1></div>',
+                }
+            ]
+        }).buttons().container().appendTo('#tabel_2_length');
+
+
         $("#tabel_default").DataTable({
             responsive: true,
             autoWidth: false,

@@ -76,7 +76,7 @@ if(isset($_GET['id'])){
                             <h4 class="font-weight-light">Pembimbing Mahasiswa Lulus</h4>
                         </div>
                         <div class="card-body">
-                            <table class="table tabel table-hover" id="tabel_3">
+                            <table class="table tabel table-hover" id="tabel_4">
                                 <thead>
                                     <tr>
                                         <th>Opsi</th>
@@ -99,7 +99,7 @@ if(isset($_GET['id'])){
                             <h4 class="font-weight-light">Penguji Mahasiswa Lulus</h4>
                         </div>
                         <div class="card-body">
-                            <table class="table tabel table-hover" id="tabel_4">
+                            <table class="table tabel table-hover" id="tabel_3">
                                 <thead>
                                     <tr>
                                         <th>Opsi</th>

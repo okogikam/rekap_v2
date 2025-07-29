@@ -1,4 +1,9 @@
 <?php
+if(isset($_GET['op']) && $_GET['op'] == 'del'){
+    $nim = get_input($_GET['nim']);
+    $sql = "UPDATE tabel_mhs SET BEASISWA = '' WHERE NIM = '$nim'";
+    sql_query($sql,$conn);
+}
 ?>
 
 <!-- Content Wrapper. Contains page content -->
@@ -18,6 +23,7 @@
                             <table class="table tabel table-hover">
                                 <thead>
                                     <tr>
+                                        <th>Opsi</th>
                                         <th>NIM</th>
                                         <th>Nama</th>
                                         <th>Angkatan</th>

@@ -3,6 +3,7 @@
 
 // tabel mahasiswa tabel_mhs
 function tabel_mahasiswa($filter,$conn){
+    global $p;
     if($filter == "All"){
         $data_mahasiswa = select_all("tabel_mhs",$conn);
     }else{
@@ -26,7 +27,10 @@ function tabel_mahasiswa($filter,$conn){
         }
 
         echo "<tr>";
-	echo "<td><a href='?p=mhs&&i=edit&&id=$mhs[NIM]' class='btn btn-sm btn-default'><i class='fa-solid fa-pen-to-square'></i></a></td>";
+	echo "<td><div style='white-space: nowrap;'>
+<button class='btn btn-xs btn-warning' data-id='$mhs[NIM]' onclick='showData({page:\"$p\",id:\"$mhs[NIM]\",type:\"view\"})'><i class='fa-solid fa-eye'></i></button>
+<button class='btn btn-xs btn-primary' data-id='$mhs[NIM]' onclick='editData({page:\"$p\",id:\"$mhs[NIM]\",type:\"edit\"})'><i class='fa-solid fa-pen-to-square'></i></button>
+<button class='btn btn-xs btn-danger' data-id='$dosen[NIP]' onclick='deleteData({page:\"$p\",id:\"$mhs[NIM]\",type:\"delete\"})'><i class='fa-solid fa-trash'></i></button></div></td>";
         echo "<td>".$mhs['NIM']."</td>";
         echo "<td>".get_output($mhs['NAMA'])."</td>";
         echo "<td>".get_pa($mhs['NIM'],$conn)."</td>";
@@ -137,6 +141,7 @@ $filter = "ANGKATAN ='".$angkatan['ANGKATAN']."' && STATUS_MAHASISWA !='mbkm'";
 
 // tabel dosen 
 function tabel_dosen($homebase,$conn){
+    global $p;
     if($homebase){
         $fill = "HOMEBASE LIKE '%Komputer%' GROUP BY NIP";
     }else{
@@ -146,10 +151,16 @@ function tabel_dosen($homebase,$conn){
        $no = 0;
     if(!is_array($data_dosen)){ return; }
         foreach($data_dosen as $dosen){ 
-            $no++;       
+            $no++;
+	    $depan = $dosen['GELAR_DEPAN']? $dosen['GELAR_DEPAN'].". ":"" ;
+	    $belakang = $dosen['GELAR_ELAKANG']? ", ".$dosen['GELAR_ELAKANG']:""; 
+	    $nama_dsn =  $depan . ucwords(strtolower($dosen['NAMA'])) . $belakang;
             echo "<tr>";
-            echo "<td><button class='btn btn-sm btn-default' data-id='$dosen[NIP]'><i class='fa-solid fa-pen-to-square'></i></button></td>";
-            echo "<td>".$dosen['NAMA']."</td>";
+            echo "<td><div style='white-space: nowrap;'>
+<button class='btn btn-xs btn-warning' data-id='$dosen[NIP]' onclick='showData({page:\"$p\",id:\"$dosen[NIP]\",type:\"view\"})'><i class='fa-solid fa-eye'></i></button>
+<button class='btn btn-xs btn-primary' data-id='$dosen[NIP]' onclick='editData({page:\"$p\",id:\"$dosen[NIP]\",type:\"edit\"})'><i class='fa-solid fa-pen-to-square'></i></button>
+<button class='btn btn-xs btn-danger' data-id='$dosen[NIP]' onclick='deleteData({page:\"$p\",id:\"$dosen[NIP]\",type:\"delete\"})'><i class='fa-solid fa-trash'></i></button></div></td>";
+            echo "<td>$nama_dsn.</td>";
             echo "<td>".$dosen['NIP']."</td>";
             echo "<td>".$dosen['NIDN']."</td>";
             echo "<td>".$dosen['EMAIL']."</td>";
@@ -159,7 +170,8 @@ function tabel_dosen($homebase,$conn){
         }
 }
 // tabel kurikulum 
-function tabel_kurikulum($conn){    
+function tabel_kurikulum($conn){   
+    global $p; 
     $data_kurikulum = select_all("tabel_kurikulum",$conn);
     $no = 0;
     foreach($data_kurikulum AS $kur){
@@ -167,7 +179,10 @@ function tabel_kurikulum($conn){
         $no++;
         // test($data_mahasiswa);
         echo "<tr>";
-        echo "<td><button class='btn btn-sm btn-default'><i class='fa-solid fa-pen-to-square'></i></button></td></td>";
+        echo "<td><div style='white-space: nowrap;'>
+<button class='btn btn-xs btn-warning' data-id='$kur[ID_KURIKULUM]' onclick='showData({page:\"$p\",id:\"$kur[ID_KURIKULUM]\",type:\"view\"})'><i class='fa-solid fa-eye'></i></button>
+<button class='btn btn-xs btn-primary' data-id='$kur[ID_KURIKULUM]' onclick='editData({page:\"$p\",id:\"$kur[ID_KURIKULUM]\",type:\"edit\"})'><i class='fa-solid fa-pen-to-square'></i></button>
+<button class='btn btn-xs btn-danger' data-id='$kur[ID_KURIKULUM]' onclick='deleteData({page:\"$p\",id:\"$kur[ID_KURIKULUM]\",type:\"delete\"})'><i class='fa-solid fa-trash'></i></button></div></td></td>";
         echo "<td>".$kur['ID_KURIKULUM']."</td>";
         echo "<td>".$kur['NAMA']."</td>";
 	echo "<td>".$kur['ANGKATAN']."</td>";
@@ -226,12 +241,16 @@ function tabel_transkrip($status,$conn){
             echo "<td>".$data_transkrip[0]['SKS_PILIHAN_L']."</td>";
             $sks_total = (int)$data_transkrip[0]['SKS_MK_WAJIB_L'] + (int)$data_transkrip[0]['SKS_PILIHAN_L'] + (int)$data_transkrip[0]['SKS_TIDAK_LULUS'];
             if(count($data_transkrip) > 1){               
-        
-                if($data_transkrip[0]['IPK'] != 0){
-                    $ipk = number_format((float)$data_transkrip[0]['IPK'],2);
-                }else{
-                    $ipk = number_format((float)$data_transkrip[1]['IPK'],2);
-                }
+                $nilai = get_nilai_mhs($mhs['NIM'],$conn);
+
+		$ipk = number_format((float)$nilai['IPK'],2);
+
+                //if($data_transkrip[0]['IPK'] != 0){
+                //    $ipk = number_format((float)$data_transkrip[0]['IPK'],2);
+                //}else{
+                //    $ipk = number_format((float)$data_transkrip[1]['IPK'],2);
+                //}
+
             }else{
                 // $sks_total = $data_transkrip[0]['SKS_TOTAL'];
                 $ipk = number_format((float)$data_transkrip[0]['IPK'],2);
@@ -556,11 +575,12 @@ function tabel_link_laporan($conn){
 // tabel mahasiswa beasiswa
 function tabel_beasiswa(){
     global $conn;
-    $data = select_where("tabel_mhs","STATUS_MAHASISWA='Aktif' AND BEASISWA !=''",$conn);
+    $data = select_where("tabel_mhs","STATUS_MAHASISWA='Aktif' AND BEASISWA !='' AND BEASISWA !='-'",$conn);
     foreach($data as $mhs){
         $ipk = get_nilai_mhs($mhs['NIM'],$conn);
         $ipk = number_format((float)$ipk['IPK'],2);
         echo "<tr>";
+        echo "<td><a href='?p=beasiswa&op=del&nim=$mhs[NIM]' class='btn btn-sm btn-primary' onclick='return confirm()'><i class='fa-solid fa-trash'></i></a></td>";
         echo "<td>$mhs[NIM]</td>";
         echo "<td>$mhs[NAMA]</td>";
         echo "<td>$mhs[ANGKATAN]</td>";
