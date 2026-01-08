@@ -1,0 +1,3 @@
+<?php
+// controler untuk modul 
+?>
