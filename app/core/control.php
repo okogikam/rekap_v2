@@ -1,3 +1,0 @@
-<?php
-// controler semua fungsi 
-?>
