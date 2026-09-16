@@ -26,3 +26,7 @@ body{background:#f6f8fb;color:#172033}.app-shell{min-height:100vh;display:flex}.
     .dataTables_wrapper .dt-length { width: 100%; }
     .dataTables_wrapper .dt-search input { width: 100%; }
 }
+
+/* Expanded Mahasiswa table/form */
+.data-table th,
+.data-table td { white-space: nowrap; }

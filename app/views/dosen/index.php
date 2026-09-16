@@ -1,3 +1,4 @@
+
 <div class="d-flex flex-wrap gap-2 justify-content-between align-items-center mb-3">
     <form class="row g-2 flex-grow-1" method="get">
         <div class="col-md-6">
@@ -6,8 +7,8 @@
         <div class="col-md-3">
             <select class="form-select" name="status">
                 <option value="">Semua status</option>
-                <option value="aktif" <?= $status === 'aktif' ? 'selected' : '' ?>>Aktif</option>
-                <option value="nonaktif" <?= $status === 'nonaktif' ? 'selected' : '' ?>>Nonaktif</option>
+                <option value="aktif" <?= @$status === 'aktif' ? 'selected' : '' ?>>Aktif</option>
+                <option value="nonaktif" <?= @$status === 'nonaktif' ? 'selected' : '' ?>>Nonaktif</option>
             </select>
         </div>
         <div class="col-auto"><button class="btn btn-outline-secondary">Cari</button></div>
@@ -17,7 +18,7 @@
 
 <div class="card border-0 shadow-sm">
     <div class="table-responsive">
-        <table class="table align-middle mb-0" id="dosenTable">
+        <table class="table hover data-table align-middle mb-0">
             <thead><tr>
                 <th>NIDN</th><th>Nama</th><th>Email</th><th>Jabatan</th><th>Status</th><th class="text-end">Aksi</th>
             </tr></thead>

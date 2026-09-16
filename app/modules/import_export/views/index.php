@@ -7,7 +7,7 @@
 <?= csrf_field() ?>
 <div class="mb-3"><label class="form-label">Modul</label><select id="entity" name="entity" class="form-select" required><option value="dosen">Dosen</option><option value="mahasiswa">Mahasiswa</option></select></div>
 <div class="mb-3"><label class="form-label">File Excel / CSV</label><input id="excelFile" class="form-control" type="file" name="file" accept=".xlsx,.xls,.csv" required></div>
-<div class="alert alert-light border small">Format utama: <b>XLSX, XLS, CSV</b>. Kolom wajib: <b>NIDN + Nama</b> untuk dosen dan <b>NIM + Nama</b> untuk mahasiswa.</div>
+<div class="alert alert-light border small">Format utama: <b>XLSX, XLS, CSV</b>. Kolom wajib: <b>NIDN + Nama</b> untuk dosen dan <b>NIM + Nama</b> untuk mahasiswa. Template Mahasiswa mengikuti struktur tabel terbaru dan dapat memuat seluruh data mahasiswa.</div>
 <button type="button" id="previewBtn" class="btn btn-outline-primary"><i class="bi bi-eye"></i> Preview & Validasi</button>
 <button type="submit" id="importBtn" class="btn btn-primary d-none"><i class="bi bi-cloud-upload"></i> Proses Import</button>
 </form>

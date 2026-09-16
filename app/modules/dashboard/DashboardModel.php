@@ -20,6 +20,9 @@ final class DashboardModel
         if (!in_array($table, $allowed, true)) {
             throw new InvalidArgumentException('Tabel tidak diizinkan.');
         }
-        return (int)$this->db->query("SELECT COUNT(*) FROM `$table` WHERE status = 'aktif'")->fetchColumn();
+        if ($table === 'mahasiswa') {
+            return (int)$this->db->query("SELECT COUNT(*) FROM `mahasiswa` WHERE LOWER(status_mahasiswa) = 'aktif'")->fetchColumn();
+        }
+        return (int)$this->db->query("SELECT COUNT(*) FROM `dosen` WHERE LOWER(status) = 'aktif'")->fetchColumn();
     }
 }

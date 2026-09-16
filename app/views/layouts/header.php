@@ -16,15 +16,47 @@
             <span><?= e(APP_NAME) ?></span>
         </div>
         <nav class="nav flex-column gap-1">
+<ul class="nav nav-pills flex-column mb-auto">
+<li class="nav-item">
             <a class="nav-link <?= ($active ?? '') === 'dashboard' ? 'active' : '' ?>" href="index.php">
                 <i class="bi bi-grid-1x2-fill"></i> Dashboard
             </a>
+</li>
+<li class="nav-item">
+                <a class="nav-link text-white btn-toggle d-flex align-items-center justify-content-between" 
+                   data-bs-toggle="collapse" 
+                   href="#dataMaster" 
+                   role="button" 
+                   aria-expanded="false" 
+                   aria-controls="dataMaster">
+                    <span>
+                        <i class="bi bi-database me-2"></i>
+                        Data Master
+                    </span>
+                    <i class="bi bi-chevron-down fs-7"></i>
+                </a>
+                
+                <!-- Sub Menu Produk -->
+                <div class="collapse ms-3 mt-1" id="dataMaster">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li>
             <a class="nav-link <?= ($active ?? '') === 'dosen' ? 'active' : '' ?>" href="dosen.php">
                 <i class="bi bi-person-badge-fill"></i> Dosen
             </a>
+                        </li>
+                        <li>
             <a class="nav-link <?= ($active ?? '') === 'mahasiswa' ? 'active' : '' ?>" href="mahasiswa.php">
                 <i class="bi bi-people-fill"></i> Mahasiswa
             </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+</ul>
+
+
+
             <div class="nav-section">DATA</div>
             <a class="nav-link <?= ($active ?? '') === 'import_export' ? 'active' : '' ?>" href="import-export.php">
                 <i class="bi bi-file-earmark-spreadsheet-fill"></i> Import / Export
