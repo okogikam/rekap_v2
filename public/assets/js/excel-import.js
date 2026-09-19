@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!rows.length) throw new Error('Sheet kosong.');
 
                 const headers = rows[0].map(v => String(v).trim());
-                const required = entity.value === 'dosen' ? ['NIDN','Nama'] : ['NIM','Nama'];
+                const required = entity.value === 'dosen' ? ['NIDN','NAMA'] : ['NIM','NAMA'];
                 const missing = required.filter(x => !headers.includes(x));
 
                 table.innerHTML = '';

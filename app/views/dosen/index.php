@@ -20,7 +20,7 @@
     <div class="table-responsive">
         <table class="table hover data-table align-middle mb-0">
             <thead><tr>
-                <th>NIDN</th><th>Nama</th><th>Email</th><th>Jabatan</th><th>Status</th><th class="text-end">Aksi</th>
+                <th>NIDN</th><th>NIP</th><th>Nama</th><th>NUPTK</th><th>Email</th><th>PANGKAT</th><th>Jabatan</th><th>Prodi</th><th>Status</th><th class="text-end">Aksi</th>
             </tr></thead>
             <tbody>
             <?php if (!$rows): ?>
@@ -29,9 +29,13 @@
             <?php foreach ($rows as $row): ?>
                 <tr>
                     <td><?= e($row['nidn']) ?></td>
+                    <td><?= e($row['nip']) ?></td>
                     <td class="fw-semibold"><?= e($row['nama']) ?></td>
+                    <td><?= e($row['nuptk']) ?></td>
                     <td><?= e($row['email'] ?? '-') ?></td>
+                    <td><?= e($row['pangkat'] ?? '-') ?></td>
                     <td><?= e($row['jabatan'] ?? '-') ?></td>
+                    <td><?= e($row['homebase'] ?? '-') ?></td>
                     <td><span class="badge text-bg-<?= $row['status'] === 'aktif' ? 'success' : 'secondary' ?>"><?= e(ucfirst($row['status'])) ?></span></td>
                     <td class="text-end">
                         <a class="btn btn-sm btn-outline-primary" href="dosen-form.php?id=<?= (int)$row['id'] ?>"><i class="bi bi-pencil"></i></a>

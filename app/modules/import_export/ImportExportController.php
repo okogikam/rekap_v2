@@ -218,8 +218,8 @@ final class ImportExportController
         $key = $this->clean($this->get($r, ['NIDN']));
         $nama = $this->clean($this->get($r, ['NAMA', 'NAMA DOSEN']));
 
-        if ($key === '' || $nama === '') {
-            throw new RuntimeException('NIDN dan Nama wajib diisi.');
+        if ($key === '' ) {
+            throw new RuntimeException('NIDN  wajib diisi.');
         }
 
         $find = $db->prepare('SELECT id FROM dosen WHERE nidn = ? LIMIT 1');
@@ -237,12 +237,13 @@ final class ImportExportController
             'status' => $this->get($r, ['STATUS']),
             'homebase' => $this->get($r, ['HOMEBASE']),
             'email' => $this->get($r, ['EMAIL']),
+	    'nuptk' => $this->get($r, ['NUPTK']),
         ];
 
         if ($existingId === false) {
             $stmt = $db->prepare(
-                'INSERT INTO dosen (nip, nidn, gelar_depan, nama, gelar_belakang, jabatan, pendidikan_terakhir, pangkat, status, homebase, email)
-                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+                'INSERT INTO dosen (nip, nidn, gelar_depan, nama, gelar_belakang, jabatan, pendidikan_terakhir, pangkat, status, homebase, email, nuptk)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
             );
             $stmt->execute([
                 $this->nullIfEmpty($fields['nip']),
@@ -256,6 +257,7 @@ final class ImportExportController
                 $this->nullIfEmpty($fields['status']),
                 $this->nullIfEmpty($fields['homebase']),
                 $this->nullIfEmpty($fields['email']),
+		$this->nullIfEmpty($fields['nuptk']),
             ]);
             return 'inserted';
         }
@@ -386,7 +388,7 @@ final class ImportExportController
     {
         $allowed = $table === 'mahasiswa'
             ? self::MAHASISWA_FIELDS
-            : ['nip', 'gelar_depan', 'nama', 'gelar_belakang', 'jabatan', 'pendidikan_terakhir', 'pangkat', 'status', 'homebase', 'email'];
+            : ['nip', 'gelar_depan', 'nama', 'gelar_belakang', 'jabatan', 'pendidikan_terakhir', 'pangkat', 'status', 'homebase', 'email','nuptk'];
 
         $updates = [];
         $params = [];
@@ -527,8 +529,8 @@ final class ImportExportController
             $lines = [$headers, $sample];
         } elseif ($entity === 'dosen') {
             $lines = [
-                ['NIP', 'NIDN', 'GELAR_DEPAN', 'NAMA', 'GELAR_ELAKANG', 'JABATAN_AKADEMIK', 'PENDIDIKAN_TERAKHIR', 'GOLONGAN', 'STATUS', 'HOMEBASE', 'EMAIL'],
-                ['1980000000000000', '0012345678', '', 'Contoh Dosen', '', 'Lektor', 'S2', 'III/c (Penata)', 'Aktif', 'Pendidikan Komputer', 'dosen@example.ac.id']
+                ['NIP', 'NIDN', 'GELAR_DEPAN', 'NAMA', 'GELAR_ELAKANG', 'JABATAN_AKADEMIK', 'PENDIDIKAN_TERAKHIR', 'GOLONGAN', 'STATUS', 'HOMEBASE', 'EMAIL','NUPTK'],
+                ['1980000000000000', '0012345678', '', 'Contoh Dosen', '', 'Lektor', 'S2', 'III/c (Penata)', 'Aktif', 'Pendidikan Komputer', 'dosen@example.ac.id','123']
             ];
         } else {
             http_response_code(400);
