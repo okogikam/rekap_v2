@@ -14,7 +14,7 @@ final class DosenController
     {
         require_login();
         $q = trim($_GET['q'] ?? '');
-	$status = trim($_GET['status'] ?? '');
+	    $status = trim($_GET['status'] ?? '');
 
         render('dosen/index', [
             'title' => 'Data Dosen',

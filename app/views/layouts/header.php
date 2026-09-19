@@ -6,7 +6,7 @@
     <title><?= e($title ?? APP_NAME) ?> - <?= e(APP_NAME) ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="assets/css/app.css" rel="stylesheet">
+    <link href="<?= e(BASE_URL) ?>assets/css/app.css" rel="stylesheet">
 </head>
 <body>
 <div class="app-shell">
@@ -18,7 +18,7 @@
         <nav class="nav flex-column gap-1">
 <ul class="nav nav-pills flex-column mb-auto">
 <li class="nav-item">
-            <a class="nav-link <?= ($active ?? '') === 'dashboard' ? 'active' : '' ?>" href="index.php">
+            <a class="nav-link <?= ($active ?? '') === 'dashboard' ? 'active' : '' ?>" href="<?= e(BASE_URL) ?>index.php">
                 <i class="bi bi-grid-1x2-fill"></i> Dashboard
             </a>
 </li>
@@ -40,12 +40,12 @@
                 <div class="collapse ms-3 mt-1" id="dataMaster">
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                         <li>
-            <a class="nav-link <?= ($active ?? '') === 'dosen' ? 'active' : '' ?>" href="dosen.php">
+            <a class="nav-link <?= ($active ?? '') === 'dosen' ? 'active' : '' ?>" href="<?= e(BASE_URL) ?>dsn/dosen.php">
                 <i class="bi bi-person-badge-fill"></i> Dosen
             </a>
                         </li>
                         <li>
-            <a class="nav-link <?= ($active ?? '') === 'mahasiswa' ? 'active' : '' ?>" href="mahasiswa.php">
+            <a class="nav-link <?= ($active ?? '') === 'mahasiswa' ? 'active' : '' ?>" href="<?= e(BASE_URL) ?>mhs/mahasiswa.php">
                 <i class="bi bi-people-fill"></i> Mahasiswa
             </a>
                         </li>
@@ -58,7 +58,7 @@
 
 
             <div class="nav-section">DATA</div>
-            <a class="nav-link <?= ($active ?? '') === 'import_export' ? 'active' : '' ?>" href="import-export.php">
+            <a class="nav-link <?= ($active ?? '') === 'import_export' ? 'active' : '' ?>" href="<?= e(BASE_URL) ?>import-export.php">
                 <i class="bi bi-file-earmark-spreadsheet-fill"></i> Import / Export
             </a>
         </nav>
