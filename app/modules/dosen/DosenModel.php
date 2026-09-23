@@ -11,14 +11,28 @@ final class DosenModel
         $params = [];
 
         if ($search !== '') {
-            $sql .= " AND (nidn LIKE ? OR nama LIKE ? OR nip LIKE ? OR email LIKE ? OR jabatan LIKE ? OR pangkat LIKE ?)";
+            $sql .= " AND (nidn LIKE ? OR nama LIKE ? OR nip LIKE ? OR email LIKE ? OR jabatan LIKE ? OR pangkat LIKE ?  OR homebase LIKE ?)";
             $like = '%' . $search . '%';
-            $params = [$like, $like, $like, $like, $like, $like];
+            $params = [$like, $like, $like, $like, $like, $like, $like];
         }
 
         $sql .= " ORDER BY nama ASC";
         $stmt = $this->db->prepare($sql);
         $stmt->execute($params);
+        return $stmt->fetchAll();
+    }
+
+    public function query(string $query = ''): array
+    {
+        $sql = "";
+
+        if ($query !== '') {
+            $sql .= $query;
+        }
+
+        // $sql .= " ORDER BY ASC";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
         return $stmt->fetchAll();
     }
 

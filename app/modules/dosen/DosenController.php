@@ -13,15 +13,18 @@ final class DosenController
     public function index(): void
     {
         require_login();
-        $q = trim($_GET['q'] ?? '');
-	    $status = trim($_GET['status'] ?? '');
+        $q = trim(strtolower($_GET['q']) ?? 'pendidikan komputer');
+	    $status = trim(strtolower($_GET['status']) ?? 'aktif');
 
         render('dosen/index', [
             'title' => 'Data Dosen',
             'subtitle' => 'Kelola data dosen',
             'active' => 'dosen',
-            'rows' => $this->model->all($q),
+            'rows' => $this->model->query("SELECT * FROM dosen WHERE homebase LIKE '%$q%' AND status LIKE '%$status%';"),
             'q' => $q,
+            'homebase' => $this->model->query("SELECT DISTINCT homebase FROM dosen;"),
+            'statuslist' => $this->model->query("SELECT DISTINCT status FROM dosen;"),
+            'status' => $status,
         ]);
     }
 
