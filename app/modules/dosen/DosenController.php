@@ -13,8 +13,8 @@ final class DosenController
     public function index(): void
     {
         require_login();
-        $q = trim(strtolower($_GET['q']) ?? 'pendidikan komputer');
-	    $status = trim(strtolower($_GET['status']) ?? 'aktif');
+        $q = trim($_GET['q'] ?? 'pendidikan komputer');
+	    $status = trim($_GET['status'] ?? 'aktif');
 
         render('dosen/index', [
             'title' => 'Data Dosen',

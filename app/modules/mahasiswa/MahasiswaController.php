@@ -13,18 +13,22 @@ final class MahasiswaController
     public function index(): void
     {
         require_login();
+	    $status = trim($_GET['status'] ?? 'aktif');
+
         render('mahasiswa/index', [
             'title' => 'Data Mahasiswa',
             'subtitle' => 'Kelola data mahasiswa',
             'active' => 'mahasiswa',
             'rows' => $this->model->all(
                 trim($_GET['q'] ?? ''),
-                trim($_GET['status'] ?? ''),
+                $status,
                 trim($_GET['angkatan'] ?? '')
             ),
             'q' => trim($_GET['q'] ?? ''),
-            'status' => trim($_GET['status'] ?? ''),
+            'status' => $status,
             'angkatan' => trim($_GET['angkatan'] ?? ''),
+	    'liststatus' => $this->model->query("SELECT DISTINCT status_mahasiswa FROM mahasiswa"),
+	    'listangkatan' => $this->model->query("SELECT DISTINCT angkatan FROM mahasiswa"),
         ]);
     }
 
@@ -80,7 +84,7 @@ final class MahasiswaController
             'status_ayah', 'status_ibu', 'telepon_ortu', 'alamat_ortu',
             'pekerjaan_ayah', 'pekerjaan_ibu', 'penghasilan_ortu', 'nama_wali',
             'alamat_wali', 'telepon_wali', 'nomor_tes', 'semester_masuk',
-            'jenis_pendaftaran', 'status_mahasiswa', 'semester_keluar', 'beasiswa'
+            'jenis_pendaftaran', 'status_mahasiswa', 'semester_keluar', 'beasiswa','nama_dosen','nip_dosen',
         ];
 
         $data = [];
@@ -146,8 +150,9 @@ final class MahasiswaController
             exit('Permintaan tidak valid.');
         }
         $id = (int)($_POST['id'] ?? 0);
+        $nim = e($_POST['nim']);
         if ($id > 0) {
-            $this->model->delete($id);
+            $this->model->delete($id,$nim);
             flash('success', 'Data mahasiswa berhasil dihapus.');
         }
         redirect('mahasiswa.php');

@@ -6,7 +6,7 @@ body {
 .app-shell {
     min-height: 100vh;
     display: flex;
-    background-color: #454d55;
+    background-color: #212529f5;
     color: white;
 }
 

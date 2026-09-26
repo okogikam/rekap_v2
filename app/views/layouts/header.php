@@ -9,7 +9,7 @@
     <link href="<?= e(BASE_URL) ?>assets/css/app.css" rel="stylesheet">
 </head>
 <body data-bs-theme="dark">
-<div class="app-shell">
+<div class="app-shell container-fluid">
     <aside class="sidebar">
         <div class="brand">
             <i class="bi bi-mortarboard-fill"></i>

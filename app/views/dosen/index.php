@@ -22,7 +22,7 @@
                 <?php endforeach; ?>
             </select>
         </div>
-        <div class="col-auto"><button class="btn btn-outline-secondary">Cari</button></div>
+        <div class="col-auto"><button class="btn btn-outline-primary">Filter</button></div>
     </form>
     <a href="dosen-form.php" class="btn btn-primary"><i class="bi bi-plus-lg"></i> Tambah Dosen</a>
 </div>

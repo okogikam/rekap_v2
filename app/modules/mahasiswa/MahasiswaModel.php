@@ -7,7 +7,7 @@ final class MahasiswaModel
 
     public function all(string $search = '', string $status = '', string $angkatan = ''): array
     {
-        $sql = "SELECT * FROM mahasiswa WHERE 1=1";
+        $sql = "SELECT mahasiswa.*, tabel_pa.nama_dosen, tabel_pa.nip_dosen FROM mahasiswa LEFT JOIN tabel_pa ON mahasiswa.nim = tabel_pa.nim  WHERE 1=1";
         $params = [];
 
         if ($search !== '') {
@@ -34,9 +34,16 @@ final class MahasiswaModel
 
     public function find(int $id): ?array
     {
-        $stmt = $this->db->prepare("SELECT * FROM mahasiswa WHERE id = ?");
+        $stmt = $this->db->prepare("SELECT mahasiswa.*, tabel_pa.nama_dosen, tabel_pa.nip_dosen FROM mahasiswa LEFT JOIN tabel_pa ON mahasiswa.nim = tabel_pa.nim WHERE mahasiswa.id = ?");
         $stmt->execute([$id]);
         return $stmt->fetch() ?: null;
+    }
+
+    public function query(string $query): ?array
+    {
+        $stmt = $this->db->prepare($query ?? '');
+        $stmt->execute();
+        return $stmt->fetchAll() ?: null;
     }
 
     public function save(array $d, ?int $id = null): int
@@ -56,29 +63,55 @@ final class MahasiswaModel
             'alamat_wali', 'telepon_wali', 'nomor_tes', 'semester_masuk',
             'jenis_pendaftaran', 'status_mahasiswa', 'semester_keluar',
             'beasiswa'
-        ];
+        ];        
 
         $values = [];
         foreach ($fields as $field) {
             $values[] = $d[$field] ?? null;
         }
+       
 
         if ($id !== null) {
+            // update data mahasiswa
             $set = implode(', ', array_map(fn(string $field) => "`{$field}` = ?", $fields));
             $stmt = $this->db->prepare("UPDATE mahasiswa SET {$set} WHERE id = ?");
             $stmt->execute([...$values, $id]);
+
+            // update data dosen pa
+            $stmt_pa = $this->db->prepare("UPDATE tabel_pa SET nama_dosen = ? , nip_dosen = ? WHERE nim = ?");
+            $stmt_pa->execute([
+                $d['nama_dosen'], 
+                $d['nip_dosen'], 
+                $d['nim']
+            ]);    
+
             return $id;
         }
-
+        // simpan data pa baru
+        $stmt_pa = $this->db->prepare("INSERT INTO tabel_pa (nip_dosen,nama_dosen,nim,nama_mahasiswa) VALUES (?, ?, ?, ?)");
+        $stmt_pa->execute([            
+            $d['nip_dosen'], 
+            $d['nama_dosen'], 
+            $d['nim'],
+            $d['nama'],
+        ]);
+        // simpan data mahasiswa baru
         $columns = implode(', ', array_map(fn(string $field) => "`{$field}`", $fields));
         $placeholders = implode(', ', array_fill(0, count($fields), '?'));
         $stmt = $this->db->prepare("INSERT INTO mahasiswa ({$columns}) VALUES ({$placeholders})");
         $stmt->execute($values);
+
+
         return (int)$this->db->lastInsertId();
     }
 
-    public function delete(int $id): void
+    public function delete(int $id, string $nim): void
     {
+        //hapus data dosen pa
+        $stmt_pa = $this->db->prepare("DELETE FROM tabel_pa WHERE nim = ?");
+        $stmt_pa->execute([$nim]);
+
+        //hapus data mahasiswa
         $stmt = $this->db->prepare("DELETE FROM mahasiswa WHERE id = ?");
         $stmt->execute([$id]);
     }

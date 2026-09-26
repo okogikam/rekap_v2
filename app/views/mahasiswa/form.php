@@ -153,6 +153,16 @@ $value = static function (string $key) use ($row): string {
         </div>
     </div>
 
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body p-4">
+            <h5 class="mb-3">Dosen PA</h5>
+            <div class="row g-3">
+                <div class="col-md-5"><label class="form-label">NIP Dosen</label><input class="form-control" name="nip_dosen" value="<?= $value('nip_dosen') ?>"></div>
+                <div class="col-md-5"><label class="form-label">Dosen PA</label><input class="form-control" name="nama_dosen" value="<?= $value('nama_dosen') ?>"></div>
+            </div>
+        </div>
+    </div>
+
     <div class="d-flex gap-2 mb-4">
         <a href="mahasiswa.php" class="btn btn-light">Batal</a>
         <button class="btn btn-primary"><i class="bi bi-save"></i> Simpan Data Mahasiswa</button>
