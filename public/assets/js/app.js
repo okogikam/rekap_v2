@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log('Initializing DataTables:', table.id);
 
         new DataTable(table, {
-            pageLength: 25,
+            pageLength: 10,
             lengthMenu: [
                 [10, 25, 50, 100],
                 [10, 25, 50, 100]

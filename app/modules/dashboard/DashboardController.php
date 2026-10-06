@@ -5,7 +5,7 @@ final class DashboardController
 {
     public function index(): void
     {
-        require_login();
+        // require_login();
 
         $model = new DashboardModel(Database::connection());
 

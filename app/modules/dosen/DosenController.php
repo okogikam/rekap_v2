@@ -12,7 +12,7 @@ final class DosenController
 
     public function index(): void
     {
-        require_login();
+        // require_login();
         $q = trim($_GET['q'] ?? 'pendidikan komputer');
 	    $status = trim($_GET['status'] ?? 'aktif');
 
@@ -30,7 +30,7 @@ final class DosenController
 
     public function form(): void
     {
-        require_login();
+        // require_login();
         $id = isset($_GET['id']) ? (int)$_GET['id'] : null;
 
         render('dosen/form', [

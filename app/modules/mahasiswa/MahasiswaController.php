@@ -12,7 +12,7 @@ final class MahasiswaController
 
     public function index(): void
     {
-        require_login();
+        // require_login();
 	    $status = trim($_GET['status'] ?? 'aktif');
 
         render('mahasiswa/index', [
@@ -34,7 +34,7 @@ final class MahasiswaController
 
     public function form(): void
     {
-        require_login();
+        // require_login();
         $id = isset($_GET['id']) ? (int)$_GET['id'] : null;
 
         render('mahasiswa/form', [

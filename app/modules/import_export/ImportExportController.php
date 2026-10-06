@@ -77,7 +77,7 @@ final class ImportExportController
 
     public function index(): void
     {
-        require_login();
+        // require_login();
         render('import_export/index', [
             'title' => 'Import / Export',
             'subtitle' => 'Import data dari Excel/CSV dan export data',
