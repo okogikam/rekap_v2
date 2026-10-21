@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 final class ImportExportController
 {
+    
     private const MAHASISWA_FIELDS = [
         'nim', 'nik', 'nama', 'fakultas', 'program_studi', 'angkatan', 'jenis_kelamin',
         'tempat_lahir', 'tanggal_lahir', 'agama', 'status_nikah', 'no_telepon', 'no_hp',
@@ -75,13 +76,17 @@ final class ImportExportController
         'beasiswa' => 'Beasiswa',
     ];
 
+    
+
     public function index(): void
     {
         // require_login();
-        render('import_export/index', [
+        global $tabel_lists;
+        render('import_export/views/index', [
             'title' => 'Import / Export',
             'subtitle' => 'Import data dari Excel/CSV dan export data',
             'active' => 'import_export',
+            'tables' => $tabel_lists,
             'pageScripts' => [
                 'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js',
                 'assets/js/excel-import.js'
@@ -92,7 +97,7 @@ final class ImportExportController
     public function import(): void
     {
         require_login();
-
+        global $tabel_lists;
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             http_response_code(405);
             exit('Method tidak diizinkan.');
@@ -104,7 +109,7 @@ final class ImportExportController
             exit('CSRF token tidak valid.');
         }
 
-        if (!in_array($entity, ['dosen', 'mahasiswa'], true)) {
+        if (!in_array($entity, $tabel_lists, true)) {
             http_response_code(400);
             exit('Modul import tidak valid.');
         }
@@ -182,8 +187,15 @@ final class ImportExportController
 
         $headers = array_map(fn($v) => $this->normalizeHeader((string)$v), $headers);
         $rows = [];
+        $currentIndex = 0;
 
         while (($row = fgetcsv($fh)) !== false) {
+            // Abaikan jika indeks kurang dari 3
+            if ($currentIndex < 2) {
+                $currentIndex++;
+                continue;
+            }
+            
             if (count(array_filter($row, fn($v) => trim((string)$v) !== '')) === 0) {
                 continue;
             }
@@ -237,7 +249,7 @@ final class ImportExportController
             'status' => $this->get($r, ['STATUS']),
             'homebase' => $this->get($r, ['HOMEBASE']),
             'email' => $this->get($r, ['EMAIL']),
-	    'nuptk' => $this->get($r, ['NUPTK']),
+	        'nuptk' => $this->get($r, ['NUPTK']),
         ];
 
         if ($existingId === false) {
@@ -257,7 +269,7 @@ final class ImportExportController
                 $this->nullIfEmpty($fields['status']),
                 $this->nullIfEmpty($fields['homebase']),
                 $this->nullIfEmpty($fields['email']),
-		$this->nullIfEmpty($fields['nuptk']),
+		        $this->nullIfEmpty($fields['nuptk']),
             ]);
             return 'inserted';
         }

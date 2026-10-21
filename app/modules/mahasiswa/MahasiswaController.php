@@ -15,7 +15,7 @@ final class MahasiswaController
         // require_login();
 	    $status = trim($_GET['status'] ?? 'aktif');
 
-        render('mahasiswa/index', [
+        render('mahasiswa/views/index', [
             'title' => 'Data Mahasiswa',
             'subtitle' => 'Kelola data mahasiswa',
             'active' => 'mahasiswa',
@@ -37,7 +37,7 @@ final class MahasiswaController
         // require_login();
         $id = isset($_GET['id']) ? (int)$_GET['id'] : null;
 
-        render('mahasiswa/form', [
+        render('mahasiswa/views/form', [
             'title' => $id ? 'Edit Mahasiswa' : 'Tambah Mahasiswa',
             'subtitle' => $id ? 'Perbarui data mahasiswa' : 'Masukkan data mahasiswa baru',
             'active' => 'mahasiswa',

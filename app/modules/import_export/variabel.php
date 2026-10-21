@@ -13,5 +13,5 @@ $MAHASISWA_FIELDS = [
         'semester_masuk', 'jenis_pendaftaran', 'status_mahasiswa', 'semester_keluar', 'beasiswa'
     ];
 
-
+$tabel_lists = ['mahasiswa','dosen','matakuliah','alumni','kurikulum','skripsi','prodi','dosen pa'];
 ?>

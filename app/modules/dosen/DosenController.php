@@ -16,7 +16,7 @@ final class DosenController
         $q = trim($_GET['q'] ?? 'pendidikan komputer');
 	    $status = trim($_GET['status'] ?? 'aktif');
 
-        render('dosen/index', [
+        render('dosen/views/index', [
             'title' => 'Data Dosen',
             'subtitle' => 'Kelola data dosen',
             'active' => 'dosen',
@@ -33,7 +33,7 @@ final class DosenController
         // require_login();
         $id = isset($_GET['id']) ? (int)$_GET['id'] : null;
 
-        render('dosen/form', [
+        render('dosen/views/form', [
             'title' => $id ? 'Edit Dosen' : 'Tambah Dosen',
             'subtitle' => $id ? 'Perbarui data dosen' : 'Masukkan data dosen baru',
             'active' => 'dosen',

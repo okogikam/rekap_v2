@@ -9,7 +9,7 @@ function e(mixed $value): string
 function render(string $view, array $data = []): void
 {
     extract($data);
-    $viewFile = __DIR__ . '/../views/' . $view . '.php';
+    $viewFile = __DIR__ . '/../modules/' . $view . '.php';
     if (!is_file($viewFile)) {
         http_response_code(500);
         exit('View tidak ditemukan: ' . e($view));

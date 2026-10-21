@@ -1,4 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // variabel 
+    const tmpFile = {
+        "dosen":"./tmp/template_dsn.xlsx",
+        "mahasiswa": "./tmp/template_mhs.xlsx",
+        "dosen pa": "./tmp/template_dsn_pa.xlsx",
+        "matakuliah": "./tmp/template_mk.xlsx",
+        "alumni": "./tmp/template_alumni.xlsx",
+        "skripsi": "./tmp/template_skripsi.xlsx",
+    }
+    const requiredCol = {
+        "dosen": ['NIDN','NAMA'],
+        "mahasiswa": ['NIM','NAMA'],
+    }
+    const btntmp = document.getElementById('button_tmp');
     const fileInput = document.getElementById('excelFile');
     const entity = document.getElementById('entity');
     const previewBtn = document.getElementById('previewBtn');
@@ -9,6 +23,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const message = document.getElementById('validationMessage');
 
     if (!previewBtn) return;
+
+    // template 
+    btntmp.addEventListener('click',() => {
+        let tmp = document.getElementById('tmp_file').value;
+        let a = document.createElement('a');
+        a.href = tmpFile[tmp]?? '#';
+        a.click();
+    });
 
     previewBtn.addEventListener('click', () => {
         const file = fileInput.files[0];
@@ -26,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!rows.length) throw new Error('Sheet kosong.');
 
                 const headers = rows[0].map(v => String(v).trim());
-                const required = entity.value === 'dosen' ? ['NIDN','NAMA'] : ['NIM','NAMA'];
+                const required = requiredCol[entity.value];
                 const missing = required.filter(x => !headers.includes(x));
 
                 table.innerHTML = '';
@@ -36,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 head.appendChild(tr); table.appendChild(head);
 
                 const body=document.createElement('tbody');
-                rows.slice(1,11).forEach(row=>{
+                rows.slice(2,12).forEach(row=>{
                     const tr=document.createElement('tr');
                     headers.forEach((_,i)=>{const td=document.createElement('td');td.textContent=row[i]??'';tr.appendChild(td)});
                     body.appendChild(tr);

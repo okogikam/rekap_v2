@@ -9,7 +9,7 @@ final class DashboardController
 
         $model = new DashboardModel(Database::connection());
 
-        render('dashboard/index', [
+        render('dashboard/views/index', [
             'title' => 'Dashboard',
             'subtitle' => 'Ringkasan administrasi dosen dan mahasiswa',
             'active' => 'dashboard',

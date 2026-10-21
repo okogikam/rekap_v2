@@ -1,13 +1,20 @@
 <div class="d-flex flex-wrap gap-2 justify-content-between align-items-center mb-3">
     <form class="row g-2 flex-grow-1" method="get">
-        <div class="col-md-5">
-            <input class="form-control" name="q" value="<?= e($q) ?>" placeholder="Cari NIM, NIK, nama, prodi, email...">
-        </div>
         <div class="col-md-2">
-            <input class="form-control" name="angkatan" value="<?= e($angkatan) ?>" placeholder="Angkatan">
+            <select class="form-select" name="angkatan">
+                <option value="">Semua angkatan</option>
+               <?php foreach ($listangkatan as $akt): ?>
+			<option value="<?= e($akt['angkatan']); ?>"><?= e($akt['angkatan']); ?></option>
+                <?php endforeach; ?>
+	    </select>
         </div>
         <div class="col-md-3">
-            <input class="form-control" name="status" value="<?= e($status) ?>" placeholder="Status mahasiswa">
+            <select class="form-select" name="status">
+                <option value="">Semua status</option>
+               <?php foreach ($liststatus as $st): ?>
+			<option value="<?= trim($st['status_mahasiswa']); ?>"><?= e($st['status_mahasiswa']); ?></option>
+                <?php endforeach; ?>
+	    </select>
         </div>
         <div class="col-auto">
             <button class="btn btn-outline-secondary"><i class="bi bi-search"></i> Cari</button>
@@ -25,9 +32,7 @@
                 <tr>
                     <th>NIM</th>
                     <th>Nama</th>
-                    <th>NIK</th>
-                    <th>Fakultas</th>
-                    <th>Program Studi</th>
+                    <th>PA</th>		   
                     <th>Angkatan</th>
                     <th>JK</th>
                     <th>No. HP</th>
@@ -56,16 +61,14 @@
                 <tr>
                     <td><?= e($row['nim']) ?></td>
                     <td class="fw-semibold"><?= e($row['nama']) ?></td>
-                    <td><?= e($row['nik'] ?? '-') ?></td>
-                    <td><?= e($row['fakultas'] ?? '-') ?></td>
-                    <td><?= e($row['program_studi'] ?? '-') ?></td>
+                    <td class="fw-semibold"><?= e($row['nama_dosen']) ?></td>
                     <td><?= e($row['angkatan'] ?? '-') ?></td>
                     <td><?= e($row['jenis_kelamin'] ?? '-') ?></td>
                     <td><?= e($row['no_hp'] ?? ($row['no_telepon'] ?? '-')) ?></td>
                     <td><?= e($row['email'] ?? '-') ?></td>
                     <td>
-                        <?php if ($statusValue !== ''): ?>
-                            <span class="badge text-bg-<?= $statusClass ?>"><?= e($statusValue) ?></span>
+                        <?php if ($row['status_mahasiswa'] !== ''): ?>
+                            <span class="<?= strtolower($row['status_mahasiswa']) ?>"><?= e($row['status_mahasiswa']) ?></span>
                         <?php else: ?>
                             -
                         <?php endif; ?>
@@ -77,6 +80,7 @@
                         <form method="post" action="mahasiswa-delete.php" class="d-inline" onsubmit="return confirm('Hapus data ini?')">
                             <?= csrf_field() ?>
                             <input type="hidden" name="id" value="<?= (int)$row['id'] ?>">
+                            <input type="hidden" name="nim" value="<?= e($row['nim']) ?>">
                             <button class="btn btn-sm btn-outline-danger" title="Hapus">
                                 <i class="bi bi-trash"></i>
                             </button>
