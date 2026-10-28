@@ -96,7 +96,7 @@ final class ImportExportController
 
     public function import(): void
     {
-        require_login();
+        // require_login();
         global $tabel_lists;
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             http_response_code(405);
@@ -123,10 +123,10 @@ final class ImportExportController
         $name = $_FILES['file']['name'] ?? 'import.csv';
         $ext = strtolower(pathinfo($name, PATHINFO_EXTENSION));
 
-        if (!in_array($ext, ['csv', 'xlsx', 'xls'], true)) {
-            flash('danger', 'Format file harus CSV, XLSX, atau XLS.');
-            redirect('import-export.php');
-        }
+        // if (!in_array($ext, ['csv', 'xlsx', 'xls'], true)) {
+        //     flash('danger', 'Format file harus CSV, XLSX, atau XLS.');
+        //     redirect('import-export.php');
+        // }
 
         if ($ext !== 'csv') {
             flash('warning', 'Untuk import XLS/XLSX, gunakan Preview & Validasi terlebih dahulu agar file dikonversi ke CSV oleh SheetJS.');
@@ -139,6 +139,7 @@ final class ImportExportController
             redirect('import-export.php');
         }
 
+
         $db = Database::connection();
         $count = 0;
         $inserted = 0;
@@ -148,12 +149,9 @@ final class ImportExportController
         foreach ($rows as $i => $rawRow) {
             $line = $i + 2;
             try {
-                if ($entity === 'dosen') {
-                    $result = $this->importDosenRow($db, $rawRow);
-                } else {
-                    $result = $this->importMahasiswaRow($db, $rawRow);
-                }
 
+		$method = "import". ucfirst($entity) ."Row";
+                $result = $this->$method($db, $rawRow);
                 $count++;
                 $inserted += $result === 'inserted' ? 1 : 0;
                 $updated += $result === 'updated' ? 1 : 0;
@@ -190,8 +188,8 @@ final class ImportExportController
         $currentIndex = 0;
 
         while (($row = fgetcsv($fh)) !== false) {
-            // Abaikan jika indeks kurang dari 3
-            if ($currentIndex < 2) {
+            // Abaikan jika indeks kurang dari 2
+            if ($currentIndex < 1) {
                 $currentIndex++;
                 continue;
             }
@@ -269,7 +267,7 @@ final class ImportExportController
                 $this->nullIfEmpty($fields['status']),
                 $this->nullIfEmpty($fields['homebase']),
                 $this->nullIfEmpty($fields['email']),
-		        $this->nullIfEmpty($fields['nuptk']),
+		$this->nullIfEmpty($fields['nuptk']),
             ]);
             return 'inserted';
         }

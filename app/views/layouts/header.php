@@ -6,9 +6,10 @@
     <title><?= e($title ?? APP_NAME) ?> - <?= e(APP_NAME) ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="<?= e(BASE_URL) ?>assets/css/adminlte.min.css" rel="stylesheet">
     <link href="<?= e(BASE_URL) ?>assets/css/app.css" rel="stylesheet">
 </head>
-<body data-bs-theme="dark">
+<body class="dark-mode">
 <div class="app-shell container-fluid">
     <aside class="sidebar">
         <div class="brand">
@@ -72,7 +73,7 @@
         </div>
     </aside>
 
-    <main class="main-content">
+    <main class="main-content content-wrapper">
         <div class="topbar">
             <div>
                 <h1 class="page-title"><?= e($title ?? APP_NAME) ?></h1>
