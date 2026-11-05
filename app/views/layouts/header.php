@@ -8,6 +8,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <link href="<?= e(BASE_URL) ?>assets/css/adminlte.min.css" rel="stylesheet">
     <link href="<?= e(BASE_URL) ?>assets/css/app.css" rel="stylesheet">
+    <?php if (!empty($pageStyle)): ?>
+    <?php foreach ($pageStyle as $style): ?>
+        <link href="<?= BASE_URL.e($style) ?>" rel="stylesheet">
+    <?php endforeach; ?>
+    <?php endif; ?>
 </head>
 <body class="dark-mode">
 <div class="app-shell container-fluid">
@@ -48,6 +53,11 @@
                         <li>
             <a class="nav-link <?= ($active ?? '') === 'mahasiswa' ? 'active' : '' ?>" href="<?= e(BASE_URL) ?>mhs/mahasiswa.php">
                 <i class="bi bi-people-fill"></i> Mahasiswa
+            </a>
+                        </li>
+<li>
+            <a class="nav-link <?= ($active ?? '') === 'kurikulum' ? 'active' : '' ?>" href="<?= e(BASE_URL) ?>kur/kurikulum.php">
+                <i class="bi bi-people-fill"></i> Kurikulum
             </a>
                         </li>
                     </ul>

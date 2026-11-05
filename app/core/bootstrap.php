@@ -7,6 +7,7 @@ require_once __DIR__ . '/../helpers/auth.php';
 require_once __DIR__ . '/../helpers/csrf.php';
 require_once __DIR__ . '/../helpers/view.php';
 require_once __DIR__ . '/../helpers/response.php';
+require_once __DIR__ . '/../helpers/vendor/autoload.php';
 
 if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();

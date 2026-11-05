@@ -1,0 +1,345 @@
+/* UI modul Kurikulum: tambahan kecil di atas Bootstrap 5.
+   Warna utama tetap mengikuti theme Bootstrap/layout aplikasi. */
+.kurikulum-page {
+    min-width: 0;
+}
+
+.kurikulum-page .card {
+    border-radius: .65rem;
+}
+
+.kurikulum-page .detail-label {
+    color: var(--bs-secondary-color);
+    font-size: .8rem;
+    margin-bottom: .35rem;
+}
+
+.kurikulum-page .sks-metric {
+    height: 100%;
+    min-height: 116px;
+    padding: 1rem;
+    border: 1px solid var(--bs-border-color);
+    border-radius: .6rem;
+    background: var(--bs-body-bg);
+}
+
+.kurikulum-page .sks-metric-required {
+    border-color: rgba(var(--bs-success-rgb), .45);
+    background: rgba(var(--bs-success-rgb), .035);
+}
+
+.kurikulum-page table.dataTable tfoot th {
+    padding: .5rem .45rem;
+    border-top: 1px solid var(--bs-border-color);
+}
+
+.kurikulum-page table.dataTable tfoot input,
+.kurikulum-page table.dataTable tfoot select {
+    min-width: 75px;
+    font-weight: 400;
+}
+
+.kurikulum-page .dataTables_wrapper .dataTables_filter input,
+.kurikulum-page .dataTables_wrapper .dataTables_length select {
+    border: 1px solid var(--bs-border-color);
+    border-radius: .375rem;
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
+    padding: .35rem .55rem;
+}
+
+.kurikulum-page .dataTables_wrapper .dataTables_filter,
+.kurikulum-page .dataTables_wrapper .dataTables_length {
+    margin-bottom: .85rem;
+}
+
+.kurikulum-page .dataTables_wrapper .dataTables_info,
+.kurikulum-page .dataTables_wrapper .dataTables_paginate {
+    padding-top: 1rem;
+}
+
+/* Halaman laporan */
+.report-body {
+    margin: 0;
+    background: #e9ecef;
+    color: #111;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10pt;
+}
+
+.report-toolbar {
+    display: flex;
+    justify-content: flex-end;
+    gap: .5rem;
+    max-width: 210mm;
+    margin: 18px auto 0;
+}
+
+.btn-report {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    border: 1px solid transparent;
+    border-radius: .375rem;
+    padding: .55rem .85rem;
+    text-decoration: none;
+    font: inherit;
+    cursor: pointer;
+}
+
+.btn-light-report {
+    color: #212529;
+    background: #fff;
+    border-color: #ced4da;
+}
+
+.btn-primary-report {
+    color: #fff;
+    background: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.report-container {
+    box-sizing: border-box;
+    width: 210mm;
+    min-height: 297mm;
+    margin: 16px auto 28px;
+    padding: 15mm;
+    background: #fff;
+    color: #111;
+    box-shadow: 0 2px 14px rgba(0, 0, 0, .12);
+}
+
+.report-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-bottom: 10px;
+    border-bottom: 3px double #111;
+}
+
+.report-logo-placeholder {
+    display: flex;
+    flex: 0 0 72px;
+    height: 72px;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed #999;
+    color: #777;
+    text-align: center;
+    font-size: 7pt;
+}
+
+.report-institution {
+    flex: 1;
+    text-align: center;
+}
+
+.report-institution h1,
+.report-institution h2,
+.report-institution h3,
+.report-institution p {
+    margin: 2px 0;
+}
+
+.report-institution h1 { font-size: 14pt; }
+.report-institution h2 { font-size: 11pt; }
+.report-institution h3 { font-size: 10pt; }
+.report-institution p { font-size: 8pt; }
+
+.report-title {
+    margin: 18px 0;
+    text-align: center;
+}
+
+.report-title h2 {
+    margin: 0 0 5px;
+    font-size: 13pt;
+    text-decoration: underline;
+}
+
+.report-title h3 {
+    margin: 0 0 4px;
+    font-size: 11pt;
+}
+
+.report-title p {
+    margin: 0;
+    font-size: 9pt;
+}
+
+.report-section {
+    margin-top: 16px;
+}
+
+.report-section > h3 {
+    margin: 0 0 7px;
+    font-size: 10pt;
+}
+
+.report-info-table,
+.report-course-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8.5pt;
+}
+
+.report-info-table th,
+.report-info-table td,
+.report-course-table th,
+.report-course-table td {
+    border: 1px solid #333;
+    padding: 5px 6px;
+    vertical-align: top;
+}
+
+.report-info-table th {
+    width: 18%;
+    background: #f1f1f1;
+    text-align: left;
+}
+
+.report-info-table td {
+    width: 32%;
+}
+
+.report-info-table thead th,
+.report-course-table thead th {
+    background: #e9ecef;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.report-course-table {
+    table-layout: auto;
+}
+
+.report-course-table th {
+    white-space: nowrap;
+}
+
+.report-course-table .col-no { width: 5%; }
+.report-course-table .col-code { width: 10%; }
+.report-course-table .col-sks { width: 5%; }
+.report-course-table .col-sem { width: 7%; }
+.report-course-table .col-group { width: 9%; }
+.report-course-table .col-kind { width: 9%; }
+.report-course-table .col-lab { width: 9%; }
+
+.report-course-table tfoot th {
+    background: #f1f1f1;
+    text-align: left;
+}
+
+.report-note {
+    margin: 0 0 7px;
+    font-size: 8pt;
+}
+
+.text-center { text-align: center; }
+
+.report-signatures {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 30px;
+    page-break-inside: avoid;
+}
+
+.report-signatures > div {
+    width: 55mm;
+    text-align: left;
+    font-size: 9pt;
+}
+
+.report-signatures p {
+    margin: 4px 0;
+}
+
+.signature-space {
+    height: 55px;
+}
+
+.report-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 24px;
+    padding-top: 6px;
+    border-top: 1px solid #999;
+    color: #555;
+    font-size: 7.5pt;
+}
+
+@page {
+    size: A4 portrait;
+    margin: 15mm;
+}
+
+@media print {
+    .no-print,
+    .report-toolbar {
+        display: none !important;
+    }
+
+    .report-body {
+        background: #fff !important;
+        font-size: 9pt;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .report-container {
+        width: auto;
+        min-height: 0;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+    }
+
+    .report-header,
+    .report-section,
+    .report-signatures {
+        break-inside: avoid;
+    }
+
+    .report-course-table thead {
+        display: table-header-group;
+    }
+
+    .report-course-table tfoot {
+        display: table-row-group;
+    }
+
+    .report-course-table tr {
+        break-inside: avoid;
+    }
+
+    .report-footer {
+        break-inside: avoid;
+    }
+}
+
+@media screen and (max-width: 767.98px) {
+    .report-toolbar {
+        margin: 12px;
+    }
+
+    .report-container {
+        width: 100%;
+        min-height: 0;
+        margin: 12px 0;
+        padding: 18px;
+    }
+
+    .report-header {
+        gap: 8px;
+    }
+
+    .report-logo-placeholder {
+        flex-basis: 54px;
+        height: 54px;
+    }
+
+    .report-institution h1 { font-size: 10pt; }
+    .report-institution h2 { font-size: 8pt; }
+    .report-institution h3 { font-size: 7.5pt; }
+}

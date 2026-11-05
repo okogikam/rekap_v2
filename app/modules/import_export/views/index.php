@@ -11,8 +11,9 @@
                         <label class="form-label">Modul</label>
                         <select id="entity" name="entity"
                             class="form-select" required>
-                            <option value="dosen">Dosen</option>
-                            <option value="mahasiswa">Mahasiswa</option>
+                           <?php foreach($tables as $i => $tb): ?>
+                                <option value="<?= e($i); ?>"><?= e($tb); ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                     <div class="mb-3">
@@ -37,16 +38,19 @@
             <div class="card-body p-4">
                 <h5>Export</h5>
                 <p class="text-secondary">Unduh data saat ini dalam CSV.</p>
+<form id="exportForm" method="get" action="export.php" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-6"><select id="cvs_file" name="entity" class="form-select" required>
-                            <?php foreach($tables as $tb): ?>
-                                <option value="<?= e($tb); ?>"><?= ucfirst(e($tb)); ?></option>
+                            <?php foreach($tables as $i => $tb): ?>
+                                <option value="<?= e($i); ?>"><?= e($tb); ?></option>
                             <?php endforeach; ?>
                         </select></div>
                     <div class="col-6">
-                        <button id="button_cvs" class="btn btn-outline-success" disabled>Download</button>
+                        <button id="button_cvs" class="btn btn-outline-success">Download</button>
                     </div>
                 </div>
+</form>
+
 
             </div>
         </div>
@@ -57,8 +61,8 @@
                 <div class="row">
                     <div class="col-6">
                         <select id="tmp_file" name="entity" class="form-select" required>
-                            <?php foreach($tables as $tb): ?>
-                                <option value="<?= e($tb); ?>"><?= ucfirst(e($tb)); ?></option>
+                            <?php foreach($tables as $i => $tb): ?>
+                                <option value="<?= e($i); ?>"><?= e($tb); ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -79,6 +83,6 @@
         <div id="validationMessage" class="mb-3"></div>
         <div class="table-responsive">
             <table class="table table-sm table-bordered" id="previewTable"></table>
-        </div>
+        </div>        
     </div>
 </div>

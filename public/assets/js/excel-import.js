@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const tmpFile = {
         "dosen":"./tmp/template_dsn.xlsx",
         "mahasiswa": "./tmp/template_mhs.xlsx",
-        "dosen pa": "./tmp/template_dsn_pa.xlsx",
+        "dosen_pa": "./tmp/template_dsn_pa.xlsx",
         "matakuliah": "./tmp/template_mk.xlsx",
         "alumni": "./tmp/template_alumni.xlsx",
         "skripsi": "./tmp/template_skripsi.xlsx",
@@ -11,6 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const requiredCol = {
         "dosen": ['NIDN','NAMA'],
         "mahasiswa": ['NIM','NAMA'],
+	"tabel_pa": ['NIM','NIP_DOSEN'],
+	"alumni": ['NIM','NAMA'],
     }
     const btntmp = document.getElementById('button_tmp');
     const fileInput = document.getElementById('excelFile');
@@ -21,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const table = document.getElementById('previewTable');
     const status = document.getElementById('validationStatus');
     const message = document.getElementById('validationMessage');
+    const exportBtn = document.getElementById('button_cvs');
 
     if (!previewBtn) return;
 
@@ -29,7 +32,13 @@ document.addEventListener('DOMContentLoaded', () => {
         let tmp = document.getElementById('tmp_file').value;
         let a = document.createElement('a');
         a.href = tmpFile[tmp]?? '#';
+	console.log(tmpFile[tmp]);
         a.click();
+	
+    });
+    exportBtn.addEventListener('click',() => {
+	let cvs = document.getElementById('cvs_file').value;
+        console.log(cvs);	
     });
 
     previewBtn.addEventListener('click', () => {

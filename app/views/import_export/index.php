@@ -52,7 +52,7 @@
         </div>
     </div>
 </div>
-
+<div><?php if(!$tables){print_r($tables)}; ?></div>
 <div id="previewArea" class="card border-0 shadow-sm mt-4 d-none">
     <div class="card-body p-4">
         <div class="d-flex justify-content-between align-items-center mb-3">
