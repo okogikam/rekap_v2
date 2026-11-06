@@ -30,6 +30,7 @@ $matakuliahList = $matakuliahList ?? [
 $totalMk = count($matakuliahList);
 $totalWajib = count(array_filter($matakuliahList, fn($m) => (int)$m['sifat_matakuliah'] === 1));
 $totalPilihan = $totalMk - $totalWajib;
+
 ?>
 <link rel="stylesheet" href="assets/css/kurikulum.css">
 
@@ -55,10 +56,10 @@ $totalPilihan = $totalMk - $totalWajib;
             <a href="kurikulum.php" class="btn btn-outline-secondary">
                 <i class="bi bi-arrow-left me-1"></i> Kembali
             </a>
-            <a href="kurikulum-tmp.php?id=<?= (int)$kurikulum['id'] ?>" target="_blank" class="btn btn-outline-secondary">
+            <a href="kurikulum-tmp.php?id=<?= (int)$kurikulum['id_kurikulum'] ?>" target="_blank" class="btn btn-outline-secondary">
                 <i class="bi bi-printer me-1"></i> Cetak Kurikulum
             </a>
-            <a href="kurikulum-form.php?id=<?= (int)$kurikulum['id'] ?>" class="btn btn-primary">
+            <a href="kurikulum-form.php?id=<?= (int)$kurikulum['id_kurikulum'] ?>" class="btn btn-primary">
                 <i class="bi bi-pencil me-1"></i> Edit Kurikulum
             </a>
         </div>

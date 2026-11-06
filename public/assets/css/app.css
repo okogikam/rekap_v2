@@ -201,6 +201,12 @@ body {
     .dataTables_wrapper .dt-length { width: 100%; }
     .dataTables_wrapper .dt-search input { width: 100%; }
 }
+@media print {
+.sidebar,
+.topbar{
+display:none;
+}
+}
 .dt-paging-button {
     padding: 0px !important;
 }

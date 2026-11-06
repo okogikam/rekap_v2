@@ -43,7 +43,7 @@ $totalSksData = array_sum(array_map(fn($m) => (int)$m['sks'], $matakuliahList));
 </head>
 <body class="report-body">
     <div class="report-toolbar no-print">
-        <a href="kurikulum-detail.php?id=<?= (int)$kurikulum['id'] ?>" class="btn-report btn-light-report">
+        <a href="kurikulum-detail.php?id=<?= (int)$kurikulum['id_kurikulum'] ?>" class="btn-report btn-light-report">
             <i class="bi bi-arrow-left"></i> Kembali
         </a>
         <button type="button" class="btn-report btn-primary-report" onclick="window.print()">

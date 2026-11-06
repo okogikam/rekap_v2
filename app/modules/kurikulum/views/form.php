@@ -49,7 +49,8 @@ $isEdit = !empty($formData['id']);
         </div>
     </div>
 
-    <form id="formKurikulum" method="post" action="">
+    <form id="formKurikulum" method="post" action="save-kurikulum.php">
+        <?= csrf_field() ?>
         <!-- Tambahkan CSRF token sesuai mekanisme aplikasi. -->
         <?php if ($isEdit): ?>
             <input type="hidden" name="id" value="<?= (int)$formData['id'] ?>">

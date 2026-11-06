@@ -133,11 +133,11 @@ $kurikulumList = $kurikulumList ?? [
                             </td>
                             <td class="text-end text-nowrap">
                                 <a class="btn btn-sm btn-outline-primary"
-                                   href="kurikulum-detail.php?id=<?= (int)$row['id'] ?>" title="Detail">
+                                   href="kurikulum-detail.php?id=<?= (int)$row['id_kurikulum'] ?>" title="Detail">
                                     <i class="bi bi-eye"></i>
                                 </a>
                                 <a class="btn btn-sm btn-outline-secondary"
-                                   href="form.php?id=<?= (int)$row['id'] ?>" title="Edit">
+                                   href="kurikulum-form.php?id=<?= (int)$row['id_kurikulum'] ?>" title="Edit">
                                     <i class="bi bi-pencil"></i>
                                 </a>
                             </td>

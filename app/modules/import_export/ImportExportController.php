@@ -160,8 +160,18 @@ final class ImportExportController
         if ($key === '') {
             throw new RuntimeException(implode($d['key']) . " wajib diisi.");
         }
-        $find = $db->prepare("SELECT id FROM $table WHERE " . implode($d['key']) . " = ? LIMIT 1");
-        $find->execute([$key]);
+	$kunci = '';
+	$key_parm = [];
+	foreach($d['key'] as $i => $key_col){
+		$kunci .= "$key_col = ?";
+		if($i < count($d['key'])-1){
+		$kunci .= " && ";
+		}
+		$key_parm[$i] = $this->clean($this->get($r, [$key_col]));
+		
+	}
+        $find = $db->prepare("SELECT id FROM $table WHERE " . $kunci . " LIMIT 1");
+        $find->execute($key_parm);
         $existingId = $find->fetchColumn();
         $fields     = [];
 
@@ -173,8 +183,8 @@ final class ImportExportController
         if ($existingId === false) {
             $columns      = implode(',', $d['field']);
             $placeholders = implode(',', array_fill(0, count($d['field']), '?'));
-            $params       = implode(',', $fields);
-            $value        = explode(',', $params);
+            $params       = implode('&;&', $fields);
+            $value        = explode('&;&', $params);
             $stmt         = $db->prepare("INSERT INTO $table ({$columns}) VALUES ({$placeholders})");
             $stmt->execute($value);
             return 'inserted';
@@ -185,9 +195,8 @@ final class ImportExportController
 
     private function partialUpdate(PDO $db, string $table, array $fields, int $id): void
     {
-        $allowed = $table === 'mahasiswa'
-            ? self::MAHASISWA_FIELDS
-            : ['nip', 'gelar_depan', 'nama', 'gelar_belakang', 'jabatan', 'pendidikan_terakhir', 'pangkat', 'status', 'homebase', 'email', 'nuptk'];
+	global $tables;
+        $allowed = $tables[$table]['field'];
 
         $updates = [];
         $params  = [];

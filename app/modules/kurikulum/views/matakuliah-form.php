@@ -44,7 +44,7 @@ $isEdit = !empty($formData['id']);
                 <h1 class="h3 fw-bold mb-1"><?= $isEdit ? 'Edit Matakuliah' : 'Tambah Matakuliah' ?></h1>
                 <p class="text-body-secondary mb-0">Masukkan informasi mata kuliah dan pengaturannya pada kurikulum.</p>
             </div>
-            <a href="kurikulum-detail.php?id=<?= (int)($_GET['kurikulum_id'] ?? 1) ?>" class="btn btn-outline-secondary">
+            <a href="kurikulum-detail.php?id=<?= (int)($_GET['id_kurikulum'] ?? 1) ?>" class="btn btn-outline-secondary">
                 <i class="bi bi-arrow-left me-1"></i> Kembali ke Detail
             </a>
         </div>
@@ -173,7 +173,7 @@ $isEdit = !empty($formData['id']);
         </div>
 
         <div class="d-flex flex-wrap justify-content-end gap-2 mb-4">
-            <a href="kurikulum-detail.php?id=<?= (int)($_GET['kurikulum_id'] ?? 1) ?>" class="btn btn-outline-secondary">Batal</a>
+            <a href="kurikulum-detail.php?id=<?= (int)($_GET['id_kurikulum'] ?? 1) ?>" class="btn btn-outline-secondary">Batal</a>
             <button type="submit" class="btn btn-primary">
                 <i class="bi bi-save me-1"></i> <?= $isEdit ? 'Simpan Perubahan' : 'Simpan Matakuliah' ?>
             </button>

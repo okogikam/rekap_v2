@@ -7,12 +7,15 @@ document.addEventListener('DOMContentLoaded', () => {
         "matakuliah": "./tmp/template_mk.xlsx",
         "alumni": "./tmp/template_alumni.xlsx",
         "skripsi": "./tmp/template_skripsi.xlsx",
+	"kurikulum" :  "./tmp/template_kurikulum.xlsx",
     }
     const requiredCol = {
         "dosen": ['NIDN','NAMA'],
         "mahasiswa": ['NIM','NAMA'],
 	"tabel_pa": ['NIM','NIP_DOSEN'],
 	"alumni": ['NIM','NAMA'],
+	"matakuliah":['KODE','ID_KURIKULUM'],
+	"kurikulum": ['ID_KURIKULUM'],
     }
     const btntmp = document.getElementById('button_tmp');
     const fileInput = document.getElementById('excelFile');
